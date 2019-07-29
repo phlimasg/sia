@@ -50,7 +50,7 @@
                     <div class="row">
                       <div class="col-sm-12">
                           <div class="col-sm-8">
-                              {!!mb_strimwidth($i->descricao, 0, 60,"...")!!}            
+                              {{mb_strimwidth(strip_tags($i->descricao), 0, 60,"...")}}            
                           </div>
                       </div>
                     </div>

@@ -38,7 +38,7 @@
             <tr>
             <td>{{$i->id}}</td>
                 <td>{{$i->titulo}}</td>
-                <td>{!!mb_strimwidth($i->descricao, 0, 250,"...")!!}</td>
+                <td>{{mb_strimwidth(strip_tags($i->descricao), 0, 60,"...")}} </td>
                 <td class="col-sm-2">
                         <div class="btn-group">
                             <a href="{{ route('comunicados.show', ['id'=>$i->id]) }}" class="btn btn-primary"> <span class="fa fa-eye"></span> Ver</a>

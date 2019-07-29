@@ -170,12 +170,27 @@
 
 @section('js')
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
+
 <script>
     CKEDITOR.replace( 'descricao', {
-        filebrowserUploadUrl: "{{route('login', ['_token' => csrf_token() ])}}",
-        filebrowserUploadMethod: 'form',
+    extraPlugins: 'embed,autoembed,image2',
+      height: 500,
 
-        toolbar: [{
+      // Load the default contents.css file plus customizations for this sample.
+      contentsCss: [
+        'http://cdn.ckeditor.com/4.12.1/full-all/contents.css',
+        'https://ckeditor.com/docs/vendors/4.12.1/ckeditor/assets/css/widgetstyles.css'
+      ],
+      // Setup content provider. See https://ckeditor.com/docs/ckeditor4/latest/features/media_embed
+      embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+
+      // Configure the Enhanced Image plugin to use classes instead of styles and to disable the
+      // resizer (because image size is controlled by widget styles or the image takes maximum
+      // 100% of the editor width).
+      image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
+      image2_disableResizer: true,
+      toolbar: [{
           name: 'clipboard',
           items: ['PasteFromWord', '-', 'Undo', 'Redo']
         },
@@ -255,8 +270,8 @@
       /*********************** File management support ***********************/
 
       // Make the editing area bigger than default.
-      height: 500,
-      //width: 600,
+      height: 1000,
+      
 
       // An array of stylesheets to style the WYSIWYG area.
       // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
