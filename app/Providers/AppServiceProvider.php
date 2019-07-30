@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             if(Gate::check('portal', Auth::user())){
                 $event->menu->add('DASHBOARD');
                 $event->menu->add([
-                'text'        => 'dashboard',
+                'text'        => 'Dashboard',
                 'url'         => route('communicated.index'),
                 'icon'        => 'home',
                 'can' => 'portal'
