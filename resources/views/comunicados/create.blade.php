@@ -174,6 +174,8 @@
 
 <script>
     CKEDITOR.replace( 'descricao', {
+        filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+        filebrowserUploadMethod: 'form',
     extraPlugins: 'embed,autoembed,image2',
       height: 500,
 
@@ -240,13 +242,14 @@
       customConfig: '',
 
       // Upload images to a CKFinder connector (note that the response type is set to JSON).
-      uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+      //uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
 
       // Configure your file manager integration. This example uses CKFinder 3 for PHP.
-      filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
-      filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
-      filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
-      filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+      //filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+      //filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+      //filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      //filebrowserImageUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      //filebrowserUploadMethod: 'form',    
 
       // Sometimes applications that convert HTML to PDF prefer setting image width through attributes instead of CSS styles.
       // For more information check:

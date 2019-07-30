@@ -177,10 +177,25 @@
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 <script>
     CKEDITOR.replace( 'descricao', {
-        filebrowserUploadUrl: "{{route('login', ['_token' => csrf_token() ])}}",
+        filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
         filebrowserUploadMethod: 'form',
+    extraPlugins: 'embed,autoembed,image2',
+      height: 500,
 
-        toolbar: [{
+      // Load the default contents.css file plus customizations for this sample.
+      contentsCss: [
+        'http://cdn.ckeditor.com/4.12.1/full-all/contents.css',
+        'https://ckeditor.com/docs/vendors/4.12.1/ckeditor/assets/css/widgetstyles.css'
+      ],
+      // Setup content provider. See https://ckeditor.com/docs/ckeditor4/latest/features/media_embed
+      embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+
+      // Configure the Enhanced Image plugin to use classes instead of styles and to disable the
+      // resizer (because image size is controlled by widget styles or the image takes maximum
+      // 100% of the editor width).
+      image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
+      image2_disableResizer: true,
+      toolbar: [{
           name: 'clipboard',
           items: ['PasteFromWord', '-', 'Undo', 'Redo']
         },
@@ -230,13 +245,14 @@
       customConfig: '',
 
       // Upload images to a CKFinder connector (note that the response type is set to JSON).
-      uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+      //uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
 
       // Configure your file manager integration. This example uses CKFinder 3 for PHP.
-      filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
-      filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
-      filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
-      filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+      //filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+      //filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+      //filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      //filebrowserImageUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      //filebrowserUploadMethod: 'form',    
 
       // Sometimes applications that convert HTML to PDF prefer setting image width through attributes instead of CSS styles.
       // For more information check:
@@ -260,8 +276,8 @@
       /*********************** File management support ***********************/
 
       // Make the editing area bigger than default.
-      height: 500,
-      //width: 600,
+      height: 1000,
+      
 
       // An array of stylesheets to style the WYSIWYG area.
       // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.

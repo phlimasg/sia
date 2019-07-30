@@ -27,6 +27,7 @@
       <!-- /.mailbox-read-message -->
     </div>
     <!-- /.box-body -->
+    <!--
     <div class="box-footer">
       <ul class="mailbox-attachments clearfix">
         <li>
@@ -74,15 +75,15 @@
           </div>
         </li>
       </ul>
-    </div>
-    <!-- /.box-footer -->
+    </div>-->
+    <!-- /.box-footer 
     <div class="box-footer">
       <div class="pull-right">
         <button type="button" class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
         <button type="button" class="btn btn-default"><i class="fa fa-share"></i> Forward</button>
       </div>      
       <button type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
-    </div>
+    </div>-->
     <!-- /.box-footer -->
   </div>
     

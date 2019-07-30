@@ -24,6 +24,7 @@ Route::post('portal/auth','Portal\PortalLoginController@auth')->name('portal.aut
 Route::get('/portal/google/login','Auth\GoogleLoginController@login')->name('gLogin');
 
 Route::group(['middleware' => ['auth']], function () {    
+    Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
     Route::prefix('portal')->group(function(){
         Route::resource('communicated', 'Portal\PortalComunicadosController');
         
