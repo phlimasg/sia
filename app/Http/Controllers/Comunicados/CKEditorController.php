@@ -23,7 +23,8 @@ class CKEditorController extends Controller
             if(in_array($extension,$extensionAllow) && $request->file('upload')->getSize() < 200000){
                 $filenametostore = $filename.'_'.time().'.'.$extension;          
                 //Upload File
-                $request->file('upload')->storeAs('public/uploads', $filenametostore);     
+                $request->file('upload')->storeAs('public/uploads', $filenametostore); 
+                chmod(storage_path('uploads').$filenametostore, 777);
                 $CKEditorFuncNum = $request->input('CKEditorFuncNum');
                 $url = asset('storage/uploads/'.$filenametostore); 
                 $msg = 'Documento enviado com sucesso!'; 
