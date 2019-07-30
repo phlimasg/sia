@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
     Route::prefix('portal')->group(function(){
         Route::resource('communicated', 'Portal\PortalComunicadosController');
-        
+        Route::get('acesso','Portal\PortalCatracaController@index')->name('acesso.index');
     });
     Route::prefix('abel')->group(function(){
         Route::resource('comunicados', 'Comunicados\ComunicadosController');
