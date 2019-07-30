@@ -16,7 +16,7 @@ class CKEditorController extends Controller
       
             //get filename without extension
             $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-      //dd(storage_path('uploads'));
+      dd(storage_path('uploads'));
             //get file extension
             $extension = $request->file('upload')->getClientOriginalExtension();
             $extensionAllow = array('pdf','jpg','jpeg','png','doc','docx','xls','xlsx','csv','mp4');
@@ -24,7 +24,7 @@ class CKEditorController extends Controller
                 $filenametostore = $filename.'_'.time().'.'.$extension;          
                 //Upload File
                 $request->file('upload')->storeAs('public/uploads', $filenametostore); 
-                chmod(storage_path('uploads/').$filenametostore, 777);
+                chmod(storage_path('app/public/uploads/').$filenametostore, 777);
                 $CKEditorFuncNum = $request->input('CKEditorFuncNum');
                 $url = asset('storage/uploads/'.$filenametostore); 
                 $msg = 'Documento enviado com sucesso!'; 
