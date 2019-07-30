@@ -273,7 +273,7 @@
       /*********************** File management support ***********************/
 
       // Make the editing area bigger than default.
-      height: 1000,
+      height: 500,
       
 
       // An array of stylesheets to style the WYSIWYG area.

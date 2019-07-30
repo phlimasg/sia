@@ -18,9 +18,16 @@
             <i class="fa fa-remove"></i></a>
         </div>
     </div>
-    <div class="box-body">          
+    <style>
+    .showcom>p{
+        margin: 0px;
+    }
+    </style>
+    <div class="box-body showcom">          
+        
         {!!$comunicado->descricao!!}
     </div>
+    
     <!-- /.box-body 
     <div class="box-footer">
         Footer

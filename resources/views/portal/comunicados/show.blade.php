@@ -21,7 +21,12 @@
     <!-- /.box-header -->
     <div class="box-body no-padding">           
       <!-- /.mailbox-controls -->
-      <div class="mailbox-read-message">
+      <style>
+          .showcom>p{
+              margin: 0px;
+          }
+          </style>
+      <div class="mailbox-read-message showcom">
         {!!$comunicado->descricao!!}
       </div>
       <!-- /.mailbox-read-message -->
