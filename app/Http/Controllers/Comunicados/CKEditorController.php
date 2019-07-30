@@ -24,7 +24,7 @@ class CKEditorController extends Controller
                 $filenametostore = $filename.'_'.time().'.'.$extension;          
                 //Upload File
                 $request->file('upload')->storeAs('public/uploads', $filenametostore); 
-                chmod(storage_path('app/public/uploads/').$filenametostore, 777);
+                chmod(storage_path('app/public/uploads/').$filenametostore, 0777);
                 $CKEditorFuncNum = $request->input('CKEditorFuncNum');
                 $url = asset('storage/uploads/'.$filenametostore); 
                 $msg = 'Documento enviado com sucesso!'; 
