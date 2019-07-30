@@ -16,7 +16,7 @@ class CKEditorController extends Controller
       
             //get filename without extension
             $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-      
+      dd(storage_path('uploads'));
             //get file extension
             $extension = $request->file('upload')->getClientOriginalExtension();
             $extensionAllow = array('pdf','jpg','jpeg','png','doc','docx','xls','xlsx','csv','mp4');
