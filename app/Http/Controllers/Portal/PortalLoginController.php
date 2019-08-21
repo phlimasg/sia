@@ -31,7 +31,10 @@ class PortalLoginController extends Controller
             ->whereRaw("REPLACE(respacaddtnascimento,'/','')='".$request->senha."'")
             ->selectRaw('respacadcpf, respacademail as email')
             ->first();
-           
+            if(is_null($totvsacad->email)){
+                echo "<script>alert('O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.')</script>";
+                return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);                    
+            }
             if($totvsacad){
                 $this->loginPortal($request,$totvsacad);
             }else {
@@ -39,13 +42,17 @@ class PortalLoginController extends Controller
                 ->whereRaw("REPLACE(respfindtnascimento,'/','')='".$request->senha."'")
                 ->selectRaw('respfincpf, respfinemail as email')
                 ->first();
+                if(is_null($totvsfin->email)){
+                    echo "<script>alert('O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.')</script>";
+                    return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);                    
+                }
                 if($totvsfin){
                     $this->loginPortal($request,$totvsfin);
                 }
                 else {
                     return redirect()->back()->withErrors(['Usuário não encontrado!']);
                 }
-            } 
+            }            
             return redirect()->route('communicated.index');
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
@@ -56,16 +63,13 @@ class PortalLoginController extends Controller
     {
         try {
             $user = AppUser::where('name',$request->usuario)->first();
-            //dd($user->profile->id);
             if($user){
                 Auth::loginUsingId($user->id);
             }else{
-                //dd($request->usuario);
                 $user = AppUser::create([
                     'name' =>$request->usuario,
                     'email' =>$totvs->email,
                     'password' => null,
-                    //'profile_id' => 1,
                 ]);
                 Profile::create([
                     'name'=>'portal',
