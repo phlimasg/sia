@@ -30,7 +30,8 @@ class senderror extends Mailable
     public function build(Request $request)
     {
         //return $this->view('mail.senderror',compact('request'));
+        
         return $this->from('sendmail@abel.org.br')
-        ->subject('Erro no SIA')->view('welcome',compact('request'));
+        ->subject('Erro no SIA')->view('mail.senderror',compact('request'));
     }
 }

@@ -17,7 +17,7 @@ class MailController extends Controller
         $error->email = $request->email;
         $error->error = $request->error;
         $error->save();
-        Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));
+        Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));                
         return redirect()->route('communicated.index');
     }
 }

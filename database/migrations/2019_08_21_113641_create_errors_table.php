@@ -17,7 +17,7 @@ class CreateErrorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->string('error')->nullable();
+            $table->text('error')->nullable();
             $table->timestamps();
         });
     }
