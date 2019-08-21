@@ -36,7 +36,7 @@ class PortalCatracaController extends Controller
             //dd($catraca);
             return view('portal.catraca.index',compact('catraca'));                     
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return view('errors.error', compact('e'));
         }
         
     }

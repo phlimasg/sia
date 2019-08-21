@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return redirect()->route('portal.index');
 });
+Route::post('senderror', 'Mail\MailController@senderror')->name('senderror');
 
 Auth::routes();
 /*Auth Responsáveis*/

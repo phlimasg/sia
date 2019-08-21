@@ -21,8 +21,13 @@ class ComunicadosController extends Controller
     public function index()
     {
         $this->authorize('editor',Auth::user());
-        $comunicado = comunicado::orderBy('created_at','desc')->paginate(15);
-        return view('comunicados.index', compact('comunicado'));
+        try {
+            $comunicado = comunicado::orderBy('created_at','desc')->paginate(15);
+            return view('comunicados.index', compact('comunicado'));
+            
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -32,6 +37,7 @@ class ComunicadosController extends Controller
      */
     public function create()
     {
+        
         $this->authorize('editor',Auth::user());
         try {
             $totvs_alunos = Totvs_alunos::select('turma','ano')->groupBy('turma','ano')->orderBy('turma')->get();
@@ -88,8 +94,12 @@ class ComunicadosController extends Controller
     public function show($id)
     {
         $this->authorize('editor',Auth::user());
-        $comunicado = comunicado::find($id);
-        return view('comunicados.show', compact('comunicado'));
+        try {
+            $comunicado = comunicado::find($id);
+            return view('comunicados.show', compact('comunicado'));            
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -132,18 +142,22 @@ class ComunicadosController extends Controller
                 $errors->add('turma', 'Turma não selecionada.');
                 return back()->withErrors($errors);
             }
-        $comunicado= comunicado::find($id);
-        $comunicado->titulo = $request->titulo;
-        $comunicado->descricao = $request->descricao;
-        $comunicado->save();
-        Turma::where('comunicado_id',$comunicado->id)->delete();
-        foreach ($request->turma as $turma) {
-            Turma::create([
-                'turma' => $turma,
-                'comunicado_id' =>$comunicado->id
-                ]);
-        }
-        return redirect()->back();
+            try {
+                $comunicado= comunicado::find($id);
+                $comunicado->titulo = $request->titulo;
+                $comunicado->descricao = $request->descricao;
+                $comunicado->save();
+                Turma::where('comunicado_id',$comunicado->id)->delete();
+                foreach ($request->turma as $turma) {
+                    Turma::create([
+                        'turma' => $turma,
+                        'comunicado_id' =>$comunicado->id
+                        ]);
+                }
+                return redirect()->back();            
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
     }
 
     /**

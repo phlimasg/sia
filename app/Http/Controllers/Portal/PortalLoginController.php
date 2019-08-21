@@ -48,29 +48,33 @@ class PortalLoginController extends Controller
             } 
             return redirect()->route('communicated.index');
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return view('errors.error', compact('e'));
         }
         
     }
     public function loginPortal(Request $request,$totvs)
     {
-        $user = AppUser::where('name',$request->usuario)->first();
-        //dd($user->profile->id);
-        if($user){
-            Auth::loginUsingId($user->id);
-        }else{
-            //dd($request->usuario);
-            $user = AppUser::create([
-                'name' =>$request->usuario,
-                'email' =>$totvs->email,
-                'password' => null,
-                //'profile_id' => 1,
-            ]);
-            Profile::create([
-                'name'=>'portal',
-                'user_id' => $user->id,
-            ]);
-            Auth::loginUsingId($user->id);
+        try {
+            $user = AppUser::where('name',$request->usuario)->first();
+            //dd($user->profile->id);
+            if($user){
+                Auth::loginUsingId($user->id);
+            }else{
+                //dd($request->usuario);
+                $user = AppUser::create([
+                    'name' =>$request->usuario,
+                    'email' =>$totvs->email,
+                    'password' => null,
+                    //'profile_id' => 1,
+                ]);
+                Profile::create([
+                    'name'=>'portal',
+                    'user_id' => $user->id,
+                ]);
+                Auth::loginUsingId($user->id);
+            }            
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
         }
     }
 }

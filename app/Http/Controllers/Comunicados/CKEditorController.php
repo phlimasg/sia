@@ -20,7 +20,7 @@ class CKEditorController extends Controller
             //get file extension
             $extension = $request->file('upload')->getClientOriginalExtension();
             $extensionAllow = array('pdf','jpg','jpeg','png','doc','docx','xls','xlsx','csv','mp4');
-            if(in_array($extension,$extensionAllow) && $request->file('upload')->getSize() < 200000){
+            if(in_array($extension,$extensionAllow) && $request->file('upload')->getSize() < 2000000){
                 $filenametostore = $filename.'_'.time().'.'.$extension;          
                 //Upload File
                 $request->file('upload')->storeAs('public/uploads', $filenametostore); 

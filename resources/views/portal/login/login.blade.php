@@ -65,8 +65,8 @@
                                     <div class="row"> 
                                     <div class="col-sm-offset-1 col-sm-10">
                                             <hr>
-                                        <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-key"></i> Login</button>
-                                        <a type="submit" href="{{ route('gLogin') }}" class="btn btn-block btn-danger"><i class="fa fa-google"></i> Google</a>
+                                        <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-key"></i> Entrar</button>
+                                        <a type="submit" href="{{ route('gLogin') }}" class="btn btn-block btn-danger"><i class="fa fa-google"></i> Alunos e Colaboradores</a>
                                     </div>
                                 </div>                                
                             </form>
@@ -80,7 +80,7 @@
                         <!-- timeline time label -->
                         <li class="time-label">
                             <span class="bg-red">
-                                10 Feb. 2014
+                                21 ago. 2019
                             </span>
                         </li>
                         <!-- /.timeline-label -->
