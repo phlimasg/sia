@@ -43,10 +43,10 @@
                       </div>                      
                   </div>
               </div> 
-
               <a href="" style="color: #333" data-toggle="modal" data-target="#{{$i->id}}">
+
                 <div class="col-sm-10 comunicado">
-                  <div class="row">
+                  
                     <div class="row">
                       <div class="col-sm-11">
                         <h1 class="mb-h1">{{$i->titulo}}</h1>
@@ -57,7 +57,7 @@
                         {!!mb_substr(strip_tags($i->descricao), 0, 350,'UTF-8')!!}...
                       </div>                      
                     </div>
-                  </div>
+                  
                 </div>
               </a>    
               <div id="{{$i->id}}" class="modal fade" role="dialog">
