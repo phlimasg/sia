@@ -9,7 +9,7 @@
 .mb-left{
     margin-top: 30px;
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
     .mb-left{
         margin-top: 30px;
         float: left;
