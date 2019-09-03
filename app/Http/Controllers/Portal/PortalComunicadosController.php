@@ -19,7 +19,11 @@ class PortalComunicadosController extends Controller
     {
         try {            
             $this->authorize('portal',Auth::user());
-            $comunicado = comunicado::orderBy('comunicados.created_at','desc')
+            if(strpos(Auth::user()->email,'@lasalle.org.br')!=0){
+                $comunicado = comunicado::orderBy('comunicados.created_at','desc')->paginate(15);
+            }
+            else{
+                $comunicado = comunicado::orderBy('comunicados.created_at','desc')
             ->select('comunicados.titulo','comunicados.descricao','comunicados.id','comunicados.created_at')
             ->join('turmas','comunicados.id','=','turmas.comunicado_id')
             ->groupBy('comunicados.titulo','comunicados.descricao','comunicados.id','comunicados.created_at')
@@ -31,6 +35,7 @@ class PortalComunicadosController extends Controller
                 ->get()
             )
             ->paginate(15);
+            }            
             return view('portal.comunicados.index',compact('comunicado'));
         } catch (\Exception $e) {
             return $e->getMessage();
