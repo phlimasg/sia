@@ -44,7 +44,9 @@ class PortalLoginController extends Controller
                 ->whereRaw("REPLACE(respfindtnascimento,'/','')='".$request->senha."'")
                 ->selectRaw('respfincpf, respfinemail as email')
                 ->first();
-                if(is_null($totvsfin->email)){
+                if(is_null($totvsfin)){
+                    return redirect()->back()->withErrors(['Usuário e senha não conferem.']);                    
+                }elseif(is_null($totvsfin->email)){
                     echo "<script>alert('O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.')</script>";
                     return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);                    
                 }
