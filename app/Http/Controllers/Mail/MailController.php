@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\senderror;
 use App\Model\error;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -15,9 +16,12 @@ class MailController extends Controller
         $error = new error();
         $error->name = $request->name;
         $error->email = $request->email;
+        $error->tel = $request->tel;
+        $error->url = $request->url;
         $error->error = $request->error;
         $error->save();
-        Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));                
-        return redirect()->route('communicated.index');
+        Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));
+        Auth::logout();             
+        return redirect()->route('portal.index');
     }
 }

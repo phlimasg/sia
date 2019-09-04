@@ -19,6 +19,9 @@ class PortalComunicadosController extends Controller
     {
         try {            
             $this->authorize('portal',Auth::user());
+            if(!Auth::check()){
+                return redirect()->route('portal.index');
+            }
             if(strpos(Auth::user()->email,'@lasalle.org.br')!=0){
                 $comunicado = comunicado::orderBy('comunicados.created_at','desc')->paginate(15);
             }
@@ -38,7 +41,7 @@ class PortalComunicadosController extends Controller
             }            
             return view('portal.comunicados.index',compact('comunicado'));
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return view('errors.error', compact('e'));
         }
         
     }
