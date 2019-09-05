@@ -52,7 +52,7 @@ class GoogleLoginController extends Controller
 
    public function checarLogin(Google_Service_Oauth2 $client){
     try {
-        $google = $client->userinfo->get();    
+        $google = $client->userinfo->get();
         if($google->hd == 'soulasalle.com.br'){
             $totvs = Totvs_alunos::select('RA','NOME_ALUNO')->where('nome_aluno',$google->name)->first();
             //dd($totvs->RA);
@@ -79,12 +79,26 @@ class GoogleLoginController extends Controller
         }
         elseif($google->hd == 'lasalle.org.br'){
             $user = User::where('email',$google->email)->first();
+            //dd($google);
+            
             if($user){
+                dd($google);              
                 Auth::loginUsingId($user->id);
             }
-        }            
+            else {
+                $new_user = User::create([
+                    'name' => $google->name,
+                    'email' => $google->email,                    
+                    ]);
+                    Profile::create([
+                        'name' => 'portal',
+                        'user_id' => $new_user->id
+                        ]);
+                    Auth::loginUsingId($new_user->id);
+                    }
+                }      
     } catch (\Exception $e) {
-        return view('errors.error', compact('e'));return $e->getMessage();
+        return view('errors.error', compact('e'));
     }
 
    }
