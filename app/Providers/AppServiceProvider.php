@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add([
                 'text'        => 'Comunicados',
                 'url'         => route('communicated.index'),
-                'icon'        => 'fa',
+                'icon'        => 'bullhorn',
                 'can' => 'portal'
                 ],
                 [
