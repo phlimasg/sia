@@ -43,7 +43,13 @@ class AppServiceProvider extends ServiceProvider
                 'url'         => route('communicated.index'),
                 'icon'        => 'fa',
                 'can' => 'portal'
-                ]);
+                ],
+                [
+                    'text'        => 'Controle de acesso',
+                    'url'         => route('acesso.index'),
+                    'icon'        => 'id-card',
+                    'can' => 'portal'
+                    ]);
                 $event->menu->add([
                     'text'        => 'Acesso/Catraca',
                     'url'         => route('acesso.index'),
