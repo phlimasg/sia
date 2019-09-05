@@ -31,15 +31,18 @@ class PortalLoginController extends Controller
             ->whereRaw("REPLACE(respacaddtnascimento,'/','')='".$request->senha."'")
             ->selectRaw('respacadcpf, respacademail as email')
             ->first();
-            if(is_null($totvsacad)){
+            /*if(is_null($totvsacad)){
                 return redirect()->back()->withErrors(['Usuário e senha não conferem.']);                    
             }elseif(is_null($totvsacad->email)){
                 echo "<script>alert('O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.')</script>";
                 return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);                    
-            }            
-            if($totvsacad){
-                $this->loginPortal($request,$totvsacad);                
-            }else {
+            }*/            
+            if($totvsacad && !empty($totvsacad->email)){
+                $this->loginPortal($request,$totvsacad);
+            }elseif($totvsacad && empty($totvsacad->email)){
+                return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);
+            }
+                else{
                 $totvsfin = Totvs_alunos::whereRaw("REPLACE(REPLACE(respfincpf,'.',''),'-','') = '".$request->usuario."'")
                 ->whereRaw("REPLACE(respfindtnascimento,'/','')='".$request->senha."'")
                 ->selectRaw('respfincpf, respfinemail as email')
