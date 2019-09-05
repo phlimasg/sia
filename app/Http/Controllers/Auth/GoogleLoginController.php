@@ -82,7 +82,7 @@ class GoogleLoginController extends Controller
             //dd($google);
             
             if($user){
-                dd($google);              
+                           
                 Auth::loginUsingId($user->id);
             }
             else {
