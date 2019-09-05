@@ -76,7 +76,33 @@
                 
                 <div class="col-sm-8 text-justify" style="margin-top: 1%">                    
                     <ul class="timeline">
-
+                         <!-- timeline time label -->
+                         <li class="time-label">
+                                <span class="bg-blue">
+                                    05 set. 2019
+                                </span>
+                            </li>
+                            <!-- /.timeline-label -->
+    
+                            <!-- timeline item -->
+                            <li>
+                                <!-- timeline icon -->
+                                <i class="fa fa-exclamation bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 14:19</span>
+    
+                                    <h3 class="timeline-header">Visualização dos acessos dos alunos</h3>
+    
+                                    <div class="timeline-body">
+                                        <p>Agora, todos os responsáveis podem visualizar a listagem com os acessos dos alunos nos últimos 30 dias</p>
+                                        <p>Faça o login e no menu lateral clique em <b>Controle de acesso</b></p>
+                                    </div>
+    
+                                    <div class="timeline-footer">
+                                        <!--<a class="btn btn-primary btn-xs"></a>-->
+                                    </div>
+                                </div>
+                            </li>
                         <!-- timeline time label -->
                         <li class="time-label">
                             <span class="bg-red">
@@ -106,6 +132,8 @@
                         </li>
                         <!-- END timeline item -->
                     </ul>
+
+                    
                 </div>
             </div>
         </div>
