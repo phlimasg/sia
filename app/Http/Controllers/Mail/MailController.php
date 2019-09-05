@@ -13,15 +13,19 @@ class MailController extends Controller
 {
     public function senderror(Request $request)
     {
-        $error = new error();
-        $error->name = $request->name;
-        $error->email = $request->email;
-        $error->tel = $request->tel;
-        $error->url = $request->url;
-        $error->error = $request->error;
-        $error->save();
-        Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));
-        Auth::logout();             
-        return redirect()->route('portal.index');
+        try {            
+            $error = new error();
+            $error->name = $request->name;
+            $error->email = $request->email;
+            $error->tel = $request->tel;
+            $error->url = $request->url;
+            $error->error = $request->error;
+            $error->save();
+            Mail::to('raphael.oliveira@lasalle.org.br')->send(new senderror($request));
+            Auth::logout();             
+            return redirect()->route('portal.index');
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
+        }
     }
 }
