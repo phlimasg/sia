@@ -16,9 +16,10 @@ class PortalCatracaController extends Controller
             $acesso = Totvs_alunos::select('carteirinha','RA','NOME_ALUNO')->where('RA',Auth::user()->name)->get();
             if(empty($acesso->RA)){
                 $acesso = Totvs_alunos::select('carteirinha','RA','NOME_ALUNO')
-                ->whereRaw("REPLACE(respfincpf,'/','')='".Auth::user()->name."'")
-                ->orWhereRaw("REPLACE(respacadcpf,'/','')='".Auth::user()->name."'")                
+                ->whereRaw("REPLACE(respacadcpf,'/','')='".Auth::user()->name."'")
+                ->orWhereRaw("REPLACE(REPLACE(respfincpf,'.',''),'-','') = '".Auth::user()->name."'")                
                 ->get();
+                //dd($acesso);
             }
             $dateini = date('d/m/Y', strtotime('-30 days'));
             $datefim = date('d/m/Y', strtotime('1 days'));
@@ -29,7 +30,7 @@ class PortalCatracaController extends Controller
                 ->get();
                 if(empty($catraca->PES_NUMERO)){
                     $catraca = Catraca::whereIn('PES_NUMERO',Totvs_alunos::selectRaw("PARSE( RA As Int ) As RA")
-                        ->whereRaw("REPLACE(respfincpf,'/','')='".Auth::user()->name."'")
+                        ->whereRaw("REPLACE(REPLACE(respfincpf,'.',''),'-','') = '".Auth::user()->name."'")
                         ->orWhereRaw("REPLACE(respacadcpf,'/','')='".Auth::user()->name."'")
                         ->get())
                     ->whereBetween('mov_datahora',[$dateini,$datefim])
