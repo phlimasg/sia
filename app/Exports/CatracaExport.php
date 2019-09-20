@@ -80,7 +80,6 @@ class CatracaExport implements FromCollection
                         'ANO' => $i->ANO,
                         'TURMA' =>$i->TURMA,
                         'MOV_DATAHORA' => date("d/m/Y H:i:s", strtotime($c->MOV_DATAHORA)),
-
                     ];
                 }
             }
