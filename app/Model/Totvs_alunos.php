@@ -8,4 +8,17 @@ class Totvs_alunos extends Model
 {
     protected $connection = 'totvs';
     protected $table = 'UVW_STE_ALUNOS_E_RESPONSAVEIS';
+
+    protected $primaryKey = 'RA';
+    protected $casts = [
+        'RA' => 'int',
+    ];
+    protected $keyType = 'int';
+    public $incrementing = false;
+        
+
+    public function acesso()
+    {
+        return $this->hasMany(Catraca::class,'PES_NUMERO','RA');
+    }
 }
