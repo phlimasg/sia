@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::prefix('abel')->group(function(){
         Route::resource('comunicados', 'Comunicados\ComunicadosController');        
-        Route::get('sod/relatorio', 'Sod\CatracaController@relatorio');
+        Route::get('sod/relatorio', 'Sod\CatracaController@relatorio')->name('sod.relatorio');
         Route::post('sod/relatorio', 'Sod\CatracaController@relatorio_gerar');
         Route::resource('sod', 'Sod\CatracaController');
     });

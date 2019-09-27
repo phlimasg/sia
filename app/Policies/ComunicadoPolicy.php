@@ -37,6 +37,14 @@ class ComunicadoPolicy
             }
         }
     }
+    public function sod(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'sod'){
+                return $i->name === 'sod';
+            }
+        }
+    }
     public function root(User $user)
     {
         foreach($user->profile as $i){

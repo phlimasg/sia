@@ -60,6 +60,26 @@ class AppServiceProvider extends ServiceProvider
                 'can' => 'editor'
                 ]);
             }
+            if(Gate::check('sod', Auth::user())){
+                $event->menu->add('SOD',                
+                [
+                    'text'    => 'Catraca',
+                    'icon'    => 'binoculars',                    
+                    'can' => 'sod',
+                    'submenu' => [
+                        [
+                            'icon'    => 'dashboard', 
+                            'text' => 'Dashboard',
+                            'url'   => route('sod.index'),
+                        ],
+                        [
+                            'text' => 'Relatório',
+                            'url'   => route('sod.relatorio'),
+                            'icon' => 'pie-chart',
+                        ],                        
+                    ],
+                ]);
+            }
 
         });
     }

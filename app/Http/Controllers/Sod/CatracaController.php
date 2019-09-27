@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Catraca;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CatracaController extends Controller
 {
@@ -20,6 +21,7 @@ class CatracaController extends Controller
     public function index()
     {
         try {
+            $this->authorize('sod',Auth::user());
             //$this->authorize('sod');
             $dateini = date('d/m/Y', strtotime('0 days'));
             $datefim = date('d/m/Y', strtotime('1 days'));
@@ -160,7 +162,8 @@ class CatracaController extends Controller
         //
     }
     public function relatorio()
-    {
+    {        
+        $this->authorize('sod',Auth::user());
         try {            
             return view('sod.relatorio');
         } catch (\Exception $e) {
@@ -169,6 +172,7 @@ class CatracaController extends Controller
     }
     public function relatorio_gerar(Request $request)
     {
+        $this->authorize('sod',Auth::user());
         
         $request->validate([
             'dt_ini' => 'required|date',
