@@ -26,7 +26,9 @@
             <div class="row">
                 <div class="col-sm-4 text-center login-form">
                     <br>
-                    <img src="http://lasalle.edu.br/public/uploads/images/abel/5af5fc44d4812(BRANCA-HORIZONTAL)_Abel.png" alt="" srcset="" class="img-responsive">
+                    <div align="center">
+                        <img src="{{ asset('portal/img/5af5fc44d4812(BRANCA-HORIZONTAL)_Abel.png') }}" alt="" srcset="" class="img-responsive " >
+                    </div>
                     <div class="text-center" style="padding-top: 10%">                        
                             <form action="{{ route('portal.auth') }}" method="post">
                                 @csrf
