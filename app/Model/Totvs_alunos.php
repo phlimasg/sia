@@ -21,4 +21,11 @@ class Totvs_alunos extends Model
     {
         return $this->hasMany(Catraca::class,'PES_NUMERO','RA');
     }
+    public function findCpf()
+    {
+        return Totvs_alunos::where('RESPACADCPF',Auth::user()->name)
+        ->orWhereRaw("REPLACE(REPLACE(RESPFINCPF,'.','') ,'-','') ='".Auth::user()->name."'")
+        ->select('RA','NOME_ALUNO','ANO','TURMA')
+        ->get();
+    }
 }
