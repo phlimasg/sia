@@ -23,7 +23,7 @@ class ComunicadosController extends Controller
         $this->authorize('editor',Auth::user());
         try {
             $comunicado = comunicado::orderBy('created_at','desc')->paginate(15);
-            return view('comunicados.index', compact('comunicado'));
+            return view('admin.comunicados.index', compact('comunicado'));
             
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -41,7 +41,7 @@ class ComunicadosController extends Controller
         $this->authorize('editor',Auth::user());
         try {
             $totvs_alunos = Totvs_alunos::select('turma','ano')->groupBy('turma','ano')->orderBy('turma')->get();
-            return view('comunicados.create',compact('totvs_alunos'));            
+            return view('admin.comunicados.create',compact('totvs_alunos'));            
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -79,7 +79,7 @@ class ComunicadosController extends Controller
                     'comunicado_id' =>$comunicado->id
                     ]);
             }
-            return redirect()->route('comunicados.index');            
+            return redirect()->route('admin.comunicados.index');            
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -96,7 +96,7 @@ class ComunicadosController extends Controller
         $this->authorize('editor',Auth::user());
         try {
             $comunicado = comunicado::find($id);
-            return view('comunicados.show', compact('comunicado'));            
+            return view('admin.comunicados.show', compact('comunicado'));            
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -115,7 +115,7 @@ class ComunicadosController extends Controller
             $comunicado= comunicado::find($id);
             //dd($comunicado->turmas);
             $totvs_alunos = Totvs_alunos::select('turma','ano')->groupBy('turma','ano')->orderBy('turma')->get();
-            return view('comunicados.edit', compact('comunicado','totvs_alunos'));
+            return view('admin.comunicados.edit', compact('comunicado','totvs_alunos'));
             //code...
         } catch (\Exception $e) {
             return $e->getMessage();

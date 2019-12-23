@@ -39,25 +39,50 @@ class AppServiceProvider extends ServiceProvider
                 ]);*/
                 $event->menu->add('PAINEL DO RESPONSÁVEL');
                 $event->menu->add([
-                'text'        => 'Comunicados',
-                'url'         => route('communicated.index'),
-                'icon'        => 'bullhorn',
-                'can' => 'portal'
+                    'text'        => 'Comunicados',
+                    'url'         => route('communicated.index'),
+                    'icon'        => 'bullhorn',
+                    'can' => 'portal'
                 ],
                 [
                     'text'        => 'Controle de acesso',
                     'url'         => route('acesso.index'),
                     'icon'        => 'id-card',
                     'can' => 'portal'
-                    ]);                
+                ],
+                [
+                    'text'        => 'Atividades Extraclasse',
+                    'url'         => route('extraclasse.index'),
+                    'icon'        => 'soccer-ball-o',
+                    'can' => 'portal'
+                ]
+                );                
             }
             //$event->menu->add('COMUNICADOS');
             if(Gate::check('editor', Auth::user())){
-                $event->menu->add('COMUNICADOS',[
+                $event->menu->add('ADMINISTRAÇÃO',[
                 'text'        => 'Comunicados',
                 'url'         => route('comunicados.index'),
                 'icon'        => 'fa',
                 'can' => 'editor'
+                ],
+                [
+                    'text'        => 'Atividades Extraclasse',
+                    //'url'         => route('communicated.index'),
+                    'icon'        => 'soccer-ball-o',
+                    'can' => 'portal',
+                    'submenu' => [
+                        [
+                            'icon'    => 'pie-chart', 
+                            'text' => 'Estatísticas',
+                            'url'   => route('extclasse.index'),
+                        ],
+                        [
+                            'text' => 'Atividades Cadastradas',
+                            'url'   => route('extclasse.index'),
+                            'icon' => 'graduation-cap',
+                        ]
+                    ]
                 ]);
             }
             if(Gate::check('sod', Auth::user())){
@@ -79,8 +104,7 @@ class AppServiceProvider extends ServiceProvider
                         ],                        
                     ],
                 ]);
-            }
-
+            }            
         });
     }
 }
