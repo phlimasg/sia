@@ -15,13 +15,13 @@ class CreateExtItensTable extends Migration
     {
         Schema::create('ext_itens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('ext_atv_turmas_id');
+            $table->unsignedBigInteger('ext_atv_turmas_id');
             $table->foreign('ext_atv_turmas_id')
                 ->references('id')
                 ->on('ext_atv_turmas')
                 ->onDelete('cascade');
-            $table->unsignedInteger('orcamento_id');
-            $table->foreign('orcamento_id')
+            $table->unsignedBigInteger('ext_orcamento_id');
+            $table->foreign('ext_orcamento_id')
                 ->references('id')
                 ->on('ext_atv_orcamentos')
                 ->onDelete('cascade');

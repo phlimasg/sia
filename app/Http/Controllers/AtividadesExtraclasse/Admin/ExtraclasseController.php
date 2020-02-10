@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AtividadesExtraclasse;
+namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

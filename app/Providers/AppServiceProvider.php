@@ -52,9 +52,21 @@ class AppServiceProvider extends ServiceProvider
                 ],
                 [
                     'text'        => 'Atividades Extraclasse',
-                    'url'         => route('extraclasse.index'),
+                    //'url'         => route('extraclasse.index'),
                     'icon'        => 'soccer-ball-o',
-                    'can' => 'portal'
+                    'can' => 'portal',
+                    'submenu' =>[
+                        [
+                            'text'        => 'Realizar Inscrição',
+                            'url'         => route('extraclasse.index'),
+                            'icon'        => 'plus',
+                        ],
+                        [
+                            'text'        => 'Minhas inscrições',
+                            'url'         => route('aluno.index'),
+                            'icon'        => 'money',
+                        ]
+                    ]
                 ]
                 );                
             }

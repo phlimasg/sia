@@ -24,7 +24,7 @@ class CreateExtAtvTurmasTable extends Migration
             $table->dateTime('dia_libera');
             $table->dateTime('dia_bloqueia');
             $table->string('user');
-            $table->unsignedInteger('ext_atvs_id');            
+            $table->unsignedBigInteger('ext_atvs_id');            
             $table->foreign('ext_atvs_id')
                 ->references('id')
                 ->on('ext_atvs')

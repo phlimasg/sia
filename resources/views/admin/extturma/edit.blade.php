@@ -76,7 +76,7 @@
                 <div class="row">
                         <div class="col-sm-3">
                                 <label for="">Data/Hora da Liberação</label>
-                                <input type="text" class="form-control" name="dia_libera" placeholder="Data e Hora" @if(old('dia_libera')) value="{{old('dia_libera')}}" @else value="{{date('d-m-Y H:i', strtotime($atv->dia_libera))}}" @endif data-mask="00/00/0000 00:00">
+                                <input type="text" class="form-control" name="dia_libera" placeholder="Data e Hora" @if(old('dia_libera')) value="{{old('dia_libera')}}" @else value="{{date('d/m/Y H:i', strtotime($atv->dia_libera))}}" @endif data-mask="00/00/0000 00:00">
                                 @if ($errors->has('dia_libera'))
                                     <div class="alert alert-danger">
                                         {{$errors->first('dia_libera')}}
