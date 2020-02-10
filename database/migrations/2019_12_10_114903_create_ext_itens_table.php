@@ -23,7 +23,7 @@ class CreateExtItensTable extends Migration
             $table->unsignedBigInteger('ext_orcamento_id');
             $table->foreign('ext_orcamento_id')
                 ->references('id')
-                ->on('ext_atv_orcamentos')
+                ->on('ext_orcamentos')
                 ->onDelete('cascade');
             $table->timestamps();
         });
