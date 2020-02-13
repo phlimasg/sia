@@ -52,6 +52,7 @@ class GetnetController extends Controller
     }
     public function CardTokenizer($card){
         try {
+            
             $client = new \GuzzleHttp\Client();
             $response = $client->post( env('GETNET_URL_API').'/v1/tokens/card',
                 [
@@ -139,7 +140,7 @@ class GetnetController extends Controller
                 $amount = str_replace('.','',number_format($amount, 2, '.', ''));
     
                 $client = new \GuzzleHttp\Client();
-                
+                //dd($this->TokenGenerate());
                 $response = $client->post(env('GETNET_URL_API').'/v1/payments/credit',
                     [
                         'headers' => [
@@ -158,8 +159,8 @@ class GetnetController extends Controller
                                 ],
                             'customer' => [
                                 'customer_id' =>Auth::user()->name,
-                                //'first_name'=>'Raphael',
-                                //'last_name'=>'Lima',
+                                'first_name'=>'Raphael',
+                                'last_name'=>'Lima',
                                 //'name' => 'Raphael de Oliveira Lima',
                                 'billing_address'=>[
                                     'street'=> $request->rua,
@@ -252,6 +253,7 @@ class GetnetController extends Controller
         } catch (RequestException  $e) {
             //$e->getRequest()
             $error = json_decode($e->getResponse()->getBody(),true);
+            dd($error);
             return redirect()->back()->with('error',$error);
             //return view('errors.error', compact('e'));
         }
