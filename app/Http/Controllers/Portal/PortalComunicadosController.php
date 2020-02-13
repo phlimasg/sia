@@ -37,6 +37,7 @@ class PortalComunicadosController extends Controller
                 ->orWhereRaw("REPLACE(REPLACE(ra,'.',''),'-','') = '". Auth::user()->name ."'")            
                 ->get()
             )
+            ->where('comunicados.created_at','>=' ,date('Y').'-01-01')
             ->paginate(15);
             }            
             return view('portal.comunicados.index',compact('comunicado'));
