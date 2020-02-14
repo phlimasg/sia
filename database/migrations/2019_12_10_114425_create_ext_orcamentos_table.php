@@ -15,8 +15,8 @@ class CreateExtOrcamentosTable extends Migration
     {
         Schema::create('ext_orcamentos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('aluno_id');
-            $table->unsignedInteger('user_id');
+            $table->integer('aluno_id')->unique();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

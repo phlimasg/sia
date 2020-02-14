@@ -4,7 +4,7 @@ namespace App\Model\AtividadesExtraclasse;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExtAtvTurmasAutorizadas extends Model
+class ExtAtvListaDeEspera extends Model
 {
     public function ExtAtvTurma()
     {

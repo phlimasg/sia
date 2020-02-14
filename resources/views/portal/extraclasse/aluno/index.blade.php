@@ -27,7 +27,7 @@
                 </li>
               </ul>
 
-              <a href="{{ route('extraclasse.create', ['id'=>$i->RA]) }}" class="btn btn-primary btn-block"><b>Selecionar</b></a>
+              <a href="{{ route('aluno.show', ['id'=>$i->RA]) }}" class="btn btn-primary btn-block"><b>Selecionar</b></a>
             </div>            
           </div>
 </div>

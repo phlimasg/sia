@@ -9,6 +9,37 @@
 .mb-left{
     margin-top: 30px;
 }
+.lj-atv{
+    color: dodgerblue;
+    font-size: 1.3em;
+}
+.lj-preco, .lj-preco>a{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;    
+}
+.lj-small, .lj-small>a{
+    margin-top: -6px;
+    color: black;    
+}
+.atv_fundo{
+    min-height: 350px;    
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.details{
+    margin-top: -150px;
+    box-shadow: 0 0 1em black;
+}
+.details-preco{
+    font-size: 3em;
+    font-weight: bold;
+    color: #00a65a;
+}
+.details-btn-add{
+    padding-top: 30px;;
+}
+.padding-md { padding: 1em; }
 @media screen and (max-width: 768px){
     .mb-left{
         margin-top: 30px;

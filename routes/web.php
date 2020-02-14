@@ -28,8 +28,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
     Route::prefix('portal')->group(function(){
         Route::resource('communicated', 'Portal\PortalComunicadosController');
-        Route::resource('extraclasse', 'Portal\PortalExtraclasseController')->except(['create']);
-        Route::get('extraclasse/create/{id}', 'Portal\PortalExtraclasseController@create')->name('extraclasse.create');
+        //Atividades Extraclasses
+        Route::resource('extraclasse/aluno', 'AtividadesExtraclasse\Portal\PortalExtraclasseAlunoController');        
+        Route::resource('extraclasse', 'AtividadesExtraclasse\Portal\PortalExtraclasseController')->except(['create']);        
+        Route::get('extraclasse/create/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@create')->name('extraclasse.create');
+        Route::get('extraclasse/details/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@details')->name('extraclasse.details');
+        Route::resource('cart', 'AtividadesExtraclasse\Portal\PortalCarrinhoController')->except(['create']);
+        //Route::post('pagamento','GetnetController@CredPayment')->name('pagamento');
+        //Controle de acesso
         Route::get('acesso','Portal\PortalCatracaController@index')->name('acesso.index');
     });
     Route::prefix('abel')->group(function(){
@@ -37,8 +43,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('sod/relatorio', 'Sod\CatracaController@relatorio')->name('sod.relatorio');
         Route::post('sod/relatorio', 'Sod\CatracaController@relatorio_gerar');
         Route::resource('sod', 'Sod\CatracaController');
-        Route::resource('extclasse', 'AtividadesExtraclasse\ExtraclasseController');
-        Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\ExtraclasseTurmaController');
+        Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
+        Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
     });
 });
 

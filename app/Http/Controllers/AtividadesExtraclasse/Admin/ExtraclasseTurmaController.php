@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AtividadesExtraclasse;
+namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,10 +39,7 @@ class ExtraclasseTurmaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->dia_libera_date = date('Y-m-d H:i:s', strtotime($request->dia_libera));
-        $request->dia_bloqueia_date = !empty($request->dia_bloqueia) ? date('Y-m-d H:i:s', strtotime($request->dia_bloqueia)) : null ;
-       //dd($request->dia_libera_date);
+    {       
         $request->validate([
             'descricao_turma' => 'required|max:254',
             'hora_ini' =>'required|date_format:H:i',
@@ -58,8 +55,7 @@ class ExtraclasseTurmaController extends Controller
         [
             'required' => '*Campo Obrigatório',
             'max' => 'Tamanho máximo de 254.'
-        ]);
-        //dd($request->all());
+        ]);        
         try{
             $turma = new ExtAtvTurma();
             $turma->descricao_turma = $request->descricao_turma;
@@ -67,8 +63,8 @@ class ExtraclasseTurmaController extends Controller
             $turma->hora_fim = $request->hora_fim;
             $turma->vagas = $request->vagas;
             $turma->valor = $request->valor;
-            $turma->dia_libera = date('Y-m-d H:i:s', strtotime($request->dia_libera));
-            $turma->dia_bloqueia = date('Y-m-d H:i:s', strtotime($request->dia_bloqueia));
+            $turma->dia_libera = $this->consertaData($request->dia_libera);
+            $turma->dia_bloqueia = !empty($request->dia_bloqueia) ? $this->consertaData($request->dia_bloqueia): null;
             $turma->user = Auth::user()->email;
             $turma->ext_atvs_id = $request->id;
             foreach($request->dias as $d){
@@ -123,11 +119,7 @@ class ExtraclasseTurmaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id, $turma)
-    {
-        //dd($request->all(),$turma);
-        $request->dia_libera_date = date('Y-m-d H:i:s', strtotime($request->dia_libera));
-        $request->dia_bloqueia_date = !empty($request->dia_bloqueia) ? date('Y-m-d H:i:s', strtotime($request->dia_bloqueia)) : null ;
-       
+    {  
         $request->validate([
             'descricao_turma' => 'required|max:254',
             'hora_ini' =>'required|date_format:H:i',
@@ -152,8 +144,8 @@ class ExtraclasseTurmaController extends Controller
             $turma->hora_fim = $request->hora_fim;
             $turma->vagas = $request->vagas;
             $turma->valor = $request->valor;
-            $turma->dia_libera = date('Y-m-d H:i:s', strtotime($request->dia_libera));
-            $turma->dia_bloqueia = date('Y-m-d H:i:s', strtotime($request->dia_bloqueia));
+            $turma->dia_libera = $this->consertaData($request->dia_libera);
+            $turma->dia_bloqueia = !empty($request->dia_bloqueia) ? $this->consertaData($request->dia_bloqueia): null;
             $turma->user = Auth::user()->email;
             $turma->ext_atvs_id = $request->id;
             $turma->dia = null;
@@ -184,5 +176,9 @@ class ExtraclasseTurmaController extends Controller
     public function destroy($turma)
     {
         //
+    }
+    public function consertaData($data){
+        $data =  date('Y-m-d H:i',strtotime(str_replace('/','-',$data)));
+        return $data;
     }
 }

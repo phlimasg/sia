@@ -17,7 +17,7 @@ class CreateExtAtvTurmasAutorizadasTable extends Migration
             $table->bigIncrements('id');
             $table->string('user');
             $table->string('turma');
-            $table->unsignedInteger('ext_atv_turmas_id');
+            $table->unsignedBigInteger('ext_atv_turmas_id');
             $table->foreign('ext_atv_turmas_id')
                 ->references('id')
                 ->on('ext_atv_turmas')

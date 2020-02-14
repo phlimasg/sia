@@ -15,7 +15,11 @@ class Totvs_alunos extends Model
     ];
     protected $keyType = 'int';
     public $incrementing = false;
-        
+    
+    public function getName($ra)
+    {
+        return Totvs_alunos::select('NOME_ALUNO')->where('RA',$ra)->first();
+    }
 
     public function acesso()
     {
