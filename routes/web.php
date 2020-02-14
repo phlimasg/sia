@@ -34,7 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('extraclasse/create/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@create')->name('extraclasse.create');
         Route::get('extraclasse/details/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@details')->name('extraclasse.details');
         Route::resource('cart', 'AtividadesExtraclasse\Portal\PortalCarrinhoController')->except(['create']);
-        //Route::post('pagamento','GetnetController@CredPayment')->name('pagamento');
+        Route::post('pagamento','GetnetController@CredPayment')->name('pagamento');
+        Route::post('inscricao','AtividadesExtraclasse\Portal\PortalCarrinhoController@inscricaoZero')->name('inscricao');
         //Controle de acesso
         Route::get('acesso','Portal\PortalCatracaController@index')->name('acesso.index');
     });

@@ -122,7 +122,7 @@ class PortalCarrinhoController extends Controller
             $carrinho = ExtOrcamento::find($id);
             $totvs = Totvs_alunos::where('RESPACADCPF',Auth::user()->name)
             ->orWhereRaw("REPLACE(REPLACE(RESPFINCPF,'.','') ,'-','') ='".Auth::user()->name."'")
-            ->select('ENDERECO','CEP','COMPLEMENTO')
+            ->select('ENDERECO','CEP','COMPLEMENTO','RESPFIN')
             ->first();
             $rua = explode('Nº ',$totvs->ENDERECO);
             $complemento = explode(' - ',$totvs->COMPLEMENTO);            
@@ -138,7 +138,7 @@ class PortalCarrinhoController extends Controller
             ];
             //dd($endereco);
             if(Auth::user()->id == $carrinho->user_id){            
-                return view('portal.extraclasse.carrinho.show',compact('carrinho','endereco'));
+                return view('portal.extraclasse.carrinho.show',compact('carrinho','endereco','totvs'));
             }else{
                 abort(403, 'Que feio! Você não pode fazer isso.');
             }
@@ -186,5 +186,67 @@ class PortalCarrinhoController extends Controller
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }        
+    }
+    public function inscricaoZero(Request $request){       
+        try {
+            $carrinho = ExtOrcamento::find($request->cart_id);
+            $espera =[];
+            if(Auth::user()->id == $carrinho->user_id){                
+                $amount = 0;
+                foreach ($carrinho->ItensCarrinho()->get() as $i) {
+                    $lista = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$i->ExtAtvTurma->id)->where('ano',date('Y'))->first();
+                    if($i->ExtAtvTurma->ExtAtvVagas($i->ExtAtvTurma->id)>0 && empty($lista)){
+                        $amount += floatval(str_replace(',','.',$i->ExtAtvTurma->valor));                        
+                    }else{
+                        $espera[] = 
+                            [
+                                'ext_atv_turmas_id' => $i->ext_atv_turmas_id,
+                                'aluno_id' => $carrinho->aluno_id,
+                            ];
+                    }
+                }       
+                $amount = str_replace('.','',number_format($amount, 2, '.', ''));   
+                if($amount == 0){
+                    if(!empty($espera)){
+                        foreach ($espera as $i) {                            
+                            $lista_espera = new ExtAtvListaDeEspera();
+                            $lista_espera->aluno_id = $i['aluno_id'];
+                            $lista_espera->ext_atv_turmas_id = $i['ext_atv_turmas_id'];
+                            $lista_espera->ano = date('Y');
+                            $lista_espera->user_id = Auth::user()->id;
+                            $lista_espera->save();
+                        }
+                    }
+                    foreach ($carrinho->ItensCarrinho()->get() as $i) {
+                        $lista = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$i->ExtAtvTurma->id)->where('ano',date('Y'))->first();
+                        if($i->ExtAtvTurma->ExtAtvVagas($i->ExtAtvTurma->id)>0 && empty($lista)){
+                            $inscricao = new ExtInscricao();
+                            $inscricao->aluno_id = $carrinho->aluno_id;
+                            $inscricao->ano = date('Y');
+                            $inscricao->amount = str_replace('.','',number_format(str_replace(',','.',$i->ExtAtvTurma->valor), 2, '.', ''));
+                            $inscricao->ext_atv_turmas_id =$i->ExtAtvTurma->id;
+                            $inscricao->user_id = Auth::user()->id;
+                            $inscricao->save();
+                        }
+                    }
+                    $carrinho->delete();
+                    return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso.');
+                }
+                else
+                {
+                    return redirect()->route('cart.index');
+                }
+
+            }else{
+                abort(403, 'Que feio! Você não pode fazer isso.');
+            }            
+                          
+        } catch (\Exception  $e) {
+            //$e->getRequest()
+            $error = $e->getMessage();
+            //dd($error);
+            return redirect()->back()->with('error',$error);
+            //return view('errors.error', compact('e'));
+        }
     }
 }

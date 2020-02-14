@@ -101,6 +101,8 @@ class GetnetController extends Controller
     public function CredPayment(Request $request)
     {
         $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
             'rua' => 'required|string',
             'num' => 'numeric|string',
             'bairro' => 'required|string',
@@ -159,9 +161,9 @@ class GetnetController extends Controller
                                 ],
                             'customer' => [
                                 'customer_id' =>Auth::user()->name,
-                                'first_name'=>'Raphael',
-                                'last_name'=>'Lima',
-                                //'name' => 'Raphael de Oliveira Lima',
+                                'first_name'=>$request->firstname,
+                                'last_name'=>$request->lastname,
+                                //'name' => $request->firstname.' '.$request->lastname,
                                 'billing_address'=>[
                                     'street'=> $request->rua,
                                     'number'=> $request->num,
@@ -170,8 +172,7 @@ class GetnetController extends Controller
                                     'city'=> $request->cidade,
                                     'state'=> $request->uf,
                                     'country'=> 'Brasil',
-                                    'postal_code'=> str_replace('-','',$request->cep)
-                                        
+                                    'postal_code'=> str_replace('-','',$request->cep)                                        
                                     ],
                                 ],
                             'device' => [
@@ -253,7 +254,7 @@ class GetnetController extends Controller
         } catch (RequestException  $e) {
             //$e->getRequest()
             $error = json_decode($e->getResponse()->getBody(),true);
-            dd($error);
+            //dd($error);
             return redirect()->back()->with('error',$error);
             //return view('errors.error', compact('e'));
         }

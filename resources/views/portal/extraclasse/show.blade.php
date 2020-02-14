@@ -8,6 +8,7 @@
   <a href="{{ route('cart.index') }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Seu carrinho<span class="label label-danger badge">{{$_SESSION['cart']}}</span></a>
 </ol>
 
+<hr>
 @endsection
 @section('content')   
   @if (Session::has('message'))

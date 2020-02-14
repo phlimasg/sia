@@ -58,7 +58,15 @@
 
                         <ul class="pagination pagination-sm no-margin pull-right col-sm-4 text-right">                            
                             <div><span class="details-preco"><small>Total</small> R$: {{str_replace('.',',',number_format($total, 2, '.', ''))}}</span></div>
-                          <a href="{{ route('cart.show', ['id'=>$orcamento->id]) }}" class="btn btn-success btn-block btn-lg"><i class="fa fa-credit-card"></i> Efetuar Pagamento</a>
+                            @if ($total ==0)
+                            <form action="{{ route('inscricao', ['cart_id'=>$orcamento->id]) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-primary btn-block btn-lg" type="submit"><i class="fa fa-credit-card"></i> Efetuar Inscrição</button>    
+                            </form>
+                            @else
+                                
+                            <a href="{{ route('cart.show', ['id'=>$orcamento->id]) }}" class="btn btn-success btn-block btn-lg"><i class="fa fa-credit-card"></i> Efetuar Pagamento</a>
+                            @endif
                         </ul>
                       </div>
         </div>

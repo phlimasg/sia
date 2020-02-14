@@ -21,9 +21,26 @@
 <input type="hidden" name="cart_id" value="{{$carrinho->id}}">
 <div class="box box-danger">
     <div class="box-header">
-        <i class="fa fa-map-marker"></i> Confirme se os dados estão corretos.
+        <i class="fa fa-map-marker"></i> Confirme se os dados do comprador estão corretos.
     </div>
     <div class="box-body">
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">Nome:</label>
+                <input type="text" name="firstname" id="" value="{{explode(' ', $totvs->RESPFIN)[0]}}" class="form-control">
+                @error('firstname')
+                <div class=" text-danger">* {{ $message }}</div>
+            @enderror
+            </div>
+            <div class="col-sm-8">
+                <label for="">Sobrenome:</label>
+                <input type="text" name="lastname" id="" value="@foreach(explode(' ', $totvs->RESPFIN) as $i)@if(explode(' ', $totvs->RESPFIN)[0]!= $i){{$i}} @endif @endforeach" class="form-control">
+                @error('lastname')
+                <div class=" text-danger">* {{ $message }}</div>
+            @enderror
+            </div>
+
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <label for="">CEP:</label>
@@ -145,10 +162,12 @@
             <div class="panel">
                 <div class="panel-body bg-gray"> 
                     <p class="text-danger">
-                        *As atividades podem ficar indisponíveis. <br>
-                        * Caso a atividade fique indisponível, você será adicionado a lista de espera e não será cobrado por isso. <br>
-                        * Ao efetivar o pagamento, você concorda com os termos do contrato. <br>
-                        * Os Contratos estão disponíveis na descrição de cada atividade.
+                        <b>
+                            * As atividades podem ficar indisponíveis. <br>
+                            * Caso a atividade fique indisponível, você será adicionado a lista de espera e não será cobrado por isso. <br>
+                            * A assinatura dos contratos e a prova dos uniformes serão na Central de Matrículas, em frente à capela do dia 05/03 a 13/03.<br>                        
+
+                        </b>
                     </p>
                     @php($count = 0)                    
                     <blockquote>
