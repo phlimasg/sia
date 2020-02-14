@@ -153,7 +153,7 @@ class GetnetController extends Controller
                         'json' => [
                             'seller_id' =>env('GETNET_SELLER_ID'),
                             //'currency' => '',
-                            'amount' => $amount,
+                            'amount' => 00001,//$amount,
                             'order' => [
                                 'order_id' => 'Atividades-Extraclasse-'.date('Y').'-'.$carrinho->id.'-'.$_SESSION['ra'],
                                 //'sales_tax' => '0',
