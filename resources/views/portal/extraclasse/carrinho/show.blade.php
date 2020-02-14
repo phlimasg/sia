@@ -108,7 +108,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="">Nome do titular do cartão:</label>
-                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}JOAO DA SILVA">
+                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}">
                     @error('nome')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -118,7 +118,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <label for="">Número do cartão:</label>
-                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}5155901222280001">
+                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}">
                     @error('numero')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
