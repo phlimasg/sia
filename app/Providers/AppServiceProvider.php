@@ -30,13 +30,6 @@ class AppServiceProvider extends ServiceProvider
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             
             if(Gate::check('portal', Auth::user())){
-                /*$event->menu->add('DASHBOARD');
-                $event->menu->add([
-                'text'        => 'Dashboard',
-                'url'         => route('communicated.index'),
-                'icon'        => 'home',
-                'can' => 'portal'
-                ]);*/
                 $event->menu->add('PAINEL DO RESPONSÁVEL');
                 $event->menu->add([
                     'text'        => 'Comunicados',
@@ -73,16 +66,18 @@ class AppServiceProvider extends ServiceProvider
             //$event->menu->add('COMUNICADOS');
             if(Gate::check('editor', Auth::user())){
                 $event->menu->add('ADMINISTRAÇÃO',[
-                'text'        => 'Comunicados',
-                'url'         => route('comunicados.index'),
-                'icon'        => 'fa',
-                'can' => 'editor'
-                ],
-                [
+                    'text'        => 'Comunicados',
+                    'url'         => route('comunicados.index'),
+                    'icon'        => 'fa',
+                    'can' => 'editor'
+                ]);
+            }
+            if(Gate::check('ext',Auth::user())){
+                $event->menu->add( [
                     'text'        => 'Atividades Extraclasse',
                     //'url'         => route('communicated.index'),
                     'icon'        => 'soccer-ball-o',
-                    'can' => 'portal',
+                    //'can' => 'ext',
                     'submenu' => [
                         [
                             'icon'    => 'pie-chart', 

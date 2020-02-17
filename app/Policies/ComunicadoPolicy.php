@@ -45,6 +45,14 @@ class ComunicadoPolicy
             }
         }
     }
+    public function ext(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'ext'){
+                return $i->name === 'ext';
+            }
+        }
+    }
     public function root(User $user)
     {
         foreach($user->profile as $i){
