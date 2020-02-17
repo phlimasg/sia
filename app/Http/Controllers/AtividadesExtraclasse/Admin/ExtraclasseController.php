@@ -5,7 +5,9 @@ namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AtividadesExtraclasse\ExtAtv;
+use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtAtvTurma;
+use App\Model\AtividadesExtraclasse\ExtInscricao;
 use Illuminate\Support\Facades\Auth;
 
 class ExtraclasseController extends Controller
@@ -86,7 +88,10 @@ class ExtraclasseController extends Controller
     {
         $atv = ExtAtv::find($id);
         $turmas = ExtAtvTurma::where('ext_atvs_id',$id)->get();
-        return view('admin.extraclasse.show',compact('atv','turmas'));
+        $turmas_id = ExtAtvTurma::where('ext_atvs_id',$id)->select('id')->get();        
+        $espera = ExtAtvListaDeEspera::whereIn('ext_atv_turmas_id',$turmas_id)->count();   
+        $inscricao = ExtInscricao::whereIn('ext_atv_turmas_id',$turmas_id)->count();
+        return view('admin.extraclasse.show',compact('atv','turmas','espera','inscricao'));
     }
 
     /**
@@ -159,5 +164,5 @@ class ExtraclasseController extends Controller
     public function destroy($id)
     {
         //
-    }
+    }    
 }

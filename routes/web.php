@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('extraclasse/details/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@details')->name('extraclasse.details');
         Route::resource('cart', 'AtividadesExtraclasse\Portal\PortalCarrinhoController')->except(['create']);
         Route::post('pagamento','GetnetController@CredPayment')->name('pagamento');
-        Route::post('inscricao','AtividadesExtraclasse\Portal\PortalCarrinhoController@inscricaoZero')->name('inscricao');
+        Route::post('inscricao','AtividadesExtraclasse\Portal\PortalCarrinhoController@inscricaoZero')->name('inscricao');        
         //Controle de acesso
         Route::get('acesso','Portal\PortalCatracaController@index')->name('acesso.index');
     });
@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sod', 'Sod\CatracaController');
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
+        Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');
+        Route::resource('listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController');
     });
 });
 

@@ -114,8 +114,8 @@ class GetnetController extends Controller
             'nome' => 'required|string',
             'numero' => 'required|numeric',
             'cod' => 'required|numeric',
-            'mes' => 'required|numeric',
-            'ano' => 'required|numeric',
+            'mes' => 'required|numeric|max:99',
+            'ano' => 'required|numeric|max:99',
             'cart_id' => 'required|numeric'
         ],[
             'string' => 'Somente texto',

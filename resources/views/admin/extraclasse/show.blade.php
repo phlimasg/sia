@@ -32,7 +32,7 @@
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header">xxxx</h5>
+                  <h5 class="description-header">{{$inscricao}}</h5>
                   <span class="description-text">Inscrições</span>
                 </div>
                 <!-- /.description-block -->
@@ -40,7 +40,7 @@
               <!-- /.col -->
               <div class="col-sm-6">
                 <div class="description-block">
-                  <h5 class="description-header">xx,000</h5>
+                  <h5 class="description-header">{{$espera}}</h5>
                   <span class="description-text">Lista de Espera</span>
                 </div>
                 <!-- /.description-block -->
