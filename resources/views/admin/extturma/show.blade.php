@@ -10,7 +10,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+            <h3>{{$inscricao_count}}</h3>
 
               <p>Alunos Inscritos</p>
             </div>
@@ -127,25 +127,95 @@
     
     </div>
   </div>
-  <!-- /.box -->
-  <div class="box box-danger">
-    <div class="box-header">
-      <h3 class="box-title">Inscritos</h3>
-      <div class="box-tools">
-          <div class="input-group input-group-sm hidden-xs" style="width: 100px;">                  
-              <a href="" class="btn btn-danger"><i class="fa fa-eye"></i> Lista de espera</a>
-          </div>
-      </div>  
-    </div>
-    <div class="box-body">
+    
         <div class="row">
             <div class="col-md-12">
-                <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Inscrições</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Lista de espera</a></li>                                                    
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    <div class="box">
+                      <div class="box-header">
+                        <div class="box-title"></div>
+          
+                        <div class="box-tools">
+                          {{ $inscricao->links() }}
+                        </div>
+                      </div>
+                      <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                          <tbody><tr>
+                            <th>RA</th>
+                            <th>Nome</th>
+                            <th>Turma</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                          @forelse ($inscricao as $i)
+                            <tr>
+                              <td>{{$i->aluno->RA}}</td>
+                              <td><a href="#" data-toggle="modal" data-target="#insc-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
+                              <td>{{$i->aluno->TURMA}}</td>
+                              <td></td>
+                              <td></td>
+                            </tr> 
+                            <div class="modal fade" id="insc-{{$i->aluno->RA}}">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Dados do aluno</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>One fine body…</p>
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary">Fechar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>                           
+                          @empty
+                              Nenhuma inscrição
+                          @endforelse
+                        </tbody></table>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    The European languages are members of the same family. Their separate existence is a myth.
+                    For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                    in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                    new common language would be desirable: one could refuse to pay expensive translators. To
+                    achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                    words. If several languages coalesce, the grammar of the resulting language is more simple
+                    and regular than that of the individual languages.
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div>
                 
               </div>
         </div>
-    </div>
-  </div>
+   
 
 
 @stop
