@@ -79,7 +79,7 @@ class ComunicadosController extends Controller
                     'comunicado_id' =>$comunicado->id
                     ]);
             }
-            return redirect()->route('admin.comunicados.index');            
+            return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {
             return $e->getMessage();
         }

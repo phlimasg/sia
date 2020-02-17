@@ -28,7 +28,8 @@
                     <br>
                     <div align="center">
                         <img src="{{ asset('portal/img/5af5fc44d4812(BRANCA-HORIZONTAL)_Abel.png') }}" alt="" srcset="" class="img-responsive " >
-                        {{date('Y-m-d H:i:s')}}
+
+                        {{date('d/m/Y H:i:s')}}
                     </div>
                     <div class="text-center" style="padding-top: 10%">                        
                             <form action="{{ route('portal.auth') }}" method="post">
