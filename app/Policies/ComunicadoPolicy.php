@@ -61,4 +61,12 @@ class ComunicadoPolicy
             }
         }
     }
+    public function tesouraria(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'tesouraria'){
+                return $i->name === 'tesouraria';
+            }
+        }
+    }
 }

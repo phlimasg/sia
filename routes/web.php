@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
         Route::resource('listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController');
         Route::resource('inscricao','AtividadesExtraclasse\Admin\ExtraclasseInscricaoController');
+        
+        Route::post('tesouraria/cancelamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController@cancelamento')->name('inscricao.cancelamento');
+        Route::resource('tesouraria','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController');
     });
 });
 Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');

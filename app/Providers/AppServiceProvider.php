@@ -74,6 +74,14 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
             if(Gate::check('ext',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Tesouraria',
+                    'url'         => route('tesouraria.index'),
+                    'icon'        => 'scissors',
+                    'can' => 'tesouraria'
+                ]);
+            }
+            if(Gate::check('tesouraria',Auth::user())){
                 $event->menu->add( [
                     'text'        => 'Atividades Extraclasse',
                     //'url'         => route('communicated.index'),

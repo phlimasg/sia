@@ -91,6 +91,10 @@ class ExtraclasseInscricaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+    }
+    public function cancelamento(Request $request)
+    {
+        
     }
 }
