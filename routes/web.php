@@ -46,10 +46,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sod', 'Sod\CatracaController');
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
-        Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');
         Route::resource('listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController');
+        Route::resource('inscricao','AtividadesExtraclasse\Admin\ExtraclasseInscricaoController');
     });
 });
+Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');
 
 /*Auth admin*/
 

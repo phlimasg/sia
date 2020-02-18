@@ -64,8 +64,9 @@ class AppServiceProvider extends ServiceProvider
                 );                
             }
             //$event->menu->add('COMUNICADOS');
+            $event->menu->add('ADMINISTRAÇÃO');
             if(Gate::check('editor', Auth::user())){
-                $event->menu->add('ADMINISTRAÇÃO',[
+                $event->menu->add([
                     'text'        => 'Comunicados',
                     'url'         => route('comunicados.index'),
                     'icon'        => 'fa',
