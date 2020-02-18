@@ -73,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
                     'can' => 'editor'
                 ]);
             }
-            if(Gate::check('ext',Auth::user())){
+            if(Gate::check('tesouraria',Auth::user())){
                 $event->menu->add([
                     'text'        => 'Tesouraria',
                     'url'         => route('tesouraria.index'),
@@ -81,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
                     'can' => 'tesouraria'
                 ]);
             }
-            if(Gate::check('tesouraria',Auth::user())){
+            if(Gate::check('ext',Auth::user())){
                 $event->menu->add( [
                     'text'        => 'Atividades Extraclasse',
                     //'url'         => route('communicated.index'),
