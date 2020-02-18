@@ -129,7 +129,7 @@ class ExtraclasseTesourariaController extends Controller
                         'json' => [
                             'payment_id' =>$inscricao->getnet->payment_id,                            
                             'cancel_amount' => $amount,
-                            'cancel_custom_key' => 'Cancel-'.date('Y-m-d-H:i').'-'.$inscricao->aluno_id,                            
+                            'cancel_custom_key' => 'Cancel'.date('YmdHi').'00000'.$inscricao->aluno_id,                            
                             ],
                     ]);                   
                 $retorno = json_decode($response->getBody()->getContents());
