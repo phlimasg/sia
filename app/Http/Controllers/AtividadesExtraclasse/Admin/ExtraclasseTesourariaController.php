@@ -111,14 +111,13 @@ class ExtraclasseTesourariaController extends Controller
             'motivo' =>'required|string'            
         ]);
         try {
-            $amount = str_replace(',','',str_replace(',','',$request->amount));
+            $amount = intval(str_replace('.','',str_replace(',','',$request->amount)));
         
             $inscricao = ExtInscricao::find($request->id);
-            
-            if($request->amount <= $inscricao->amount && $amount > 0){
+            //dd($inscricao->amount, $amount);
+            if($amount <= $inscricao->amount && $amount > 0){
                 $getnet = new GetnetController;            
                 $client = new \GuzzleHttp\Client();
-                    //dd($this->TokenGenerate());
                 $response = $client->post(env('GETNET_URL_API').'/v1/payments/cancel/request',                
                     [
                         'headers' => [
@@ -134,6 +133,9 @@ class ExtraclasseTesourariaController extends Controller
                     ]);                   
                 $retorno = json_decode($response->getBody()->getContents());
                 $retorno->code = $response->getStatusCode();    
+            }
+            else{
+                return redirect()->back()->with('error2','Valor maior que o permitido.');
             }
             $cancel = new ExtAtvCancelamento();
             $cancel->aluno_id = $inscricao->aluno_id;
