@@ -133,25 +133,24 @@ class ExtraclasseTesourariaController extends Controller
                             ],
                     ]);                   
                 $retorno = json_decode($response->getBody()->getContents());
-                $retorno->code = $response->getStatusCode();
-    
-                $cancel = new ExtAtvCancelamento();
-                $cancel->aluno_id = $inscricao->aluno_id;
-                $cancel->ano = date('Y');
-                $cancel->amount = $amount;
-                $cancel->user_id = Auth::user()->id;
-                $cancel->motivo = $request->motivo;
-                $cancel->seller_id = $retorno->seller_id;
-                $cancel->payment_id = $retorno->payment_id;
-                $cancel->cancel_request_at = $retorno->cancel_request_at;
-                $cancel->cancel_request_id = $retorno->cancel_request_id;
-                $cancel->cancel_custom_key = $retorno->cancel_custom_key;
-                $cancel->status = $retorno->status;
-                $cancel->code = $retorno->code;
-                $cancel->ext_atv_turmas_id = $inscricao->ext_atv_turmas_id;
-                $cancel->ext_inscricaos_id = $inscricao->id;
-                $cancel->save();
+                $retorno->code = $response->getStatusCode();    
             }
+            $cancel = new ExtAtvCancelamento();
+            $cancel->aluno_id = $inscricao->aluno_id;
+            $cancel->ano = date('Y');
+            $cancel->amount = !empty($amount) ? $amount : 0;
+            $cancel->user_id = Auth::user()->id;
+            $cancel->motivo = $request->motivo;
+            $cancel->seller_id = !empty($retorno) ? $retorno->seller_id : 'null';
+            $cancel->payment_id = !empty($retorno) ? $retorno->payment_id: 'null';
+            $cancel->cancel_request_at = !empty($retorno) ? $retorno->cancel_request_at: 'null';
+            $cancel->cancel_request_id = !empty($retorno) ? $retorno->cancel_request_id: 'null';
+            $cancel->cancel_custom_key = !empty($retorno) ? $retorno->cancel_custom_key: 'null';
+            $cancel->status = !empty($retorno) ? $retorno->status: 'null';
+            $cancel->code = !empty($retorno) ? $retorno->code: 'null';
+            $cancel->ext_atv_turmas_id = $inscricao->ext_atv_turmas_id;
+            $cancel->ext_inscricaos_id = $inscricao->id;
+            $cancel->save();
             if($request->cancel == "on"){
                 $inscricao->delete();
             }
