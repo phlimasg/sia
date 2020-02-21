@@ -5,6 +5,20 @@
 
 
 @section('content')
+@error('motivo')
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+  *{{$message}}
+</div>
+@enderror
+@if (Session::has('message'))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-check"></i> Aviso!</h4>  
+    {{Session::get('message')}}  
+</div>      
+@endif
 <div class="row">
     <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -24,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{App\Model\AtividadesExtraclasse\ExtAtvCancelamento::where('ext_atv_turmas_id',$turma->id)->where('created_at','like','2020%')->count()}}</h3>
   
                 <p>Cancelamentos</p>
               </div>
@@ -38,7 +52,7 @@
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>150</h3>
+                <h3>{{App\Model\AtividadesExtraclasse\ExtAtvTroca::where('ext_atv_turmas_origem',$turma->id)->where('created_at','like','2020%')->count()}}</h3>
     
                   <p>Trocas de Turma</p>
                 </div>
@@ -52,7 +66,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                   <div class="inner">
-                    <h3>150</h3>
+                    <h3>xxx</h3>
       
                     <p>Faltas</p>
                   </div>
@@ -64,13 +78,9 @@
               </div>
 </div>
 
-@if (Session::has('message'))
-    <div class="alert alert-success">
-        <b>Dados salvos!</b> <br>
-        {{Session::get('message')}}                
-    </div>  
-    <br>       
-  @endif
+
+
+
 
   <div class="box box-primary">
     <div class="box-header with-border">
@@ -133,7 +143,23 @@
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab">Inscrições <span class="badge">{{$inscricao_count}}</span></a></li>
-                <li><a href="#tab_2" data-toggle="tab">Lista de espera <span class="badge">{{$espera_count}}</span></a></li>                                                    
+                  <li><a href="#tab_2" data-toggle="tab">Lista de espera <span class="badge">{{$espera_count}}</span></a></li>                                                    
+                  
+                  <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                      Opções <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Efetuar chamada</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <i class="fa fa-email"></i> Enviar email para turma</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Baixar lista de espera</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Baixar lista de inscritos</a></li>
+                    </ul>
+                  </li>                  
+
+
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
@@ -160,8 +186,53 @@
                               <td><a href="#" data-toggle="modal" data-target="#insc-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
                               <td>{{$i->aluno->TURMA}}</td>
                               <td></td>
-                              <td></td>
+                              <td>                               
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#troca-{{$i->aluno->RA}}">Trocar de turma</a>                               
+                            </td>
                             </tr> 
+                            <div class="modal fade" id="troca-{{$i->aluno->RA}}">
+                              <form action="{{ route('inscricao.update',['id'=>$i->id]) }}" method="post">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Troca de turma do aluno {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    @csrf   
+                                    @method('put')                                    
+                                    <input type="hidden" name="ra" value="{{$i->aluno->RA}}">
+                                    <input type="hidden" name="origem" value="{{$i->ext_atv_turmas_id}}">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Turma de destino:</label>
+                                        <select name="destino" id="" class="form-control">
+                                          <option value=""></option>
+                                          @foreach ($turma->ExtAtv->turmas as $t)
+                                          @if ($turma->id != $t->id)
+                                            <option value="{{$t->id}}">{{$t->descricao_turma}} - ({{$t->ExtAtvVagas($t->id)}} Vagas)</option>                                              
+                                          @endif
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Motivo da troca</label>
+                                        <textarea name="motivo" id="" cols="30" rows="5" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="submit"  class="btn btn-primary">Efetuar Trocar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </form>                                
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>   
                             <div class="modal fade" id="insc-{{$i->aluno->RA}}">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -232,7 +303,8 @@
                             <th>Nome</th>
                             <th>Turma</th>
                             <th></th>
-                            <th></th>
+                            <th>                              
+                          </th>
                           </tr>
                           @forelse ($espera as $i)
                             <tr>
@@ -240,7 +312,18 @@
                               <td><a href="#" data-toggle="modal" data-target="#espera-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
                               <td>{{$i->aluno->TURMA}}</td>
                               <td></td>
-                              <td></td>
+                              <td>
+                                <div class="btn-group">
+                                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#troca-{{$i->aluno->RA}}">Hab. para Inscrição</a>
+                                  <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Trocar de turma</a></li>
+                                    <li><a href="#">Remover</a></li>
+                                  </ul>
+                                </div>
+                              </td>
                             </tr> 
                             <div class="modal fade" id="espera-{{$i->aluno->RA}}">
                               <div class="modal-dialog modal-lg">

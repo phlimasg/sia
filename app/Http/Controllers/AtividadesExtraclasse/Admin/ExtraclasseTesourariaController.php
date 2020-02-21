@@ -134,7 +134,7 @@ class ExtraclasseTesourariaController extends Controller
                 $retorno = json_decode($response->getBody()->getContents());
                 $retorno->code = $response->getStatusCode();    
             }
-            else{
+            elseif($amount > $inscricao->amount){
                 return redirect()->back()->with('error2','Valor maior que o permitido.');
             }
             $cancel = new ExtAtvCancelamento();

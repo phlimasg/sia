@@ -5,8 +5,10 @@ namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 use App\Exports\InscricaoExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\AtividadesExtraclasse\ExtAtvTroca;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -80,7 +82,24 @@ class ExtraclasseInscricaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'ra' => 'required|numeric',
+            'origem' => 'required|numeric',
+            'destino' => 'required|numeric',
+            'motivo' => 'required|string',
+        ]);
+        $inscricao = ExtInscricao::find($id);
+        $troca = new ExtAtvTroca();
+        $troca->aluno_id = $request->ra;
+        $troca->ext_atv_turmas_origem = $request->origem;
+        $troca->ext_atv_turmas_destino = $request->destino;
+        $troca->motivo = $request->motivo;
+        $troca->user_id = Auth::user()->id;
+        $troca->save();
+        $inscricao->ext_atv_turmas_id = $request->destino;
+        $inscricao->save();
+        return redirect()->back()->with('message','Troca efetuada com sucesso.');
+        dd($request->all(), $id,$inscricao);
     }
 
     /**

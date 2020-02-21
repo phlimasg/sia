@@ -12,4 +12,8 @@ class ExtAtv extends Model
     'imagem_fundo',
     'user'
 ];
+    public function turmas()
+    {
+        return $this->hasMany(ExtAtvTurma::class,'ext_atvs_id','id');
+    }
 }
