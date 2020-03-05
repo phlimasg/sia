@@ -300,7 +300,7 @@ class PortalCarrinhoController extends Controller
                         
                     }
                     $carrinho->delete();
-                    return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso. Lembre-se de efetuar o pagamento na tesouraria da escola!');
+                    return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso. Lembre-se de efetuar o pagamento na Central de Atendimento da escola!');
                 }
                 else
                 {
