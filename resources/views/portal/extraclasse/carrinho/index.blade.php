@@ -85,7 +85,7 @@
             <h4 class="modal-title">Confirmação de inscrição.</h4>
             </div>
             <div class="modal-body">
-            <h2>A inscrição só estará finalizada após o pagamento do valor de R$:{{str_replace('.',',',number_format($total2, 2, '.', ''))}} na Central de atendimento da escola até o dia 13/03/2020.</h2>
+            <h2>A inscrição só estará finalizada após o pagamento do valor de R$:{{str_replace('.',',',number_format($total2, 2, '.', ''))}} na Central de atendimento da escola do dia 09/03/2020  até o dia 13/03/2020.</h2>
             </div>
             <div class="modal-footer">
                 <div class="row">
