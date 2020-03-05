@@ -76,9 +76,36 @@ class AppServiceProvider extends ServiceProvider
             if(Gate::check('tesouraria',Auth::user())){
                 $event->menu->add([
                     'text'        => 'Tesouraria',
-                    'url'         => route('tesouraria.index'),
+                    //'url'         => route('tesouraria.index'),
                     'icon'        => 'scissors',
-                    'can' => 'tesouraria'
+                    'can' => 'tesouraria',
+                    'submenu' => [
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Extraclasse',
+                            'url'   => route('tesouraria.index'),
+                        ],
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('terceirizadas.index'),
+                        ],
+                    ]
+                ]);
+            }
+            if(Gate::check('central',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Central de Atendimento',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'user',
+                    'can' => 'central',
+                    'submenu' => [                        
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('terceirizadas.index'),
+                        ],
+                    ]
                 ]);
             }
             if(Gate::check('ext',Auth::user())){

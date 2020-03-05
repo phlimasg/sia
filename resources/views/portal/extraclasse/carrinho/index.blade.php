@@ -58,11 +58,13 @@
 
                         <ul class="pagination pagination-sm no-margin pull-right col-sm-4 text-right">                            
                             <div><span class="details-preco"><small>Total</small> R$: {{str_replace('.',',',number_format($total, 2, '.', ''))}}</span></div>
+                            <!-- REMOVER -->
+                            @php($total2 = $total)
+                            @php($total = 0)
+                            <!-- FIM REMOVER -->
                             @if ($total ==0)
-                            <form action="{{ route('inscricao', ['cart_id'=>$orcamento->id]) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-primary btn-block btn-lg" type="submit"><i class="fa fa-credit-card"></i> Efetuar Inscrição</button>    
-                            </form>
+                            <button class="btn btn-primary btn-block btn-lg" type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-credit-card"></i> Efetuar Inscrição</button>                            
+                            
                             @else
                                 
                             <a href="{{ route('cart.show', ['id'=>$orcamento->id]) }}" class="btn btn-success btn-block btn-lg"><i class="fa fa-credit-card"></i> Efetuar Pagamento</a>
@@ -72,8 +74,49 @@
         </div>
         <!-- /.box-body -->
       </div>
+      <!-- Modal -->
+      <div id="myModal" class="modal  fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+    
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirmação de inscrição.</h4>
+            </div>
+            <div class="modal-body">
+            <h2>A inscrição só estará finalizada após o pagamento do valor de R$:{{str_replace('.',',',number_format($total2, 2, '.', ''))}} na Sala de Matrículas(em frente a capela) da escola até o dia 13/03/2020.</h2>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-sm-12 text-left">
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" id="accept" onclick="check()"> Estou ciente dos termos acima.</label>
+                          </div>                        
+                    </div>
+                </div>
+                <div class="row">                   
+                    <div class="col-sm-12">
+                        <form action="{{ route('inscricaoTerceirizadas', ['cart_id'=>$orcamento->id]) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-success btn-block btn-lg" type="submit" id="insc" disabled><i class="fa fa-credit-card"></i> Concluir Inscrição</button>    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+    </div>
 @stop
 @section('js')
-
-    
+    <script>
+        function check() {            
+            if (document.getElementById("accept").checked == true){
+                document.getElementById("insc").disabled = false;
+            } else {
+                document.getElementById("insc").disabled = true;
+            }
+        }
+    </script>
 @endsection

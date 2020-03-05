@@ -69,4 +69,12 @@ class ComunicadoPolicy
             }
         }
     }
+    public function central(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'central'){
+                return $i->name === 'central';
+            }
+        }
+    }
 }

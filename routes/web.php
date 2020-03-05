@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('cart', 'AtividadesExtraclasse\Portal\PortalCarrinhoController')->except(['create']);
         Route::post('pagamento','GetnetController@CredPayment')->name('pagamento');
         Route::post('inscricao','AtividadesExtraclasse\Portal\PortalCarrinhoController@inscricaoZero')->name('inscricao');        
+        Route::post('inscricaoTerceirizadas','AtividadesExtraclasse\Portal\PortalCarrinhoController@inscricaoTerceirizadas')->name('inscricaoTerceirizadas');
         //Controle de acesso
         Route::get('acesso','Portal\PortalCatracaController@index')->name('acesso.index');
     });
@@ -50,7 +51,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('inscricao','AtividadesExtraclasse\Admin\ExtraclasseInscricaoController');
         
         Route::post('tesouraria/cancelamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController@cancelamento')->name('inscricao.cancelamento');
-        Route::resource('tesouraria','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController');
+        Route::post('tesouraria/pagamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas@pagamento')->name('terceirizadas.pagamento');
+        Route::prefix('tesouraria')->group(function(){
+            Route::resource('tesouraria','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController');
+            Route::resource('terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas');
+        });
     });
 });
 Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');

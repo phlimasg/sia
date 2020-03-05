@@ -35,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('ext','App\Policies\ComunicadoPolicy@ext');
         Gate::define('root','App\Policies\ComunicadoPolicy@root');
         Gate::define('tesouraria','App\Policies\ComunicadoPolicy@tesouraria');
+        Gate::define('central','App\Policies\ComunicadoPolicy@central');
         
         
         //$this->UserProfile();

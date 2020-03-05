@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
+use App\Model\AtividadesExtraclasse\ExtInscricaoTerceirizadas;
 use App\Model\AtividadesExtraclasse\ExtItens;
 use App\Model\AtividadesExtraclasse\ExtOrcamento;
 use App\Model\Totvs_alunos;
@@ -204,7 +205,7 @@ class PortalCarrinhoController extends Controller
                                 'aluno_id' => $carrinho->aluno_id,
                             ];
                     }
-                }       
+                }                     
                 $amount = str_replace('.','',number_format($amount, 2, '.', ''));   
                 if($amount == 0){
                     if(!empty($espera)){
@@ -231,6 +232,75 @@ class PortalCarrinhoController extends Controller
                     }
                     $carrinho->delete();
                     return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso.');
+                }
+                else
+                {
+                    return redirect()->route('cart.index');
+                }
+
+            }else{
+                abort(403, 'Que feio! Você não pode fazer isso.');
+            }            
+                          
+        } catch (\Exception  $e) {
+            //$e->getRequest()
+            $error = $e->getMessage();
+            //dd($error);
+            return redirect()->back()->with('error',$error);
+            //return view('errors.error', compact('e'));
+        }
+    }
+    public function inscricaoTerceirizadas(Request $request){       
+        try {
+            $carrinho = ExtOrcamento::find($request->cart_id);
+            $espera =[];
+            if(Auth::user()->id == $carrinho->user_id){                
+                $amount = 0;
+                foreach ($carrinho->ItensCarrinho()->get() as $i) {
+                    $lista = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$i->ExtAtvTurma->id)->where('ano',date('Y'))->first();
+                    if($i->ExtAtvTurma->ExtAtvVagas($i->ExtAtvTurma->id)>0 && empty($lista)){
+                        $amount += floatval(str_replace(',','.',$i->ExtAtvTurma->valor));                        
+                    }else{
+                        $espera[] = 
+                            [
+                                'ext_atv_turmas_id' => $i->ext_atv_turmas_id,
+                                'aluno_id' => $carrinho->aluno_id,
+                            ];
+                    }
+                } 
+                //remover
+                $amount = 0;
+                //fim remover      
+                //$amount = str_replace('.','',number_format($amount, 2, '.', ''));   
+                if($amount == 0){
+                    if(!empty($espera)){
+                        foreach ($espera as $i) {                            
+                            $lista_espera = new ExtAtvListaDeEspera();
+                            $lista_espera->aluno_id = $i['aluno_id'];
+                            $lista_espera->ext_atv_turmas_id = $i['ext_atv_turmas_id'];
+                            $lista_espera->ano = date('Y');
+                            $lista_espera->user_id = Auth::user()->id;
+                            $lista_espera->save();
+                        }
+                    }                    
+                    foreach ($carrinho->ItensCarrinho()->get() as $i) {
+                        $lista = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$i->ExtAtvTurma->id)->where('ano',date('Y'))->first();
+                        
+                        if($i->ExtAtvTurma->ExtAtvVagas($i->ExtAtvTurma->id)>0 && empty($lista)){  
+                                                   
+                            $inscricao = new ExtInscricaoTerceirizadas();                            
+                            $inscricao->aluno_id = $carrinho->aluno_id;
+                            $inscricao->ano = date('Y');
+                            $inscricao->amount = str_replace('.','',number_format(str_replace(',','.',$i->ExtAtvTurma->valor), 2, '.', ''));
+                            $inscricao->ext_atv_turmas_id =$i->ExtAtvTurma->id;
+                            $inscricao->user_id = Auth::user()->id;
+                            
+                            $inscricao->save();                            
+                        }
+                        
+                    }
+                    $carrinho->delete();
+                    return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso. Lembre-se de efetuar o pagamento na tesouraria da escola!');
                 }
                 else
                 {
