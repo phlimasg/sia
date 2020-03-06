@@ -84,7 +84,7 @@
                       <th>Horário</th>
                       <th>Vagas</th>
                       <th>Valor</th>
-                      <th>Criado por</th>
+                      <th>Inscritos</th>
                       <th></th>
                       <th></th>
                     </tr>
@@ -98,7 +98,7 @@
                       <td>Das {{date('H:i', strtotime($i->hora_ini))}} às {{date('H:i', strtotime($i->hora_fim))}}</td>
                       <td>{{$i->vagas}}</td>
                       <td>{{$i->valor}}</td>
-                      <td>{{$i->user}}</td>
+                      <td {{$i->ExtAtvInscritos($i->id)<10?print'class="text-danger"':print''}}>{{$i->ExtAtvInscritos($i->id)}}</td>
                       <td><a href="{{route('turma.show',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                       <td><a href="{{route('turma.edit',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>                  
                     </tr>    

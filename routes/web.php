@@ -47,7 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sod', 'Sod\CatracaController');
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
+        //lista de espera
+        Route::post('extraclasse/listadeespera/autoriza','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@autorizaInscricao')->name('listadeespera.autorizaInscricao');
         Route::resource('listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController');
+
         Route::resource('inscricao','AtividadesExtraclasse\Admin\ExtraclasseInscricaoController');
         
         Route::post('tesouraria/cancelamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController@cancelamento')->name('inscricao.cancelamento');
@@ -56,13 +59,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('tesouraria','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController');
             Route::resource('terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas');
         });
-        Route::post('central/pagamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas@pagamento')->name('extraclasse_terceirizadas.pagamento');
+        Route::post('central/pagamento','AtividadesExtraclasse\Admin\ExtraclasseCentral@pagamento')->name('extraclasse_terceirizadas.pagamento');
         Route::prefix('central')->group(function(){            
             Route::resource('extraclasse_terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseCentral');
         });
     });
 });
 Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');
+Route::post('portal/pagamento/listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@pagamentoListaDeEspera')->name('pagamento.espera');
+Route::get('portal/pagamento/listadeespera/{id}','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@exibeListaDeEspera')->name('exibe.espera');
 
 /*Auth admin*/
 

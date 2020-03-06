@@ -314,7 +314,7 @@
                               <td></td>
                               <td>
                                 <div class="btn-group">
-                                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#troca-{{$i->aluno->RA}}">Hab. para Inscrição</a>
+                                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#habilita-{{$i->aluno->RA}}">Hab. para Inscrição</a>
                                   <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                   </a>
@@ -370,7 +370,32 @@
                                 <!-- /.modal-content -->
                               </div>
                               <!-- /.modal-dialog -->
-                            </div>                           
+                            </div>
+                            
+                            <div class="modal fade" id="habilita-{{$i->aluno->RA}}">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Habilitar inscrição</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                       Deseja realmente habilitar a inscrição para o aluno {{$i->aluno->NOME_ALUNO}}?   <br>
+                                       O responsável será notificado por e-mail.                     
+                                  </div>
+                                  <div class="modal-footer">
+                                    <form action="{{ route('listadeespera.autorizaInscricao') }}" method="post">
+                                      @csrf
+                                      <input type="hidden" name="id" value="{{$i->id}}">
+                                      <button type="submit" class="btn btn-success">Sim</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>  
                           @empty
                               Nenhuma inscrição
                           @endforelse

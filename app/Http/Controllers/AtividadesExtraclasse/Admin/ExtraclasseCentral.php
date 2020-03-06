@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GetnetController;
 use App\Mail\PagamentoExtraclasse;
 use App\Model\AtividadesExtraclasse\ExtAtvCancelamento;
+use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtAtvPagamentosManuais;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
 use App\Model\AtividadesExtraclasse\ExtInscricaoTerceirizadas;
@@ -166,29 +168,41 @@ class ExtraclasseCentral extends Controller
     public function pagamento(Request $request){
         $this->authorize('central');
         $inscricao = new ExtInscricao();
-        $terceirizada = ExtInscricaoTerceirizadas::find($request->id);               
-
-        $inscricao->aluno_id = $terceirizada->aluno_id;
-        $inscricao->ano = $terceirizada->ano;
-        $inscricao->amount = $terceirizada->amount;
-        $inscricao->user_id = $terceirizada->user_id;
-        $inscricao->ext_atv_turmas_id = $terceirizada->ext_atv_turmas_id;
-
-        $inscricao->save();
-
-        $pg_manual = new ExtAtvPagamentosManuais();
-        $pg_manual->ext_inscricao_id = $inscricao->id;
-        $pg_manual->user_id = Auth::user()->id;
-        $pg_manual->save();
+        $terceirizada = ExtInscricaoTerceirizadas::find($request->id); 
+        //$inscricao->ExtAtvTurma->ExtAtvVagas($inscricao->ExtAtvTurma->id)>0      
+        if($terceirizada->ExtAtvTurma->ExtAtvVagas($terceirizada->ExtAtvTurma->id)>0){
+            $inscricao->aluno_id = $terceirizada->aluno_id;
+            $inscricao->ano = $terceirizada->ano;
+            $inscricao->amount = $terceirizada->amount;
+            $inscricao->user_id = $terceirizada->user_id;
+            $inscricao->ext_atv_turmas_id = $terceirizada->ext_atv_turmas_id;
+    
+            $inscricao->save();
+    
+            $pg_manual = new ExtAtvPagamentosManuais();
+            $pg_manual->ext_inscricao_id = $inscricao->id;
+            $pg_manual->user_id = Auth::user()->id;
+            $pg_manual->save();
+                
             
-        
-        $terceirizada->delete();
-        /*Mail::to('raphael.oliveira@lasalle.org.br')              
-        ->send(new PagamentoExtraclasse($inscricao));*/
-        Mail::to($inscricao->user->email)
-        ->bcc('tesouraria.abel@lasalle.org.br')        
-        ->send(new PagamentoExtraclasse($inscricao));
-        //dd($inscricao->user->email);
-        return redirect()->back()->with('message','Pagamento efetuado com sucesso!');
+            $terceirizada->delete();
+            /*Mail::to('raphael.oliveira@lasalle.org.br')              
+            ->send(new PagamentoExtraclasse($inscricao));*/
+            Mail::to($inscricao->user->email)
+            ->bcc('tesouraria.abel@lasalle.org.br')        
+            ->send(new PagamentoExtraclasse($inscricao));
+            //dd($inscricao->user->email);
+            return redirect()->back()->with('message','Pagamento efetuado com sucesso!');
+        }else{
+            $espera = new ExtAtvListaDeEspera();
+            $espera->aluno_id = $terceirizada->aluno_id;
+            $espera->ano = $terceirizada->ano;
+            $espera->user_id = $terceirizada->user_id;
+            $espera->ext_atv_turmas_id = $terceirizada->ext_atv_turmas_id;    
+            $espera->save();
+            $terceirizada->delete();
+            return redirect()->back()->with('error2','Pagamento não efetuado, não há vagas! Usuário inserido na lista de espera.');
+        }
+
     }
 }
