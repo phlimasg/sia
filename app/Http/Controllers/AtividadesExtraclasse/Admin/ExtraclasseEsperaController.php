@@ -224,7 +224,7 @@ class ExtraclasseEsperaController extends Controller
                         $inscricao->save();
                         ExtAtvEsperaAutorizada::destroy($espera->id);
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
-                        dd($inscricao);
+                        return 'Inscrição efetuada com sucesso!';
 
                     }else{
                         $client = new \GuzzleHttp\Client();
@@ -314,6 +314,7 @@ class ExtraclasseEsperaController extends Controller
 
                         ExtAtvEsperaAutorizada::destroy($espera->id);
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
+                        return 'Inscrição efetuada com sucesso!';
                     }
     
                 }            
