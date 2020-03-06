@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('tesouraria','AtividadesExtraclasse\Admin\ExtraclasseTesourariaController');
             Route::resource('terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas');
         });
+        Route::post('central/pagamento','AtividadesExtraclasse\Admin\ExtraclasseTesourariaTerceirizadas@pagamento')->name('extraclasse_terceirizadas.pagamento');
+        Route::prefix('central')->group(function(){            
+            Route::resource('extraclasse_terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseCentral');
+        });
     });
 });
 Route::get('listadeespera/donwload','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@downloadLista')->name('downloadLista');

@@ -15,13 +15,13 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class ExtraclasseTesourariaTerceirizadas extends Controller
+class ExtraclasseCentral extends Controller
 {
     public function index()
     {
-        $this->authorize('tesouraria',Auth::user());
+        $this->authorize('central',Auth::user());
         $inscricao = ExtInscricaoTerceirizadas::orderBy('ext_atv_turmas_id')->paginate(15);
-        return view('admin.tesouraria.terceirizadas.index',compact('inscricao'));
+        return view('admin.central.terceirizadas.index',compact('inscricao'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ExtraclasseTesourariaTerceirizadas extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('tesouraria',Auth::user());
+        $this->authorize('central',Auth::user());
         $request->validate([
             'table_search' => 'required|string'
         ]);
@@ -54,7 +54,7 @@ class ExtraclasseTesourariaTerceirizadas extends Controller
             )
         ->orderBy('ext_atv_turmas_id')        
         ->paginate(15);
-        return view('admin.tesouraria.terceirizadas.index',compact('inscricao'));
+        return view('admin.central.terceirizadas.index',compact('inscricao'));
     }
 
     /**
@@ -103,7 +103,7 @@ class ExtraclasseTesourariaTerceirizadas extends Controller
     }
     public function cancelamento(Request $request)
     {
-        $this->authorize('tesouraria',Auth::user());
+        $this->authorize('central',Auth::user());
         $request->validate([
             'id'=>'required|numeric',
             'amount' => 'nullable|string',
@@ -164,7 +164,7 @@ class ExtraclasseTesourariaTerceirizadas extends Controller
         
     }
     public function pagamento(Request $request){
-        $this->authorize('tesouraria');
+        $this->authorize('central');
         $inscricao = new ExtInscricao();
         $terceirizada = ExtInscricaoTerceirizadas::find($request->id);               
 

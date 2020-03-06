@@ -103,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
                         [
                             //'icon'    => 'pie-chart', 
                             'text' => 'Terceirizadas',
-                            'url'   => route('terceirizadas.index'),
+                            'url'   => route('extraclasse_terceirizadas.index'),
                         ],
                     ]
                 ]);
