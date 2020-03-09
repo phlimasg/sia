@@ -311,7 +311,7 @@
                               <td>{{$i->aluno->RA}}</td>
                               <td><a href="#" data-toggle="modal" data-target="#espera-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
                               <td>{{$i->aluno->TURMA}}</td>
-                              <td></td>
+                            <td>{{!empty($i->ExtAtvListaDeEsperaAutorizada->id)?'Última Hab.: '.date('d/m/Y H:i',strtotime($i->ExtAtvListaDeEsperaAutorizada->created_at)):null}}</td>
                               <td>
                                 <div class="btn-group">
                                   <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#habilita-{{$i->aluno->RA}}">Hab. para Inscrição</a>
