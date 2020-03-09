@@ -197,7 +197,7 @@ class ExtraclasseCentral extends Controller
             $espera = new ExtAtvListaDeEspera();
             $espera->aluno_id = $terceirizada->aluno_id;
             $espera->ano = $terceirizada->ano;
-            $espera->user_id = $terceirizada->user_id;
+            $espera->user_id = Auth::user()->id;
             $espera->ext_atv_turmas_id = $terceirizada->ext_atv_turmas_id;    
             $espera->save();
             $terceirizada->delete();
