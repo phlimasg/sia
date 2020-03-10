@@ -220,7 +220,7 @@ class ExtraclasseEsperaController extends Controller
                         $inscricao->ano = date('Y');
                         $inscricao->amount = str_replace('.','',number_format(str_replace(',','.',$espera->ExtAtvListaDeEspera->ExtAtvTurma->valor), 2, '.', ''));
                         $inscricao->ext_atv_turmas_id = $espera->ExtAtvListaDeEspera->ExtAtvTurma->id;
-                        $inscricao->user_id = Auth::user()->id;
+                        $inscricao->user_id = $espera->ExtAtvListaDeEspera->User->id;
                         $inscricao->save();
                         ExtAtvEsperaAutorizada::destroy($espera->id);
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
