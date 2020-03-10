@@ -19,7 +19,7 @@ class CancelamentosExport implements FromCollection
         $dt_fim = date('Y-m-d', strtotime(str_replace('/','-',$this->request->fim)));
         $inscricao = ExtAtvCancelamento::whereBetween('created_at',[$dt_ini.' 00:00:00',$dt_fim.' 23:59:59'])
         ->orderBy('ext_atv_turmas_id','asc')->orderBy('created_at','asc')->get();
-        $export[] = ['RA','NOME_ALUNO','ATIVIDADE','TURMA','TURMA DO ALUNO','HORA DA INSCRICAO','VALOR','USUÁRIO','RESPONSAVEL','EMAIL'];
+        $export[] = ['RA','NOME_ALUNO','ATIVIDADE','TURMA','TURMA DO ALUNO','HORA DA INSCRICAO','VALOR','USUÁRIO','MOTIVO','RESPONSAVEL','EMAIL'];
         
         foreach ($inscricao as $i) {           
             $export[]=[                
@@ -31,6 +31,7 @@ class CancelamentosExport implements FromCollection
                 'HORA DA INSCRICAO' => $i->created_at,
                 'VALOR' => 'R$ '.substr_replace($i->amount,',',-2,0),
                 'USUÁRIO'=> $i->User->email,
+                'MOTIVO'=> $i->motivo,
                 'RESPONSAVEL'=> $i->aluno->RESPACAD,
                 'EMAIL'=> $i->aluno->RESPACADEMAIL,
             ];

@@ -192,6 +192,6 @@ class ExtraclasseController extends Controller
         ]);       
         $dt_fim = date('Y-m-d', strtotime(str_replace('/','-',$request->fim))); 
         //dd($export);
-        return Excel::download(new CancelamentosExport($request), 'Cancelados até'.$dt_fim.' 23:59:59.xlsx');
+        return Excel::download(new CancelamentosExport($request), 'Cancelados até '.$dt_fim.' 23:59:59.xlsx');
     }
 }
