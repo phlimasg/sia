@@ -3,6 +3,7 @@
 namespace App\Model\AtividadesExtraclasse;
 
 use App\Model\Totvs_alunos;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ExtAtvListaDeEspera extends Model
@@ -18,5 +19,9 @@ class ExtAtvListaDeEspera extends Model
     public function ExtAtvListaDeEsperaAutorizada()
     {
         return $this->hasOne(ExtAtvEsperaAutorizada::class,'ext_atv_lista_de_esperas_id','id')->orderBy('created_at','desc');
+    }
+    public function User()
+    {
+        return $this->hasOne(User::class,'id','user_id');
     }
 }

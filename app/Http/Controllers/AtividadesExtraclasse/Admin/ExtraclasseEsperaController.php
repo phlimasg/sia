@@ -226,7 +226,7 @@ class ExtraclasseEsperaController extends Controller
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
                         return 'Inscrição efetuada com sucesso!';
 
-                    }else{
+                    }else{                        
                         $client = new \GuzzleHttp\Client();
                     //dd($this->TokenGenerate());
                     $response = $client->post(env('GETNET_URL_API').'/v1/payments/credit',
@@ -246,7 +246,7 @@ class ExtraclasseEsperaController extends Controller
                                     //'product_type' => 'service',
                                     ],
                                 'customer' => [
-                                    'customer_id' =>Auth::user()->name,
+                                    'customer_id' =>$espera->ExtAtvListaDeEspera->User->name,
                                     'first_name'=>$request->firstname,
                                     'last_name'=>$request->lastname,
                                     //'name' => $request->firstname.' '.$request->lastname,
@@ -291,7 +291,7 @@ class ExtraclasseEsperaController extends Controller
                         $inscricao->ano = date('Y');
                         $inscricao->amount = str_replace('.','',number_format(str_replace(',','.',$espera->ExtAtvListaDeEspera->ExtAtvTurma->valor), 2, '.', ''));
                         $inscricao->ext_atv_turmas_id = $espera->ExtAtvListaDeEspera->ExtAtvTurma->id;
-                        $inscricao->user_id = Auth::user()->id;
+                        $inscricao->user_id = $espera->ExtAtvListaDeEspera->User->id;
                         $inscricao->save();
 
                         $getnet = new GetnetReturn();
