@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('portal')->group(function(){
         Route::resource('communicated', 'Portal\PortalComunicadosController');
         //Atividades Extraclasses
-        Route::resource('extraclasse/aluno', 'AtividadesExtraclasse\Portal\PortalExtraclasseAlunoController');        
+        Route::resource('extraclasse/aluno', 'AtividadesExtraclasse\Portal\PortalExtraclasseAlunoController');                       
         Route::resource('extraclasse', 'AtividadesExtraclasse\Portal\PortalExtraclasseController')->except(['create']);        
         Route::get('extraclasse/create/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@create')->name('extraclasse.create');
         Route::get('extraclasse/details/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@details')->name('extraclasse.details');
@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('sod/relatorio', 'Sod\CatracaController@relatorio')->name('sod.relatorio');
         Route::post('sod/relatorio', 'Sod\CatracaController@relatorio_gerar');
         Route::resource('sod', 'Sod\CatracaController');
+
+        Route::get('extclasse/dashboard', 'AtividadesExtraclasse\Admin\ExtraclasseController@dashboard')->name('extclasse.dashboard'); 
+        Route::post('extclasse/relatorio/cancelamentos', 'AtividadesExtraclasse\Admin\ExtraclasseController@ExportCancelamento')->name('extclasse.cancelamentos'); 
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
         //lista de espera

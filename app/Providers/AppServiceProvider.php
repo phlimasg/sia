@@ -118,7 +118,7 @@ class AppServiceProvider extends ServiceProvider
                         [
                             'icon'    => 'pie-chart', 
                             'text' => 'Estatísticas',
-                            'url'   => route('extclasse.index'),
+                            'url'   => route('extclasse.dashboard'),
                         ],
                         [
                             'text' => 'Atividades Cadastradas',
