@@ -79,7 +79,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <label for="">CEP:</label>
-            <input type="text" name="cep" id="cep" class="form-control" value="">
+            <input type="text" name="cep" id="cep" class="form-control" value="{{old('cep')}}">
             @error('cep')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <label for="">Rua:</label>
-            <input type="text" name="rua" id="rua" class="form-control" value="">
+            <input type="text" name="rua" id="rua" class="form-control" value="{{old('rua')}}">
             @error('rua')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -96,7 +96,7 @@
 
             <div class="col-sm-1">
                 <label for="">Nº:</label>
-            <input type="text" name="num" id="num" class="form-control" value="">
+            <input type="text" name="num" id="num" class="form-control" value="{{old('num')}}">
             @error('num')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -104,21 +104,21 @@
             
             <div class="col-sm-2">
                 <label for="">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" class="form-control" value="">
+            <input type="text" name="bairro" id="bairro" class="form-control" value="{{old('bairro')}}">
             @error('bairro')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
             </div> 
             <div class="col-sm-2">
                 <label for="">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control" value="">
+            <input type="text" name="cidade" id="cidade" class="form-control" value="{{old('cidade')}}">
             @error('cidade')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
             </div>             
             <div class="col-sm-1">
                 <label for="">UF:</label>
-            <input type="text" name="uf" id="uf" class="form-control" value="">
+            <input type="text" name="uf" id="uf" class="form-control" value="{{old('uf')}}">
             @error('uf')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -152,7 +152,7 @@
                 </div>
                 <div class="col-sm-2">
                     <label for="">Código de segurança:</label>
-                    <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}">
+                    <input type="text" name="cod" max="999" maxlength="3" id="" class="form-control" value="{{old('cod')}}">
                     @error('cod')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -166,14 +166,14 @@
             <div class="row">
                 <div class="col-sm-1">
                     <label for="">Mês:</label>
-                    <input type="text" name="mes" id="" class="form-control" value="{{old('mes')}}">
+                    <input type="text" name="mes" id="" max="99" maxlength="2" class="form-control" value="{{old('mes')}}">
                     @error('mes')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-1">
                     <label for="">Ano:</label>
-                    <input type="text" name="ano" id="" class="form-control" value="{{old('ano')}}">
+                    <input type="text" name="ano" id="" max="99" maxlength="2" class="form-control" value="{{old('ano')}}">
                     @error('ano')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
