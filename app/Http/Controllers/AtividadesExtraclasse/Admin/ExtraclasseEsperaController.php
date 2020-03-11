@@ -179,32 +179,44 @@ class ExtraclasseEsperaController extends Controller
         dd($autoriza);
     }
     public function pagamentoListaDeEspera(Request $request){
-        $request->validate([
-            'id_espera' => 'required|numeric',
-            'token_autoriza' => 'required|string',
-            
-            'firstname' => 'sometimes|required|string',
-            'lastname' => 'sometimes|required|string',
-            'cep' => 'sometimes|required|string',
-            'rua' => 'sometimes|required|string',
-            'num' => 'sometimes|required|numeric|string',
-            'bairro' => 'sometimes|required|string',
-            'cidade' => 'sometimes|required|string',
-            //'estado' => 'required|string',
-            'uf' => 'sometimes|required|string',
-
-
-            'nome' => 'sometimes|required|string',
-            'numero' => 'sometimes|required|numeric',
-            'cod' => 'sometimes|required|numeric|max:999',
-            'mes' => 'sometimes|required|numeric|max:99',
-            'ano' => 'sometimes|required|numeric|max:99',
-            'cart_id' => 'sometimes|required|numeric'
-        ],[
-            'string' => 'Somente texto',
-            'numeric' => 'Somente números.',
-            'required' => 'Campo obrigatório'
-        ]);
+        if(!empty($request->firstname)){
+            $request->validate([
+                'id_espera' => 'required|numeric',
+                'token_autoriza' => 'required|string',
+                
+                'firstname' => 'sometimes|required|string',
+                'lastname' => 'sometimes|required|string',
+                'cep' => 'sometimes|required|string',
+                'rua' => 'sometimes|required|string',
+                'num' => 'sometimes|required|numeric|string',
+                'bairro' => 'sometimes|required|string',
+                'cidade' => 'sometimes|required|string',
+                //'estado' => 'required|string',
+                'uf' => 'sometimes|required|string',
+    
+    
+                'nome' => 'sometimes|required|string',
+                'numero' => 'sometimes|required|numeric',
+                'cod' => 'sometimes|required|numeric|max:999',
+                'mes' => 'sometimes|required|numeric|max:99',
+                'ano' => 'sometimes|required|numeric|max:99',
+                'cart_id' => 'sometimes|required|numeric'
+            ],[
+                'string' => 'Somente texto',
+                'numeric' => 'Somente números.',
+                'required' => 'Campo obrigatório'
+            ]);
+        }
+        else{
+            $request->validate([
+                'id_espera' => 'required|numeric',
+                'token_autoriza' => 'required|string',                
+            ],[
+                'string' => 'Somente texto',
+                'numeric' => 'Somente números.',
+                'required' => 'Campo obrigatório'
+            ]);
+        }
         $espera = ExtAtvEsperaAutorizada::where('ext_atv_lista_de_esperas_id',$request->id_espera)
         ->where('token', $request->token_autoriza)
         ->first();
