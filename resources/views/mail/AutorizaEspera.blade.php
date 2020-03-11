@@ -14,7 +14,7 @@ Prezado Responsável, <br> <br>
 
 É com grande felicidade que informamos que está disponível a vaga na atividade <b>"{{$autoriza->ExtAtvListaDeEspera->ExtAtvTurma->ExtAtv->atividade}}"</b>
 para o aluno <b>{{$autoriza->ExtAtvListaDeEspera->aluno->NOME_ALUNO}}</b> na turma <b> {{$autoriza->ExtAtvListaDeEspera->ExtAtvTurma->descricao_turma}}</b> no horário
-das {{date('H:i',strtotime($autoriza->ExtAtvListaDeEspera->ExtAtvTurma->hora_ini))}}. <br> <br>
+das <b>{{date('H:i',strtotime($autoriza->ExtAtvListaDeEspera->ExtAtvTurma->hora_ini))}}</b>. <br> <br>
 
 <a href="{{ route('exibe.espera', ['id'=>$autoriza->token]) }}" style="background-color: green;  color: white;  padding: 14px 25px;  text-align: center;  font-size: 2em;">Clique aqui e garanta sua vaga!</a>
 

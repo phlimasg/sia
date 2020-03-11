@@ -179,7 +179,7 @@ class ExtraclasseEsperaController extends Controller
         dd($autoriza);
     }
     public function pagamentoListaDeEspera(Request $request){
-        $request->validate([
+        /*$request->validate([
             'id_espera' => 'required|numeric',
             'token_autoriza' => 'required|string',
             
@@ -203,13 +203,13 @@ class ExtraclasseEsperaController extends Controller
             'string' => 'Somente texto',
             'numeric' => 'Somente números.',
             'required' => 'Campo obrigatório'
-        ]);
+        ]);*/
         $espera = ExtAtvEsperaAutorizada::where('ext_atv_lista_de_esperas_id',$request->id_espera)
         ->where('token', $request->token_autoriza)
         ->first();
         
-        $amount = floatval(str_replace(',','.',$espera->ExtAtvListaDeEspera->ExtAtvTurma->valor));
-        
+        $amount = str_replace('.','',number_format(str_replace(',','.',$espera->ExtAtvListaDeEspera->ExtAtvTurma->valor), 2, '.', ''));
+        //dd($amount);
         
         try {            
             if(!empty($espera)){
