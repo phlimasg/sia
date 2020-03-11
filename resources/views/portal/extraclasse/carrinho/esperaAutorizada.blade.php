@@ -62,14 +62,14 @@
         <div class="row">
             <div class="col-sm-2">
                 <label for="">Nome:</label>
-                <input type="text" name="firstname" id="" value="{{explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN)[0]}}" class="form-control">
+                <input type="text" name="firstname" id="" required value="{{explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN)[0]}}" class="form-control">
                 @error('firstname')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
             </div>
             <div class="col-sm-8">
                 <label for="">Sobrenome:</label>
-                <input type="text" name="lastname" id="" value="@foreach(explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN) as $i)@if(explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN)[0]!= $i){{$i}} @endif @endforeach" class="form-control">
+                <input type="text" name="lastname" id="" required value="@foreach(explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN) as $i)@if(explode(' ', $autoriza->ExtAtvListaDeEspera->aluno->RESPFIN)[0]!= $i){{$i}} @endif @endforeach" class="form-control">
                 @error('lastname')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -79,7 +79,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <label for="">CEP:</label>
-            <input type="text" name="cep" id="cep" class="form-control" value="{{old('cep')}}">
+            <input type="text" name="cep" id="cep" class="form-control" value="{{old('cep')}}" required>
             @error('cep')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <label for="">Rua:</label>
-            <input type="text" name="rua" id="rua" class="form-control" value="{{old('rua')}}">
+            <input type="text" name="rua" id="rua" class="form-control" value="{{old('rua')}}" required>
             @error('rua')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -96,7 +96,7 @@
 
             <div class="col-sm-1">
                 <label for="">Nº:</label>
-            <input type="text" name="num" id="num" class="form-control" value="{{old('num')}}">
+            <input type="text" name="num" id="num" class="form-control" value="{{old('num')}}" required>
             @error('num')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -104,21 +104,21 @@
             
             <div class="col-sm-2">
                 <label for="">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" class="form-control" value="{{old('bairro')}}">
+            <input type="text" name="bairro" id="bairro" class="form-control" value="{{old('bairro')}}" required>
             @error('bairro')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
             </div> 
             <div class="col-sm-2">
                 <label for="">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control" value="{{old('cidade')}}">
+            <input type="text" name="cidade" id="cidade" class="form-control" value="{{old('cidade')}}" required>
             @error('cidade')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
             </div>             
             <div class="col-sm-1">
                 <label for="">UF:</label>
-            <input type="text" name="uf" id="uf" class="form-control" value="{{old('uf')}}">
+            <input type="text" name="uf" id="uf" class="form-control" value="{{old('uf')}}" required>
             @error('uf')
                 <div class=" text-danger">* {{ $message }}</div>
             @enderror
@@ -135,7 +135,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="">Nome do titular do cartão:</label>
-                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}">
+                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}" required>
                     @error('nome')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -145,14 +145,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <label for="">Número do cartão:</label>
-                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}">
+                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}" required>
                     @error('numero')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-2">
                     <label for="">Código de segurança:</label>
-                    <input type="text" name="cod" max="999" maxlength="3" id="" class="form-control" value="{{old('cod')}}">
+                    <input type="text" name="cod" max="999" maxlength="3" id="" class="form-control" value="{{old('cod')}}" required>
                     @error('cod')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -166,14 +166,14 @@
             <div class="row">
                 <div class="col-sm-1">
                     <label for="">Mês:</label>
-                    <input type="text" name="mes" id="" max="99" maxlength="2" class="form-control" value="{{old('mes')}}">
+                    <input type="text" name="mes" id="" max="99" maxlength="2" class="form-control" value="{{old('mes')}}" required>
                     @error('mes')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-1">
                     <label for="">Ano:</label>
-                    <input type="text" name="ano" id="" max="99" maxlength="2" class="form-control" value="{{old('ano')}}">
+                    <input type="text" name="ano" id="" max="99" maxlength="2" class="form-control" value="{{old('ano')}}" required>
                     @error('ano')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
