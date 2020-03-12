@@ -188,7 +188,7 @@ class ExtraclasseEsperaController extends Controller
         return redirect()->back()->with('message','Usuário Autorizado com sucesso!');
     }
     public function exibeListaDeEspera($id){
-        $this->authorize('ext');
+        
         $date = date('Y-m-d H:i:s');
         $date = date('Y-m-d H:i:s', strtotime('-48 hours', strtotime($date)));
         
