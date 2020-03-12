@@ -372,8 +372,8 @@ class ExtraclasseEsperaController extends Controller
             $espera->save();
             $espera_trocas = new ExtAtvListaDeEsperaTrocas();
             $espera_trocas->aluno_id = $request->ra;
-            $espera_trocas->esperas_destino = $request->destino;
-            $espera_trocas->esperas_origem = $request->origem;
+            $espera_trocas->ext_atv_turmas_des = $request->destino;
+            $espera_trocas->ext_atv_turmas_ori = $request->origem;
             $espera_trocas->motivo = $request->motivo;
             $espera_trocas->user_id = Auth::user()->id;
             $espera_trocas->save();
