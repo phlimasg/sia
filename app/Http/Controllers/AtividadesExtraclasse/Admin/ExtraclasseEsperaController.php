@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\AutorizaListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtAtvEsperaAutorizada;
 use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
+use App\Model\AtividadesExtraclasse\ExtAtvListaDeEsperaRemovido;
+use App\Model\AtividadesExtraclasse\ExtAtvListaDeEsperaTrocas;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,10 @@ use Illuminate\Support\Str;
 
 class ExtraclasseEsperaController extends Controller
 {
+    public function __construct()
+    {
+        
+    }
     public function TokenGenerate(){
         try {
             //code...
@@ -139,15 +145,34 @@ class ExtraclasseEsperaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $this->authorize('ext');
+        $request->validate([
+            'motivo' => 'required|string',
+            'id' => 'required|numeric'
+        ]);
+        try {
+            
+            $espera = ExtAtvListaDeEspera::find($request->id);            
+            $remove = new ExtAtvListaDeEsperaRemovido();
+            $remove->motivo = $request->motivo;
+            $remove->aluno_id = $espera->aluno_id;
+            $remove->ext_atv_turmas_id = $espera->ext_atv_turmas_id;
+            $remove->user_id = Auth::user()->id;
+            $remove->save();
+            $espera->delete();
+            return redirect()->back()->with('message','Aluno removido com sucesso.');            
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
+        }
     }
     public function downloadLista()
     {
         return Excel::download(new ListaDeEspera, 'ListaDeEspera'.date('d-m-Y H:i').'.xlsx');
     }
     public function autorizaInscricao(Request $request){
+        $this->authorize('ext');
         $espera = ExtAtvListaDeEspera::findOrFail($request->id);
         $autoriza = new ExtAtvEsperaAutorizada();
         $autoriza->ext_atv_lista_de_esperas_id = $espera->id;
@@ -163,6 +188,7 @@ class ExtraclasseEsperaController extends Controller
         return redirect()->back()->with('message','Usuário Autorizado com sucesso!');
     }
     public function exibeListaDeEspera($id){
+        $this->authorize('ext');
         $date = date('Y-m-d H:i:s');
         $date = date('Y-m-d H:i:s', strtotime('-48 hours', strtotime($date)));
         
@@ -336,5 +362,26 @@ class ExtraclasseEsperaController extends Controller
             $error = json_decode($e->getResponse()->getBody(),true);            
             return redirect()->back()->with('error',$error);
         }
+    }
+    public function troca(Request $request)
+    {
+        $this->authorize('ext');
+        try {
+            $espera = ExtAtvListaDeEspera::find($request->id);
+            $espera->ext_atv_turmas_id = $request->destino;
+            $espera->save();
+            $espera_trocas = new ExtAtvListaDeEsperaTrocas();
+            $espera_trocas->aluno_id = $request->ra;
+            $espera_trocas->esperas_destino = $request->destino;
+            $espera_trocas->esperas_origem = $request->origem;
+            $espera_trocas->motivo = $request->motivo;
+            $espera_trocas->user_id = Auth::user()->id;
+            $espera_trocas->save();
+            return redirect()->back()->with('message','Troca efetuada com sucesso.');
+            dd($request->all(),$espera);
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
+        }
+        
     }
 }

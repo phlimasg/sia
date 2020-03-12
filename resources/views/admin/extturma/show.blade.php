@@ -190,6 +190,7 @@
                                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#troca-{{$i->aluno->RA}}">Trocar de turma</a>                               
                             </td>
                             </tr> 
+                            <!--Modal de troca de troca alunos inscritos-->
                             <div class="modal fade" id="troca-{{$i->aluno->RA}}">
                               <form action="{{ route('inscricao.update',['id'=>$i->id]) }}" method="post">
                               <div class="modal-dialog">
@@ -233,6 +234,7 @@
                               </div>
                               <!-- /.modal-dialog -->
                             </div>   
+                            <!--Modal de troca de dados aluno inscritos-->
                             <div class="modal fade" id="insc-{{$i->aluno->RA}}">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -319,12 +321,89 @@
                                     <span class="caret"></span>
                                   </a>
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Trocar de turma</a></li>
-                                    <li><a href="#">Remover</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#troca-espera-{{$i->aluno->RA}}">Trocar de turma</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#remove-espera-{{$i->aluno->RA}}">Remover</a></li>
                                   </ul>
                                 </div>
                               </td>
                             </tr> 
+                            <!--Modal de troca de dados do aluno espera-->
+                            <div class="modal fade" id="remove-espera-{{$i->aluno->RA}}">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Remover {{$i->aluno->NOME_ALUNO}} da lista de espera?</h4>
+                                  </div>
+                                  <form action="{{ route('listadeespera.destroy',['id' => $i->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$i->id}}">
+                                    @method('delete')
+                                    <div class="modal-body">
+                                         <h3>Confirma a remoção do aluno {{$i->aluno->NOME_ALUNO}} da lista de espera?</h3>                                                          
+                                         <div class="row">
+                                        <div class="col-sm-12">
+                                        <label for="">Motivo:</label>  
+                                        <textarea name="motivo" id="" cols="30" rows="10" class="form-control"></textarea>
+                                        </div>   
+                                        </div>                            
+                                    </div>
+                                    <div class="modal-footer">                                    
+                                      <button type="submit"  class="btn btn-danger"> <i class="fa fa-remove"></i> Cofirmar remoção</button>
+                                    </div>                                  
+                                  </form>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Modal de troca de turma espera-->
+                            <div class="modal fade" id="troca-espera-{{$i->aluno->RA}}">
+                              <form action="{{ route('listadeespera.troca',['id'=>$i->id]) }}" method="post">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Trocar de lista de espera: {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    @csrf   
+                                    @method('put')                                    
+                                    <input type="hidden" name="ra" value="{{$i->aluno->RA}}">
+                                    <input type="hidden" name="origem" value="{{$i->ext_atv_turmas_id}}">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Turma de destino:</label>
+                                        <select name="destino" id="" class="form-control">
+                                          <option value=""></option>
+                                          @foreach ($turma->ExtAtv->turmas as $t)
+                                          @if ($turma->id != $t->id)
+                                            <option value="{{$t->id}}">{{$t->descricao_turma}} - ({{$t->ExtAtvVagas($t->id)}} Vagas)</option>                                              
+                                          @endif
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Motivo da troca</label>
+                                        <textarea name="motivo" id="" cols="30" rows="5" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="submit"  class="btn btn-primary">Efetuar Trocar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </form>                                
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>  
+                            <!--Modal de troca de dados do aluno espera-->
                             <div class="modal fade" id="espera-{{$i->aluno->RA}}">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -371,7 +450,7 @@
                               </div>
                               <!-- /.modal-dialog -->
                             </div>
-                            
+                            <!--Modal de troca de habilita espera-->
                             <div class="modal fade" id="habilita-{{$i->aluno->RA}}">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">

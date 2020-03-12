@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
         //lista de espera
         Route::post('extraclasse/listadeespera/autoriza','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@autorizaInscricao')->name('listadeespera.autorizaInscricao');
+        Route::put('extraclasse/listadeespera/troca','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@troca')->name('listadeespera.troca');
         Route::resource('listadeespera','AtividadesExtraclasse\Admin\ExtraclasseEsperaController');
 
         Route::resource('inscricao','AtividadesExtraclasse\Admin\ExtraclasseInscricaoController');
