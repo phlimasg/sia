@@ -321,8 +321,11 @@
                                     <span class="caret"></span>
                                   </a>
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a 
+                                    <li>
+                                      @if(!empty($i->ExtAtvListaDeEsperaAutorizada->token))                                      
+                                      <a 
                                       href="https://api.whatsapp.com/send?phone=55{{$i->aluno->RESPACADTEL2}}&text=É com grande felicidade que informamos que está disponível a vaga na atividade {{$i->ExtAtvTurma->ExtAtv->atividade}} para o aluno(a) {{$i->aluno->NOME_ALUNO}} {{ route('exibe.espera', ['id'=>$i->ExtAtvListaDeEsperaAutorizada->token]) }}">Enviar por WPP</a></li>
+                                      @endif
                                     <li><a href="#" data-toggle="modal" data-target="#troca-espera-{{$i->aluno->RA}}">Trocar de turma</a></li>
                                     <li><a href="#" data-toggle="modal" data-target="#remove-espera-{{$i->aluno->RA}}">Remover</a></li>
                                   </ul>
