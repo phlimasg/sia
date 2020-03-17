@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-sm-2">
                     <label for="">Código de segurança:</label>
-                    <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}">
+                    <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}" maxlength="4">
                     @error('cod')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -139,14 +139,14 @@
             <div class="row">
                 <div class="col-sm-1">
                     <label for="">Mês:</label>
-                    <input type="text" name="mes" id="" class="form-control" value="{{old('mes')}}">
+                    <input type="text" name="mes" id="" class="form-control" value="{{old('mes')}}" max="99" maxlength="2">
                     @error('mes')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-1">
                     <label for="">Ano:</label>
-                    <input type="text" name="ano" id="" class="form-control" value="{{old('ano')}}">
+                    <input type="text" name="ano" id="" class="form-control" value="{{old('ano')}}" max="99" maxlength="2">
                     @error('ano')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror

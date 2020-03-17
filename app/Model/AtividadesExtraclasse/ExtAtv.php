@@ -10,6 +10,7 @@ class ExtAtv extends Model
     'descricao',
     'imagem_mini',
     'imagem_fundo',
+    'terceirizada',
     'user'
 ];
     public function turmas()

@@ -31,7 +31,20 @@
                           <span class="text-danger">*{{$errors->first('atividade')}}</span>                      
                       @endif                
                     </div>
-                  </div>                                   
+                  </div> 
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="terceirizada">Terceirizada?</label>
+                      <select name="terceirizada" id="" class="form-control">
+                      <option value=""></option>  
+                      <option value="1" @if ($atv->terceirizada==1) selected @endif>Sim</option>  
+                      <option value="0" @if ($atv->terceirizada==0) selected @endif>Não</option>  
+                      </select>                 
+                      @if ($errors->has('terceirizada'))
+                          <span class="text-danger">*{{$errors->first('terceirizada')}}</span>                      
+                      @endif                
+                    </div>
+                  </div>                                  
                 </div>
                 <div class="row">
                   <div class="col-sm-6">

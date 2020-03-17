@@ -62,6 +62,7 @@ class ExtraclasseController extends Controller
         $request->validate([
             'atividade' => 'required|string',
             'descricao_atv' => 'required|string',
+            'terceirizada' => 'required|numeric',
             'imagem_mini' => 'mimes:jpeg,jpg,png,gif|required|image',
             'imagem_fundo' => 'mimes:jpeg,jpg,png,gif|nullable|image',
         ],[
@@ -91,6 +92,7 @@ class ExtraclasseController extends Controller
                 'descricao' => $request->descricao_atv,
                 'imagem_mini' => $imagem_mini_url,
                 'imagem_fundo' => !empty($imagem_fundo_url) ? $imagem_fundo_url : null,
+                'terceirizada' => $request->terceirizada,
                 'user' => Auth::user()->name
             ]);
             return redirect()->route('extclasse.index');
@@ -136,6 +138,7 @@ class ExtraclasseController extends Controller
         $request->validate([
             'atividade' => 'required|string',
             'descricao_atv' => 'required|string',
+            'terceirizada' => 'required|numeric',
             'imagem_mini' => 'mimes:jpeg,jpg,png,gif|nullable|image',
             'imagem_fundo' => 'mimes:jpeg,jpg,png,gif|nullable|image',
         ],[
@@ -168,6 +171,7 @@ class ExtraclasseController extends Controller
                 'descricao' => $request->descricao_atv,
                 'imagem_mini' => !empty($imagem_mini_url) ? $imagem_mini_url : ExtAtv::find($id)->imagem_mini,
                 'imagem_fundo' => !empty($imagem_fundo_url) ? $imagem_fundo_url : ExtAtv::find($id)->imagem_fundo,
+                'terceirizada'=>$request->terceirizada,
                 'user' => Auth::user()->name
             ]);
             return redirect()->back();
