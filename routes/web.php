@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('portal')->group(function(){
         Route::resource('communicated', 'Portal\PortalComunicadosController');
         //Atividades Extraclasses
-        Route::resource('extraclasse/aluno', 'AtividadesExtraclasse\Portal\PortalExtraclasseAlunoController');                       
+        Route::resource('extraclasse/aluno', 'AtividadesExtraclasse\Portal\PortalExtraclasseAlunoController');
         Route::resource('extraclasse', 'AtividadesExtraclasse\Portal\PortalExtraclasseController')->except(['create']);        
         Route::get('extraclasse/create/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@create')->name('extraclasse.create');
         Route::get('extraclasse/details/{id}', 'AtividadesExtraclasse\Portal\PortalExtraclasseController@details')->name('extraclasse.details');

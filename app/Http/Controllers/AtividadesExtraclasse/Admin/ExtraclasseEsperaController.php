@@ -261,9 +261,13 @@ class ExtraclasseEsperaController extends Controller
                         $inscricao->ext_atv_turmas_id = $espera->ExtAtvListaDeEspera->ExtAtvTurma->id;
                         $inscricao->user_id = $espera->ExtAtvListaDeEspera->User->id;
                         $inscricao->save();
+
+                        Auth::loginUsingId($espera->ExtAtvListaDeEspera->user_id);
+                        
                         ExtAtvEsperaAutorizada::destroy($espera->id);
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
-                        return 'Inscrição efetuada com sucesso!';
+                        return redirect()->route('aluno.show',['id'=>$espera->ExtAtvListaDeEspera->aluno_id])->with('message','Inscrição efetuada com sucesso!');
+                        
 
                     }else{                        
                         $client = new \GuzzleHttp\Client();
@@ -351,9 +355,11 @@ class ExtraclasseEsperaController extends Controller
                         $getnet->ext_inscricaos_id = $inscricao->id;
                         $getnet->save();
 
+                        Auth::loginUsingId($espera->ExtAtvListaDeEspera->user_id);
+
                         ExtAtvEsperaAutorizada::destroy($espera->id);
                         ExtAtvListaDeEspera::destroy($espera->ext_atv_lista_de_esperas_id);
-                        return 'Inscrição efetuada com sucesso!';
+                        return redirect()->route('aluno.show',['id'=>$espera->ExtAtvListaDeEspera->aluno_id])->with('message','Inscrição efetuada com sucesso!');
                     }
     
                 }            
