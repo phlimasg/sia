@@ -23,6 +23,8 @@ Route::get('portal/login','Portal\PortalLoginController@index')->name('portal.in
 Route::post('portal/auth','Portal\PortalLoginController@auth')->name('portal.auth');
 //google login
 Route::get('/portal/google/login','Auth\GoogleLoginController@login')->name('gLogin');
+Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
+Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
 
 Route::group(['middleware' => ['auth']], function () {    
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
