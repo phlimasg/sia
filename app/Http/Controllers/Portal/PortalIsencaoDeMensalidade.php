@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Portal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortalIsencaoDeMensalidade as RequestsPortalIsencaoDeMensalidade;
+use App\Http\Requests\PortalIsencaoDeMensalidadeUpdate;
+use App\Model\Portal\PortalIsencao;
+use App\Model\Portal\PortalIsencaoDocumento;
 use App\Model\Portal\PortalMotivoIsencao;
 use App\Model\Totvs_alunos;
+use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class PortalIsencaoDeMensalidade extends Controller
 {
@@ -39,28 +44,43 @@ class PortalIsencaoDeMensalidade extends Controller
      */
     public function store(RequestsPortalIsencaoDeMensalidade $request)
     {
-        dd($request->all());
-        $count=1;
-        foreach ($request->upload as $i){
-//            $doc = new grupoFamiliarReceitasDocumentos();
-            $namefile = date('d-m-Y_H-m-s').'_'.$count.'.'.$i->extension();
-            $up = $i->storeAs('/'.'upload/receitas/'.$id,$namefile);
-            chmod(storage_path('/app/public/upload/receitas/'),0777);
-            chmod(storage_path('/app/public/upload/receitas/'.$id),0777);
-            chmod(storage_path('app/public/'.$up),0777);
-            /*$doc->old_name_doc = $i->getClientOriginalName();
-            $doc->url_doc = $up;
-            $doc->gpo_receitas_id = $id;
-            $doc->save();
-            //dd($up,$namefile,$doc);*/
-            if (!$up )
-                return redirect()
-                    ->back()
-                    ->with('error', 'Falha ao fazer upload')
-                    ->withInput();
-            $count++;
+        try {
+            $totvs = Totvs_alunos::where('RESPFINCPF', $request->cpf)->first();
+
+            if (empty($totvs)){
+                $e = new Exception("Não encontramos o cpf na base TOTVS");
+                return view('errors.error', compact('e'));
+            }                
+
+            $insencao = PortalIsencao::create($request->except(['_token', 'upload']));
+            $count = 1;
+            foreach ($request->upload as $i) {
+                $doc = new PortalIsencaoDocumento();
+                $namefile = date('d-m-Y_H-m-s') . '_' . $count . '.' . $i->extension();
+                $up = $i->storeAs('/' . 'public/uploads/desconto/' . $insencao->cpf, $namefile);
+                //chmod(storage_path('/upload/desconto/'),0777);
+                //chmod(storage_path('/upload/desconto/'.$insencao->cpf),0777);
+                //chmod(storage_path('/'.$up),0777);
+                $doc->nome = $i->getClientOriginalName();
+                $doc->url = $up;
+                $doc->portal_isencaos_id = $insencao->id;
+                $doc->save();
+                //dd($up, storage_path());
+                //dd($up,$namefile,$doc);*/
+                if (!$up)
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Falha ao fazer upload')
+                        ->withInput();
+                $count++;
+            }
+            //dd($insencao);
+            return redirect()->route('solicita_flex.edit', ['id' => $insencao->cpf, 'token' => $insencao->user_token]);
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
         }
-        return redirect()->back();    
+        //        dd($request->all());
+
     }
 
     /**
@@ -69,7 +89,7 @@ class PortalIsencaoDeMensalidade extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $token)
     {
         //
     }
@@ -82,7 +102,17 @@ class PortalIsencaoDeMensalidade extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $motivo = PortalMotivoIsencao::all();
+            $isencao = PortalIsencao::where('cpf', $id)->where('user_token', $_GET['token'])->first();
+            if(empty($isencao)){
+                $e = new Exception("Solicitação não encontrada");
+                return view('errors.error', compact('e'));
+            }
+            return view('portal.isencao.edit', compact('motivo', 'isencao'));
+        } catch (\Exception $e) {
+            return view('errors.error', compact('e'));
+        }
     }
 
     /**
@@ -92,9 +122,41 @@ class PortalIsencaoDeMensalidade extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PortalIsencaoDeMensalidadeUpdate $request, $id)
     {
-        //
+        $isencao = PortalIsencao::where('id', $id)->where('user_token', $request->user_token)->first();
+        $isencao->update([
+            'motivo_id' => $request->motivo_id,
+            'apelacao' => $request->apelacao
+        ]);
+
+        if(!empty($request->upload)){
+            $count = 1;
+            foreach ($request->upload as $i) {
+                $doc = new PortalIsencaoDocumento();
+                $namefile = date('d-m-Y_H-m-s') . '_' . $count . '.' . $i->extension();
+                $up = $i->storeAs('/' . 'public/uploads/desconto/' . $isencao->cpf, $namefile);
+                //chmod(storage_path('/upload/desconto/'),0777);
+                //chmod(storage_path('/upload/desconto/'.$insencao->cpf),0777);
+                //chmod(storage_path('/'.$up),0777);
+                $doc->nome = $i->getClientOriginalName();
+                $doc->url = $up;
+                $doc->portal_isencaos_id = $isencao->id;
+                $doc->save();
+                //dd($up, storage_path());
+                //dd($up,$namefile,$doc);*/
+                if (!$up)
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Falha ao fazer upload')
+                        ->withInput();
+                $count++;
+            }
+        
+        }
+            
+
+        return redirect()->back();
     }
 
     /**
@@ -110,12 +172,19 @@ class PortalIsencaoDeMensalidade extends Controller
     public function verificacfp(Request $request)
     {
         try {
-            $totvs = Totvs_alunos::where('RESPFINCPF',$request->cpf)->select('RESPFIN','RESPFINEMAIL','RESPFINCPF')->first();
-            
+            $totvs = Totvs_alunos::where('RESPFINCPF', $request->cpf)->select('RESPFIN', 'RESPFINEMAIL', 'RESPFINCPF')->first();
+
             return json_encode($totvs);
         } catch (\Exception $e) {
             return json_encode($e->getMessage());
         }
-
+    }
+    public function destroyImage($id, $nome)
+    {
+        $file = PortalIsencaoDocumento::where('id', $id)->where('nome', $nome)->first();
+        $response = Storage::delete($file->url);
+        if ($response)
+            $file->delete();
+        return redirect()->back();
     }
 }

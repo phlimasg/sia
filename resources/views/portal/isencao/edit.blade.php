@@ -10,9 +10,37 @@
 
 @section('content')
 
+<div class="box box-success">
+  <div class="box-header with-border">
+    <h3 class="box-title">Recebemos sua solicitação com sucesso!</h3>
+  </div>
+  <div class="box-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Caso precise, continue editando as informações abaixo. Se já estiver terminado, pode fechar essa página e deixo tudo com a gente!</p>
+        A última alteração salva em <b> {{date('d/m/Y  H:i:s', strtotime($isencao->updated_at))}}</b>.
+      </div>
+      <div class="col-sm-push-3 col-sm-3">
+        
+        <div class="info-box bg-aqua">
+          <span class="info-box-icon"><i class="fa fa-envelope-o"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>
 <div class="box box-primary">
-  <div class="box-header" id="usuario"></div>
-  <form action="{{ route('solicita_flex.store') }}" method="post" enctype="multipart/form-data">
+  <div class="box-header with-border" id="usuario"></div>
+  <form action="{{ route('solicita_flex.update',['id'=> $isencao->id]) }}" method="post" enctype="multipart/form-data">
+    @method('put')
     @csrf
     <div class="box-body">
       <div class="row">
@@ -27,15 +55,15 @@
       <div class="row">        
         <div class="col-md-2 form-group" id="input_cpf">
           <label for="">CPF do Responsável financeiro:</label>
-        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10" required autofocus value="{{old('cpf')}}">          
+        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10" required autofocus value="{{$isencao->cpf}}" disabled>          
         </div>
-      <input type="hidden" name="user_token" value="{{str_random(32)}}">
+      <input type="hidden" name="user_token" value="{{$isencao->user_token}}">
         <div class="col-md-3">
           <label for="">Motivo da solicitação:</label>
           <select name="motivo_id" id="motivo" class="form-control" required>
             <option value="0"></option>
             @foreach ($motivo as $i)
-              <option value="{{$i->id}}">{{$i->motivo}}</option>                
+              <option value="{{$i->id}}" @if ($i->id == $isencao->motivo_id) selected @endif >{{$i->motivo}}</option>                
             @endforeach            
           </select>
         </div>
@@ -53,18 +81,50 @@
       <div class="row">
         <div class="col-md-6" >
           <label for="">Descreva a solicitação:</label>
-          <textarea name="apelacao" cols="30" rows="10" class="form-control" required>{{old('apelacao')}}</textarea>
+          <textarea name="apelacao" cols="30" rows="10" class="form-control" required>@if (empty(old('apelacao'))){{$isencao->apelacao}}@else {{old('apelacao')}} @endif</textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3" >
           <label for="">Envio de comprovante</label>
-          <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf" required multiple>
+          <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf" multiple>
         </div>
+      </div>
+      <hr>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Documentos anexados
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            @forelse ($isencao->documentos as $i)
+            <div class="col-sm-1 text-center">
+              @if (substr($i->url, -4) == '.pdf')
+              <a href="{{Storage::url($i->url)}}" download="">
+                <img src="{{ asset('portal/img/pdf-icon.png') }}" alt="Fazer download" class="img-responsive">              
+                {{mb_strimwidth( $i->nome, 0, 15, "..." )}} 
+              </a>
+              <a href="{{ route('destroyImage', ['id'=>$i->id,'nome'=>$i->nome]) }}" class="btn btn-danger btn-block"> <i class="fa fa-trash"></i> Apagar</a>
+              @else
+              <a href="{{Storage::url($i->url)}}" download="">
+                <img src="{{Storage::url($i->url)}}" alt="Fazer download" class="img-responsive">              
+                  {{mb_strimwidth( $i->nome, 0, 15, "..." )}}  
+              </a>
+              <a href="{{ route('destroyImage', ['id'=>$i->id,'nome'=>$i->nome]) }}" class="btn btn-danger btn-block"> <i class="fa fa-trash"></i> Apagar</a>
+              @endif
+            </div>
+            @empty
+            <h1>Nenhum arquivo adicionado</h1>
+                
+            @endforelse
+          </div>
+          
+        </div>
+        
       </div>
     </div>
     <div class="box-footer">
-      <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Enviar solicitação</button>
+      <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Atualizar solicitação</button>
     </div>
   </form>
   </div>
@@ -87,7 +147,7 @@
 </script>
 
 <script type="text/javascript">   
-  $("#cpf").focusout(function(){
+  $(document).ready(function(){
       var cpf = $("#cpf").val();        
       var token = $("input[name=_token]").val();  
       //alert(token + cpf)

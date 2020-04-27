@@ -25,6 +25,8 @@ Route::post('portal/auth','Portal\PortalLoginController@auth')->name('portal.aut
 Route::get('/portal/google/login','Auth\GoogleLoginController@login')->name('gLogin');
 Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
 Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
+Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
+
 
 Route::group(['middleware' => ['auth']], function () {    
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');

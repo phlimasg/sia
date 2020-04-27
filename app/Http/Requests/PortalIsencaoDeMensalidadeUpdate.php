@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PortalIsencaoDeMensalidade extends FormRequest
+class PortalIsencaoDeMensalidadeUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class PortalIsencaoDeMensalidade extends FormRequest
     public function rules()
     {
         return [
-            'upload.*' => 'required|mimes:jpeg,jpg,pdf|max:1000000',
-            'cpf' => 'required|string',
+            'upload.*' => 'nullable|mimes:jpeg,jpg,pdf|max:1000000',
+            //'cpf' => 'required|string',
             'motivo_id' => 'required|numeric',
             'apelacao' => 'required|string',
             'user_token'=> 'required|string'
