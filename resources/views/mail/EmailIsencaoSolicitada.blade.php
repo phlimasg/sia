@@ -5,7 +5,7 @@
     </div>
     <div style="text-align: justify">
         <h3>Recebemos sua solicitação!</h3>
-        <p>Sua solicitação com sucesso. Qualquer alteração, notificaremos por e-mail.</p>
+        <p>Sua solicitação foi recebida com sucesso. Qualquer alteração, notificaremos por e-mail.</p>
         <p>Você pode acompanhar o status e alterar a sua solicitação pelo link abaixo.</p>
 
         <div style="text-align: center">

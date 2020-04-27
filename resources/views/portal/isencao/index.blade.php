@@ -92,14 +92,8 @@
         <h4 class="modal-title">Aguarde...</h4>
       </div>
       <div class="modal-body">
-        <p>Por favor, aguarde enquanto salvamos os dados.</p>
-        <div class="row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-2"></div>
-          <div class="col-sm-2"><img src="{{ asset('portal/img/load.gif') }}" alt="" class="img-responsive"></div>
-          <div class="col-sm-2"></div>
-          <div class="col-sm-2"></div>
-        </div>
+        <p>Por favor, aguarde enquanto salvamos os dados.</p>        
+          <img src="{{ asset('portal/img/load.gif') }}" alt="" class="img-responsive" style="max-width: 150px"></div>
       </div>      
 
     </div>
