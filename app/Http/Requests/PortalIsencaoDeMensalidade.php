@@ -24,6 +24,7 @@ class PortalIsencaoDeMensalidade extends FormRequest
     public function rules()
     {
         return [
+            'upload' => 'required',
             'upload.*' => 'required|mimes:jpeg,jpg,pdf|max:1000000',
             'cpf' => 'required|string',
             'motivo_id' => 'required|numeric|not_in:0',

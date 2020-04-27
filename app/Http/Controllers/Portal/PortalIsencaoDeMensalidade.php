@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortalIsencaoDeMensalidade as RequestsPortalIsencaoDeMensalidade;
 use App\Http\Requests\PortalIsencaoDeMensalidadeUpdate;
+use App\Mail\EmailIsencaoSolicitada;
 use App\Model\Portal\PortalIsencao;
 use App\Model\Portal\PortalIsencaoDocumento;
 use App\Model\Portal\PortalMotivoIsencao;
 use App\Model\Totvs_alunos;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PortalIsencaoDeMensalidade extends Controller
@@ -74,6 +76,8 @@ class PortalIsencaoDeMensalidade extends Controller
                         ->withInput();
                 $count++;
             }
+            $url = route('solicita_flex.edit', ['id' => $insencao->cpf, 'token' => $insencao->user_token]);
+            Mail::to('raphael.oliveira@lasalle.org.br')->send(new EmailIsencaoSolicitada($url));
             //dd($insencao);
             return redirect()->route('solicita_flex.edit', ['id' => $insencao->cpf, 'token' => $insencao->user_token]);
         } catch (\Exception $e) {

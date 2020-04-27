@@ -27,7 +27,7 @@
       <div class="row">        
         <div class="col-md-2 form-group" id="input_cpf">
           <label for="">CPF do Responsável financeiro:</label>
-        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10" required autofocus value="{{old('cpf')}}">   
+        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10"  autofocus value="{{old('cpf')}}">   
         @if ($errors->has('cpf'))
             <span class="text-danger">*{{$errors->first('cpf')}}</span>                      
         @endif       
@@ -35,7 +35,7 @@
       <input type="hidden" name="user_token" value="{{str_random(32)}}">
         <div class="col-md-3">
           <label for="">Motivo da solicitação:</label>
-          <select name="motivo_id" id="motivo" class="form-control" required>
+          <select name="motivo_id" id="motivo" class="form-control" >
             <option value="0"></option>
             @foreach ($motivo as $i)
               <option value="{{$i->id}}">{{$i->motivo}}</option>                
@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col-md-6" >
           <label for="">Descreva a solicitação:</label>
-          <textarea name="apelacao" cols="30" rows="10" class="form-control" required>{{old('apelacao')}}</textarea>
+          <textarea name="apelacao" cols="30" rows="10" class="form-control" >{{old('apelacao')}}</textarea>
           @if ($errors->has('apelacao'))
             <span class="text-danger">*{{$errors->first('apelacao')}}</span>                      
         @endif  
@@ -68,7 +68,7 @@
       <div class="row">
         <div class="col-md-3" >
           <label for="">Envio de comprovante</label>
-          <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf" required multiple>
+          <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf"  multiple>
           @if ($errors->has('upload'))
             <span class="text-danger">*{{$errors->first('upload')}}</span>                      
         @endif  
@@ -76,11 +76,36 @@
       </div>
     </div>
     <div class="box-footer">
-      <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Enviar solicitação</button>
+      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#load"> <i class="fa fa-save"></i> Enviar solicitação</button>
     </div>
   </form>
   </div>
-  
+
+
+<!-- Modal -->
+<div id="load" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title">Aguarde...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Por favor, aguarde enquanto salvamos os dados.</p>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2"><img src="{{ asset('portal/img/load.gif') }}" alt="" class="img-responsive"></div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>      
+
+    </div>
+
+  </div>
+</div>
   
 @stop
 
