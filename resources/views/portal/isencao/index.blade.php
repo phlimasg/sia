@@ -3,7 +3,7 @@
   <meta name="csrf-token" content="{{ Session::token() }}">
 @stop
 
-@section('title', 'olicitação de Flexibilização de Parcelas')
+@section('title', 'Solicitação de Flexibilização de Parcelas')
 @section('content_header')
     <h1><i class="fa fa-money"></i> Solicitação de Flexibilização de Parcelas</h1>
 @stop
