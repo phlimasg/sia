@@ -19,6 +19,8 @@ class CreatePortalIsencaosTable extends Migration
             $table->string('user_token'); 
             $table->string('status')->default('Em Análise'); 
             $table->text('apelacao');
+            $table->string('sugerido')->nullable(); 
+            $table->string('aprovado')->nullable(); 
             $table->unsignedBigInteger('motivo_id');
             $table->foreign('motivo_id')
                 ->references('id')
