@@ -77,7 +77,7 @@ class PortalIsencaoDeMensalidade extends Controller
                 $count++;
             }
             $url = route('solicita_flex.edit', ['id' => $insencao->cpf, 'token' => $insencao->user_token]);
-            Mail::to('raphael.oliveira@lasalle.org.br')->send(new EmailIsencaoSolicitada($url));
+            Mail::to($totvs->RESPFINEMAIL)->send(new EmailIsencaoSolicitada($url));
             //dd($insencao);
             return redirect()->route('solicita_flex.edit', ['id' => $insencao->cpf, 'token' => $insencao->user_token]);
         } catch (\Exception $e) {
