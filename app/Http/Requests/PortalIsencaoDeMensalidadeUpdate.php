@@ -26,7 +26,7 @@ class PortalIsencaoDeMensalidadeUpdate extends FormRequest
         return [
             'upload.*' => 'nullable|mimes:jpeg,jpg,pdf|max:1000000',
             //'cpf' => 'required|string',
-            'motivo_id' => 'required|numeric',
+            'motivo_id' => 'required|numeric|not_in:0',
             'apelacao' => 'required|string',
             'user_token'=> 'required|string'
         ];

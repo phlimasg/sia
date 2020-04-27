@@ -27,7 +27,10 @@
       <div class="row">        
         <div class="col-md-2 form-group" id="input_cpf">
           <label for="">CPF do Responsável financeiro:</label>
-        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10" required autofocus value="{{old('cpf')}}">          
+        <input type="text" name="cpf" id="cpf" class="form-control" data-mask="000.000.000-00" placeholder="123.456.789-10" required autofocus value="{{old('cpf')}}">   
+        @if ($errors->has('cpf'))
+            <span class="text-danger">*{{$errors->first('cpf')}}</span>                      
+        @endif       
         </div>
       <input type="hidden" name="user_token" value="{{str_random(32)}}">
         <div class="col-md-3">
@@ -38,6 +41,9 @@
               <option value="{{$i->id}}">{{$i->motivo}}</option>                
             @endforeach            
           </select>
+          @if ($errors->has('motivo_id'))
+            <span class="text-danger">*{{$errors->first('motivo_id')}}</span>                      
+        @endif  
         </div>
       </div>
       <div class="row">
@@ -54,12 +60,18 @@
         <div class="col-md-6" >
           <label for="">Descreva a solicitação:</label>
           <textarea name="apelacao" cols="30" rows="10" class="form-control" required>{{old('apelacao')}}</textarea>
+          @if ($errors->has('apelacao'))
+            <span class="text-danger">*{{$errors->first('apelacao')}}</span>                      
+        @endif  
         </div>
       </div>
       <div class="row">
         <div class="col-md-3" >
           <label for="">Envio de comprovante</label>
           <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf" required multiple>
+          @if ($errors->has('upload'))
+            <span class="text-danger">*{{$errors->first('upload')}}</span>                      
+        @endif  
         </div>
       </div>
     </div>
