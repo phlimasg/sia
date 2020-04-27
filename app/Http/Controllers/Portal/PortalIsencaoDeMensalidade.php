@@ -58,9 +58,9 @@ class PortalIsencaoDeMensalidade extends Controller
                 $doc = new PortalIsencaoDocumento();
                 $namefile = date('d-m-Y_H-m-s') . '_' . $count . '.' . $i->extension();
                 $up = $i->storeAs('/' . 'public/uploads/desconto/' . $insencao->cpf, $namefile);
-                chmod(storage_path('/upload/desconto/'),0777);
-                chmod(storage_path('/upload/desconto/'.$insencao->cpf),0777);
-                chmod(storage_path('/'.$up),0777);
+                chmod(storage_path('app/public/uploads/desconto/'),0777);
+                chmod(storage_path('app/public/uploads/desconto/'.$insencao->cpf),0777);
+                chmod(storage_path('app/'.$up),0777);
                 $doc->nome = $i->getClientOriginalName();
                 $doc->url = $up;
                 $doc->portal_isencaos_id = $insencao->id;
@@ -136,9 +136,10 @@ class PortalIsencaoDeMensalidade extends Controller
                 $doc = new PortalIsencaoDocumento();
                 $namefile = date('d-m-Y_H-m-s') . '_' . $count . '.' . $i->extension();
                 $up = $i->storeAs('/' . 'public/uploads/desconto/' . $isencao->cpf, $namefile);
-                chmod(storage_path('/upload/desconto/'),0777);
-                chmod(storage_path('/upload/desconto/'.$insencao->cpf),0777);
-                chmod(storage_path('/'.$up),0777);
+                //dd(storage_path(), $up);
+                chmod(storage_path('app/public/uploads/desconto/'),0777);
+                chmod(storage_path('app/public/uploads/desconto/'.$isencao->cpf),0777);
+                chmod(storage_path('app/'.$up),0777);
                 $doc->nome = $i->getClientOriginalName();
                 $doc->url = $up;
                 $doc->portal_isencaos_id = $isencao->id;
