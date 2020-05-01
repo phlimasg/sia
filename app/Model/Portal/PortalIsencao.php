@@ -18,7 +18,7 @@ class PortalIsencao extends Model
     }
     public function totvs()
     {
-        return $this->hasOne(Totvs_alunos::class,'RESPFINCPF','cpf');
+        return $this->hasOne(Totvs_alunos::class,'RESPFINCPF','cpf')->select('RESPFIN','NOME_ALUNO','CPF','RESPFINEMAIL','TURMA','ANO','TURNO_ALUNO');
     }
     public function motivo()
     {
