@@ -138,13 +138,66 @@
       <div class="col-sm-push-3 col-sm-3">        
         <div class="row">
           <div class="col-md-12">
-            <div class="info-box bg-aqua">
-              <span class="info-box-icon"><i class="fa fa-envelope-o"></i></span>    
-              <div class="info-box-content">
-                <small>Status</small>
-              <h3>{{$isencao->status}}</h3>           
-              </div>          
-            </div> 
+            
+            @if ($isencao->status== 'Em Análise')
+        <div class="info-box bg-aqua">
+          <span class="info-box-icon"><i class="fa fa-envelope-o"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        @elseif($isencao->status== 'Indeferido')
+        <div class="info-box bg-red">
+          <span class="info-box-icon"><i class="fa fa-remove"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        @elseif($isencao->status== 'Deferido')
+        <div class="info-box bg-green">
+          <span class="info-box-icon"><i class="fa fa-check"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        
+        @elseif($isencao->status== 'Falta Documento')
+        <div class="info-box bg-yellow">
+          <span class="info-box-icon"><i class="fa fa-fa-file"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        @elseif($isencao->status== 'Supervisão Administrativa')
+        <div class="info-box bg-gray">
+          <span class="info-box-icon"><i class="fa fa-fa-user"></i></span>
+    
+          <div class="info-box-content">
+            <small>Status</small>
+          <h3>{{$isencao->status}}</h3>
+            
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        @endif
+
+
           </div>      
         </div>
         <div class="row">
@@ -216,7 +269,12 @@
       <div class="col-md-3">
       <div class="box-profile panel">
         <div class="panel-body">
-          <img class="profile-user-img img-responsive img-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" 
+          @if (Storage::disk('public')->exists('alunos/00000'.$i->RA.'.JPG'))
+            src="{{Storage::url('alunos/00000'.$i->RA.'.JPG')}}"
+            @else
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+          @endif           alt="User profile picture">
 
           <h3 class="profile-username text-center">{{$i->NOME_ALUNO}}</h3>
 

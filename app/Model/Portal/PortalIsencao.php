@@ -44,6 +44,10 @@ class PortalIsencao extends Model
     {
         return $this->hasMany(PortalDescontoMsgPublica::class,'portal_isencao_id','id')->orderBy('id','desc');
     }
+    public function mensagemPubAllAsc()
+    {
+        return $this->hasMany(PortalDescontoMsgPublica::class,'portal_isencao_id','id')->orderBy('id','asc');
+    }
     public function mensagemInternaAll()
     {
         return $this->hasMany(PortalDescontoMsgInterna::class,'portal_isencao_id','id')->orderBy('id','desc');
