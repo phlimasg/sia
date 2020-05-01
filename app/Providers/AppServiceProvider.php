@@ -100,8 +100,7 @@ class AppServiceProvider extends ServiceProvider
                         ]
                     ],
                     [
-                        'text'        => 'Comissão de descontos',
-                        //'url'         => route('communicated.index'),
+                        'text'        => 'Comissão de descontos',                        
                         'icon'        => 'money',
                         'can' => 'desconto',
                         'submenu' => [

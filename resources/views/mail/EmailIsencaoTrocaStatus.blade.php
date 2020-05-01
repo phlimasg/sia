@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <p>Você pode acompanhar a sua solicitação pelo link abaixo.</p>
+        <p>Você pode acompanhar, editar e enviar documentos faltantes da sua solicitação pelo link abaixo.</p>
 
 
 
