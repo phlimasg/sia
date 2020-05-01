@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sod', 'Sod\CatracaController');
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
-        Route::post('descontos/covid/search', 'Desconto\DescontoCovidController@search')->name('covid.search');
+        Route::all('descontos/covid/search', 'Desconto\DescontoCovidController@search')->name('covid.search');
         Route::post('descontos/covid/storeAutorizado', 'Desconto\DescontoCovidController@storeAutorizado')->name('covid.storeAutorizado');
         
         Route::resource('descontos/covid', 'Desconto\DescontoCovidController');
