@@ -107,12 +107,12 @@ class DescontoCovidController extends Controller
                 'user_id' => Auth::user()->id,   
             ]);
         
-        }        
+        }                
         if(!empty($msg)){
-            Mail::to('raphael.oliveira@lasalle.org.br')->send(new EmailIsencaoTrocaStatus($msg,$isencao));
+            Mail::to($isencao->totvs->RESPFINEMAIL)->send(new EmailIsencaoTrocaStatus($msg,$isencao));
         }
         else{
-            Mail::to('raphael.oliveira@lasalle.org.br')->send(new EmailIsencaoTrocaStatus(null,$isencao));
+            Mail::to($isencao->totvs->RESPFINEMAIL)->send(new EmailIsencaoTrocaStatus(null,$isencao));
         }
 
         return redirect()->back();        
