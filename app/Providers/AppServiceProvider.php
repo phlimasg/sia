@@ -98,7 +98,11 @@ class AppServiceProvider extends ServiceProvider
                                 'icon' => 'graduation-cap',
                             ]
                         ]
-                    ],
+                    ]                    
+                );
+            }
+            if (Gate::check('desconto', Auth::user())) {
+                $event->menu->add(
                     [
                         'text'        => 'Comissão de descontos',                        
                         'icon'        => 'money',
@@ -111,7 +115,7 @@ class AppServiceProvider extends ServiceProvider
                             ],
                         ]
                     ]
-                );
+                        );
             }
             if (Gate::check('sod', Auth::user())) {
                 $event->menu->add(
