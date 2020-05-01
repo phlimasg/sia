@@ -129,10 +129,10 @@ class PortalIsencaoDeMensalidade extends Controller
     public function update(PortalIsencaoDeMensalidadeUpdate $request, $id)
     {
         $isencao = PortalIsencao::where('id', $id)->where('user_token', $request->user_token)->first();
-        $isencao->update([
-            'motivo_id' => $request->motivo_id,
-            'apelacao' => $request->apelacao
-        ]);
+        $isencao->motivo_id =$request->motivo_id;
+        $isencao->apelacao = $request->apelacao;
+        $isencao->status = 'Em Análise';
+        $isencao->save();
 
         if(!empty($request->upload)){
             $count = 1;

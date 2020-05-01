@@ -33,6 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('editor','App\Policies\ComunicadoPolicy@editor');
         Gate::define('sod','App\Policies\ComunicadoPolicy@sod');
         Gate::define('root','App\Policies\ComunicadoPolicy@root');
+        Gate::define('desconto','App\Policies\ComunicadoPolicy@desconto');
+        Gate::define('supervisao_adm','App\Policies\ComunicadoPolicy@supervisao_adm');
         
         //$this->UserProfile();
 

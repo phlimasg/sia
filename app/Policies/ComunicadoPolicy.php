@@ -45,6 +45,14 @@ class ComunicadoPolicy
             }
         }
     }
+    public function desconto(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'desconto'){
+                return $i->name === 'desconto';
+            }
+        }
+    }
     public function root(User $user)
     {
         foreach($user->profile as $i){
@@ -53,4 +61,15 @@ class ComunicadoPolicy
             }
         }
     }
+    public function  supervisao_adm(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'supervisao_adm'){
+                return $i->name === 'supervisao_adm';
+            }
+        }
+    }
+
+
+   
 }
