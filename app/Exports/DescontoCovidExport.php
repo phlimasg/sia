@@ -24,16 +24,19 @@ class DescontoCovidExport implements FromCollection
         ->join('portal_isencaos','portal_desconto_autorizados.portal_isencao_id','portal_isencaos.id')
         ->select('ra','percentual','status','portal_desconto_autorizados.updated_at')
         ->where('status','Deferido')
-        ->orderBy('portal_desconto_autorizados.updated_at','asc')->get();
-        $export[] = ['RA','NOME_ALUNO','TURMA','DESCONTO TOTAL DEFERIDO','RESPFIN'];
+        ->orderBy('percentual','asc')
+        ->orderBy('portal_desconto_autorizados.updated_at','asc')
+        ->get();
+        $export[] = ['RA','NOME_ALUNO','TURMA','DESCONTO TOTAL DEFERIDO','RESPFIN','DEFERIDO EM'];
         
         foreach ($desconto as $i) {           
             $export[]=[                
                 'RA' => $i->aluno->RA,
                 'NOME_ALUNO' => $i->aluno->NOME_ALUNO,                
                 'TURMA' => $i->aluno->TURMA,
-                'DESCONTO TOTAL DEFERIDO' => $i->percentual.'%',
-                'RESPFIN'=> $i->aluno->RESPFIN,                
+                'DESCONTO TOTAL DEFERIDO' => $i->percentual.' %',
+                'RESPFIN'=> $i->aluno->RESPFIN,  
+                'DEFERIDO EM' => date('d/m/Y H:i',strtotime($i->updated_at))              
             ];
         }
         $export = new Collection($export);
