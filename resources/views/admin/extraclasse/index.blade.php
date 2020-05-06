@@ -38,7 +38,8 @@
     
               <div class="info-box-content">
                 <span class="info-box-text">Inscritos em {{date('Y')}}</span>
-                <span class="info-box-number">{{App\Model\AtividadesExtraclasse\ExtInscricao::where('ano',date('Y'))->count()}}</span>
+                <span class="info-box-number">{{App\Model\AtividadesExtraclasse\ExtInscricao::where('ano',date('Y'))->count()}} alunos</span>
+                <a href="{{ route('inscricao.index') }}"><i class="fa fa-bar-chart"></i> Relatório</a>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -50,7 +51,8 @@
       
                 <div class="info-box-content">
                   <span class="info-box-text">Lista de espera</span>
-                  <span class="info-box-number">{{App\Model\AtividadesExtraclasse\ExtInscricao::where('ano',date('Y'))->count()}} alunos</span>
+                  <span class="info-box-number">{{App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera::where('ano',date('Y'))->count()}} alunos</span>
+                  <a href="{{ route('downloadLista') }}" ><span class="fa fa-download"></span> Baixar Lista</a>
                 </div>
                 <!-- /.info-box-content -->
               </div>

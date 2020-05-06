@@ -44,7 +44,7 @@ class PortalExtraclasseController extends Controller
      */
     public function create($id)
     {
-        try {       
+        try {  
             $aluno = Totvs_alunos::where('RA','like','%'.$id)
             ->where('RESPACADCPF',Auth::user()->name)        
             ->first();
@@ -57,6 +57,10 @@ class PortalExtraclasseController extends Controller
                 abort(403, 'Aluno não corresponde ao Cpf do responsável');
             }else{ 
                 //session_start();
+                $inicio_inscricao = ExtOrcamento::where('aluno_id',$id)->where('user_id','!=',Auth::user()->id)->first();
+                if(!empty($inicio_inscricao)){                    
+                    return redirect()->back()->with('message','A inscrição já foi iniciada pelo responsável: '.$inicio_inscricao->getUser->email);
+                }
                 $carrinho = ExtOrcamento::where('aluno_id',$id)->where('user_id',Auth::user()->id)->first();
                 if(empty($carrinho)){
                     $carrinho = new ExtOrcamento();

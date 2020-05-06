@@ -20,4 +20,9 @@ class ExtAtvTurma extends Model
         $atividade = ExtAtvTurma::find($id);
         return $atividade->vagas - ExtInscricao::where('ext_atv_turmas_id',$id)->count();
     }   
+    public function ExtAtvInscritos($id)
+    {
+        $atividade = ExtAtvTurma::find($id);
+        return ExtInscricao::where('ext_atv_turmas_id',$id)->count();
+    }
 }

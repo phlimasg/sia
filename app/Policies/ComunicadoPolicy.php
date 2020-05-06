@@ -45,11 +45,22 @@ class ComunicadoPolicy
             }
         }
     }
+
     public function desconto(User $user)
     {
         foreach($user->profile as $i){
             if($i->name == 'desconto'){
                 return $i->name === 'desconto';
+            }
+        }
+    }
+
+    public function ext(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'ext'){
+                return $i->name === 'ext';
+
             }
         }
     }
@@ -61,6 +72,7 @@ class ComunicadoPolicy
             }
         }
     }
+
     public function  supervisao_adm(User $user)
     {
         foreach($user->profile as $i){
@@ -72,4 +84,21 @@ class ComunicadoPolicy
 
 
    
+
+    public function tesouraria(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'tesouraria'){
+                return $i->name === 'tesouraria';
+            }
+        }
+    }
+    public function central(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'central'){
+                return $i->name === 'central';
+            }
+        }
+    }
 }

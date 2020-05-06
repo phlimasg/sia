@@ -6,6 +6,7 @@ use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
+use App\Model\AtividadesExtraclasse\ExtInscricaoTerceirizadas;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,8 +75,9 @@ class PortalExtraclasseAlunoController extends Controller
                 abort(403, 'Aluno não corresponde ao Cpf do responsável');
             }
             $inscricoes = ExtInscricao::where('aluno_id',$id)->where('ano',date('Y'))->get();
+            $inscricoes_t = ExtInscricaoTerceirizadas::where('aluno_id',$id)->where('ano',date('Y'))->get();
             $espera = ExtAtvListaDeEspera::where('aluno_id',$id)->get();
-            return view('portal.extraclasse.aluno.show', compact('aluno','inscricoes','espera'));
+            return view('portal.extraclasse.aluno.show', compact('aluno','inscricoes','espera','inscricoes_t'));
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }

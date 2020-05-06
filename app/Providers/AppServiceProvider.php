@@ -37,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
                 'icon'        => 'home',
                 'can' => 'portal'
                 ]);*/
+
+            
+            if(Gate::check('portal', Auth::user())){
                 $event->menu->add('PAINEL DO RESPONSÁVEL');
                 $event->menu->add(
                     [
@@ -72,6 +75,7 @@ class AppServiceProvider extends ServiceProvider
                 );
             }
             //$event->menu->add('COMUNICADOS');
+
             if (Gate::check('editor', Auth::user())) {
                 $event->menu->add(
                     'ADMINISTRAÇÃO',
@@ -113,6 +117,69 @@ class AppServiceProvider extends ServiceProvider
                                 'text' => 'Covid-19',
                                 'url'   => route('covid.index'),
                             ],
+                        ]
+                    ]);
+
+            /*$event->menu->add('ADMINISTRAÇÃO');
+            if(Gate::check('editor', Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Comunicados',
+                    'url'         => route('comunicados.index'),
+                    'icon'        => 'fa',
+                    'can' => 'editor'
+                ]);
+            }*/
+            if(Gate::check('tesouraria',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Tesouraria',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'scissors',
+                    'can' => 'tesouraria',
+                    'submenu' => [
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Extraclasse',
+                            'url'   => route('tesouraria.index'),
+                        ],
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('terceirizadas.index'),
+                        ],
+                    ]
+                ]);
+            }
+            if(Gate::check('central',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Central de Atendimento',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'user',
+                    'can' => 'central',
+                    'submenu' => [                        
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('extraclasse_terceirizadas.index'),
+                        ],
+                    ]
+                ]);
+            }
+            if(Gate::check('ext',Auth::user())){
+                $event->menu->add( [
+                    'text'        => 'Atividades Extraclasse',
+                    //'url'         => route('communicated.index'),
+                    'icon'        => 'soccer-ball-o',
+                    //'can' => 'ext',
+                    'submenu' => [
+                        [
+                            'icon'    => 'pie-chart', 
+                            'text' => 'Estatísticas',
+                            'url'   => route('extclasse.dashboard'),
+                        ],
+                        [
+                            'text' => 'Atividades Cadastradas',
+                            'url'   => route('extclasse.index'),
+                            'icon' => 'graduation-cap',
                         ]
                     ]
                         );
