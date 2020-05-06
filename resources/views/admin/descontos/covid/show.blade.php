@@ -225,8 +225,8 @@
                           <label for="">Selecione o status</label>
                           <select name="status" id="" class="form-control">
                             <option value="Em Análise">Em Análise</option>
-                            <option value="Indeferido">Indeferido</option>
                             @can('supervisao_adm')
+                              <option value="Indeferido">Indeferido</option>
                               <option value="Deferido">Deferido</option>
                             @endcan
                             <option value="Falta Documento">Falta Documento</option>
