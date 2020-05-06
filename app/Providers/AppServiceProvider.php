@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
-            if (Gate::check('portal', Auth::user())) {
+            //if (Gate::check('portal', Auth::user())) {
                 /*$event->menu->add('DASHBOARD');
                 $event->menu->add([
                 'text'        => 'Dashboard',
@@ -119,7 +119,7 @@ class AppServiceProvider extends ServiceProvider
                             ],
                         ]
                     ]);
-
+            }
             /*$event->menu->add('ADMINISTRAÇÃO');
             if(Gate::check('editor', Auth::user())){
                 $event->menu->add([
@@ -145,6 +145,11 @@ class AppServiceProvider extends ServiceProvider
                             //'icon'    => 'pie-chart', 
                             'text' => 'Terceirizadas',
                             'url'   => route('terceirizadas.index'),
+                        ],
+                        [
+                            'icon'    => 'money', 
+                            'text' => 'Desconto Covid 19',
+                            'url'   => route('covid.relatorio'),
                         ],
                     ]
                 ]);
@@ -182,7 +187,7 @@ class AppServiceProvider extends ServiceProvider
                             'icon' => 'graduation-cap',
                         ]
                     ]
-                        );
+                ]);
             }
             if (Gate::check('sod', Auth::user())) {
                 $event->menu->add(
@@ -201,10 +206,9 @@ class AppServiceProvider extends ServiceProvider
                                 'text' => 'Relatório',
                                 'url'   => route('sod.relatorio'),
                                 'icon' => 'pie-chart',
-                            ],
-                        ],
-                    ]
-                );
+                            ]
+                        ]
+                    ]);
             }
         });
     }

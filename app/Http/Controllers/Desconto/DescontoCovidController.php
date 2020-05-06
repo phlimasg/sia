@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Desconto;
 
+use App\Exports\DescontoCovidExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortalDescontoSugeridoRequest;
@@ -14,6 +15,7 @@ use App\Model\Portal\PortalIsencao;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DescontoCovidController extends Controller
 {
@@ -153,6 +155,21 @@ class DescontoCovidController extends Controller
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }
+    }
+    public function relatorio()
+    {
+        return view('admin.tesouraria.descontoCovid.index');
+    }
+    public function storeRelatorio(Request $request)
+    {
+        $request->validate([
+            'ini'=>'required',
+            'fim'=>'required',
+        ]);    
+        //dd($request->all())   ;
+        $dt_fim = date('Y-m-d', strtotime(str_replace('/','-',$request->fim))); 
+        //dd($export);
+        return Excel::download(new DescontoCovidExport($request), 'Deferidos até'.$dt_fim.' 23:59:59.xlsx');    
     }
 
 }

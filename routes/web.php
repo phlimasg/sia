@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
 
         Route::any('descontos/covid/search', 'Desconto\DescontoCovidController@search')->name('covid.search');
+        Route::get('descontos/covid/relatorio', 'Desconto\DescontoCovidController@relatorio')->name('covid.relatorio');
+        Route::post('descontos/covid/relatorio', 'Desconto\DescontoCovidController@storeRelatorio')->name('covid.storeRelatorio');
         Route::post('descontos/covid/storeAutorizado', 'Desconto\DescontoCovidController@storeAutorizado')->name('covid.storeAutorizado');
         
         Route::resource('descontos/covid', 'Desconto\DescontoCovidController');
