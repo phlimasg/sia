@@ -106,7 +106,7 @@
               </div>
               <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">                  
-                  <li><a href="#">Desconto Deferido Total<span class="pull-right">{{ $aut->percentual }}%</span></a></li>
+                  <li><a href="#">Todos os descontos somados num total de:<span class="pull-right">{{ $aut->percentual }}%</span></a></li>
                 </ul>
               </div>
             </div>
