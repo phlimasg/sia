@@ -33,7 +33,7 @@
         @endif       
         </div>
       <input type="hidden" name="user_token" value="{{str_random(32)}}">
-        <div class="col-md-3">
+        <div class="col-md-3" id="divMotivo">
           <label for="">Motivo da solicitação:</label>
           <select name="motivo_id" id="motivo" class="form-control" >
             <option value="0"></option>
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6" >
+        <div class="col-md-6" id="divApelacao" >
           <label for="">Descreva a solicitação:</label>
           <textarea name="apelacao" cols="30" rows="10" class="form-control" >{{old('apelacao')}}</textarea>
           @if ($errors->has('apelacao'))
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3" >
+        <div class="col-md-3" id="divComprovante">
           <label for="">Envio de comprovante</label>
           <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf"  multiple>
           @if ($errors->has('upload'))
@@ -75,8 +75,11 @@
         </div>
       </div>
     </div>
-    <div class="box-footer">
+    <div class="box-footer" id="divSolicitacao">
       <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#load"> <i class="fa fa-save"></i> Enviar solicitação</button>
+    </div>
+    <div class="box-footer" id="divVerSolicitacao">
+      
     </div>
   </form>
   </div>
@@ -140,6 +143,15 @@
              console.log(JSON.parse(data), status);
              $('#usuario').empty()
              $('#usuario').append('Nome: ' + JSON.parse(data).RESPFIN + ' | Email: ' + JSON.parse(data).RESPFINEMAIL + ' | CPF: '+JSON.parse(data).RESPFINCPF)
+             if(JSON.parse(data).user_token){
+              $('#divApelacao').hide(100);
+              $('#divComprovante').hide(100);
+              $('#divMotivo').hide(100);
+              $('#divSolicitacao').hide(100);
+              var url = 'http://sia2.abel.org.br/solicita_flex/'+JSON.parse(data).cpf+'/edit?token='+JSON.parse(data).user_token;
+              $('#divVerSolicitacao').append('<a href="'+url+'" class="btn btn-success">Acompanhe sua solicitação</a>')
+              $(location).attr('href', url);
+             }
             }
          }
          
