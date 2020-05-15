@@ -178,7 +178,7 @@ class PortalIsencaoDeMensalidade extends Controller
     {
         try {
             $totvs = Totvs_alunos::where('RESPFINCPF', $request->cpf)->select('RESPFIN', 'RESPFINEMAIL', 'RESPFINCPF')->first();
-            $isencao = PortalIsencao::where('cpf',$request->cpf)->first();
+            $isencao = PortalIsencao::select('cpf','user_token')->where('cpf',$request->cpf)->where('created_at','like',date('Y').'-%')->first();
             if($isencao)
                 return json_encode($isencao);
             return json_encode($totvs);
