@@ -69,8 +69,9 @@
         <div class="col-md-3" id="divComprovante">
           <label for="">Envio de comprovante</label>
           <input type="file" name="upload[]" id="" accept=".jpg, .jpeg, .pdf"  multiple>
+          <small class="text-danger">*somente arquivos com extensão: .jpg, .jpeg ou .pdf</small>    
           @if ($errors->has('upload'))
-            <span class="text-danger">*{{$errors->first('upload')}}</span>                      
+            <br><span class="text-danger">*{{$errors->first('upload')}}</span>                      
         @endif  
         </div>
       </div>
@@ -148,7 +149,7 @@
               $('#divComprovante').hide(100);
               $('#divMotivo').hide(100);
               $('#divSolicitacao').hide(100);
-              var url = 'http://sia2.abel.org.br/solicita_flex/'+JSON.parse(data).cpf+'/edit?token='+JSON.parse(data).user_token;
+              var url = 'http://sia.abel.org.br/solicita_flex/'+JSON.parse(data).cpf+'/edit?token='+JSON.parse(data).user_token;
               $('#divVerSolicitacao').append('<a href="'+url+'" class="btn btn-success">Acompanhe sua solicitação</a>')
               $(location).attr('href', url);
              }
