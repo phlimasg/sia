@@ -23,11 +23,11 @@ Route::get('portal/login','Portal\PortalLoginController@index')->name('portal.in
 Route::post('portal/auth','Portal\PortalLoginController@auth')->name('portal.auth');
 //google login
 Route::get('/portal/google/login','Auth\GoogleLoginController@login')->name('gLogin');
-Route::get('/solicita_flex',function()
+/*Route::get('/solicita_flex',function()
 {
     return redirect()->route('portal.index');
-});
-//Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
+});*/
+Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
 Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
 Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
 
