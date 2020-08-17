@@ -5,12 +5,26 @@
 
 
 @section('content')
+@error('motivo')
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+  *{{$message}}
+</div>
+@enderror
+@if (Session::has('message'))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-check"></i> Aviso!</h4>  
+    {{Session::get('message')}}  
+</div>      
+@endif
 <div class="row">
     <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+            <h3>{{$inscricao_count}}</h3>
 
               <p>Alunos Inscritos</p>
             </div>
@@ -24,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{App\Model\AtividadesExtraclasse\ExtAtvCancelamento::where('ext_atv_turmas_id',$turma->id)->where('created_at','like','2020%')->count()}}</h3>
   
                 <p>Cancelamentos</p>
               </div>
@@ -38,7 +52,7 @@
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>150</h3>
+                <h3>{{App\Model\AtividadesExtraclasse\ExtAtvTroca::where('ext_atv_turmas_origem',$turma->id)->where('created_at','like','2020%')->count()}}</h3>
     
                   <p>Trocas de Turma</p>
                 </div>
@@ -52,7 +66,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                   <div class="inner">
-                    <h3>150</h3>
+                    <h3>xxx</h3>
       
                     <p>Faltas</p>
                   </div>
@@ -64,13 +78,9 @@
               </div>
 </div>
 
-@if (Session::has('message'))
-    <div class="alert alert-success">
-        <b>Dados salvos!</b> <br>
-        {{Session::get('message')}}                
-    </div>  
-    <br>       
-  @endif
+
+
+
 
   <div class="box box-primary">
     <div class="box-header with-border">
@@ -127,25 +137,364 @@
     
     </div>
   </div>
-  <!-- /.box -->
-  <div class="box box-danger">
-    <div class="box-header">
-      <h3 class="box-title">Inscritos</h3>
-      <div class="box-tools">
-          <div class="input-group input-group-sm hidden-xs" style="width: 100px;">                  
-              <a href="" class="btn btn-danger"><i class="fa fa-eye"></i> Lista de espera</a>
-          </div>
-      </div>  
-    </div>
-    <div class="box-body">
+    
         <div class="row">
             <div class="col-md-12">
-                <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Inscrições <span class="badge">{{$inscricao_count}}</span></a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Lista de espera <span class="badge">{{$espera_count}}</span></a></li>                                                    
+                  
+                  <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                      Opções <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Efetuar chamada</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <i class="fa fa-email"></i> Enviar email para turma</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Baixar lista de espera</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Baixar lista de inscritos</a></li>
+                    </ul>
+                  </li>                  
+
+
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    <div class="box">
+                      <div class="box-header">
+                        <div class="box-title"></div>
+          
+                        <div class="box-tools">
+                          {{ $inscricao->links() }}
+                        </div>
+                      </div>
+                      <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                          <tbody><tr>
+                            <th>RA</th>
+                            <th>Nome</th>
+                            <th>Turma</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                          @forelse ($inscricao as $i)
+                            <tr>
+                              <td>{{$i->aluno->RA}}</td>
+                              <td><a href="#" data-toggle="modal" data-target="#insc-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
+                              <td>{{$i->aluno->TURMA}}</td>
+                              <td></td>
+                              <td>                               
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#troca-{{$i->aluno->RA}}">Trocar de turma</a>                               
+                            </td>
+                            </tr> 
+                            <!--Modal de troca de troca alunos inscritos-->
+                            <div class="modal fade" id="troca-{{$i->aluno->RA}}">
+                              <form action="{{ route('inscricao.update',['id'=>$i->id]) }}" method="post">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Troca de turma do aluno {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    @csrf   
+                                    @method('put')                                    
+                                    <input type="hidden" name="ra" value="{{$i->aluno->RA}}">
+                                    <input type="hidden" name="origem" value="{{$i->ext_atv_turmas_id}}">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Turma de destino:</label>
+                                        <select name="destino" id="" class="form-control">
+                                          <option value=""></option>
+                                          @foreach ($turma->ExtAtv->turmas as $t)
+                                          @if ($turma->id != $t->id)
+                                            <option value="{{$t->id}}">{{$t->descricao_turma}} - ({{$t->ExtAtvVagas($t->id)}} Vagas)</option>                                              
+                                          @endif
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Motivo da troca</label>
+                                        <textarea name="motivo" id="" cols="30" rows="5" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="submit"  class="btn btn-primary">Efetuar Trocar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </form>                                
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>   
+                            <!--Modal de troca de dados aluno inscritos-->
+                            <div class="modal fade" id="insc-{{$i->aluno->RA}}">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Dados do aluno {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <div class="col-sm-3">
+                                        <label for="">Resp. Acad.:</label><br>
+                                        {{$i->aluno->RESPACAD}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Tel.:</label><br>
+                                        {{$i->aluno->RESPACADTEL1}} - {{$i->aluno->RESPACADTEL2}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Email:</label><br>
+                                        {{$i->aluno->RESPACADEMAIL}}
+                                      </div>
+                                    </div>                                                                        
+                                    <div class="row">
+                                      <div class="col-sm-3">
+                                        <label for="">Resp. Fin.:</label><br>
+                                        {{$i->aluno->RESPFIN}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Tel.:</label><br>
+                                        {{$i->aluno->RESPFINTEL1}} - {{$i->aluno->RESPFINCEL}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Email:</label><br>
+                                        {{$i->aluno->RESPFINEMAIL}}
+                                      </div>
+                                    </div>                                  
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary">Fechar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>                           
+                          @empty
+                              Nenhuma inscrição
+                          @endforelse
+                        </tbody></table>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    <div class="box">
+                      <div class="box-header">
+                        <div class="box-title"></div>
+          
+                        <div class="box-tools">
+                          {{ $inscricao->links() }}
+                        </div>
+                      </div>
+                      <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                          <tbody><tr>
+                            <th>RA</th>
+                            <th>Nome</th>
+                            <th>Turma</th>
+                            <th></th>
+                            <th>                              
+                          </th>
+                          </tr>
+                          @forelse ($espera as $i)
+                            <tr>
+                              <td>{{$i->aluno->RA}}</td>
+                              <td><a href="#" data-toggle="modal" data-target="#espera-{{$i->aluno->RA}}">{{$i->aluno->NOME_ALUNO}}</a></td>
+                              <td>{{$i->aluno->TURMA}}</td>
+                            <td>{{!empty($i->ExtAtvListaDeEsperaAutorizada->id)?'Última Hab.: '.date('d/m/Y H:i',strtotime($i->ExtAtvListaDeEsperaAutorizada->created_at)):null}}</td>
+                              <td>
+                                <div class="btn-group">
+                                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#habilita-{{$i->aluno->RA}}">Hab. para Inscrição</a>
+                                  <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                      @if(!empty($i->ExtAtvListaDeEsperaAutorizada->token))                                      
+                                      <a target="_blank"
+                                      href="https://api.whatsapp.com/send?phone=55{{$i->aluno->RESPACADTEL2}}&text=É com grande felicidade que informamos que está disponível a vaga na atividade {{$i->ExtAtvTurma->ExtAtv->atividade}} para o aluno(a) {{$i->aluno->NOME_ALUNO}} {{ route('exibe.espera', ['id'=>$i->ExtAtvListaDeEsperaAutorizada->token]) }}">Enviar por WPP</a></li>
+                                      @endif
+                                    <li><a href="#" data-toggle="modal" data-target="#troca-espera-{{$i->aluno->RA}}">Trocar de turma</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#remove-espera-{{$i->aluno->RA}}">Remover</a></li>
+                                  </ul>
+                                </div>
+                              </td>
+                            </tr> 
+                            <!--Modal de troca de dados do aluno espera-->
+                            <div class="modal fade" id="remove-espera-{{$i->aluno->RA}}">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Remover {{$i->aluno->NOME_ALUNO}} da lista de espera?</h4>
+                                  </div>
+                                  <form action="{{ route('listadeespera.destroy',['id' => $i->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$i->id}}">
+                                    @method('delete')
+                                    <div class="modal-body">
+                                         <h3>Confirma a remoção do aluno {{$i->aluno->NOME_ALUNO}} da lista de espera?</h3>                                                          
+                                         <div class="row">
+                                        <div class="col-sm-12">
+                                        <label for="">Motivo:</label>  
+                                        <textarea name="motivo" id="" cols="30" rows="10" class="form-control"></textarea>
+                                        </div>   
+                                        </div>                            
+                                    </div>
+                                    <div class="modal-footer">                                    
+                                      <button type="submit"  class="btn btn-danger"> <i class="fa fa-remove"></i> Cofirmar remoção</button>
+                                    </div>                                  
+                                  </form>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Modal de troca de turma espera-->
+                            <div class="modal fade" id="troca-espera-{{$i->aluno->RA}}">
+                              <form action="{{ route('listadeespera.troca',['id'=>$i->id]) }}" method="post">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Trocar de lista de espera: {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    @csrf   
+                                    @method('put')                                    
+                                    <input type="hidden" name="ra" value="{{$i->aluno->RA}}">
+                                    <input type="hidden" name="origem" value="{{$i->ext_atv_turmas_id}}">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Turma de destino:</label>
+                                        <select name="destino" id="" class="form-control">
+                                          <option value=""></option>
+                                          @foreach ($turma->ExtAtv->turmas as $t)
+                                          @if ($turma->id != $t->id)
+                                            <option value="{{$t->id}}">{{$t->descricao_turma}} - ({{$t->ExtAtvVagas($t->id)}} Vagas)</option>                                              
+                                          @endif
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <label for="">Motivo da troca</label>
+                                        <textarea name="motivo" id="" cols="30" rows="5" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="submit"  class="btn btn-primary">Efetuar Trocar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </form>                                
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>  
+                            <!--Modal de troca de dados do aluno espera-->
+                            <div class="modal fade" id="espera-{{$i->aluno->RA}}">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Dados do aluno {{$i->aluno->NOME_ALUNO}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <div class="col-sm-3">
+                                        <label for="">Resp. Acad.:</label><br>
+                                        {{$i->aluno->RESPACAD}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Tel.:</label><br>
+                                        {{$i->aluno->RESPACADTEL1}} - {{$i->aluno->RESPACADTEL2}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Email:</label><br>
+                                        {{$i->aluno->RESPACADEMAIL}}
+                                      </div>
+                                    </div>                                                                        
+                                    <div class="row">
+                                      <div class="col-sm-3">
+                                        <label for="">Resp. Fin.:</label><br>
+                                        {{$i->aluno->RESPFIN}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Tel.:</label><br>
+                                        {{$i->aluno->RESPFINTEL1}} - {{$i->aluno->RESPFINCEL}}
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <label for="">Email:</label><br>
+                                        {{$i->aluno->RESPFINEMAIL}}
+                                      </div>
+                                    </div>                                  
+                                  </div>
+                                  <div class="modal-footer">                                    
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary">Fechar</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+                            <!--Modal de troca de habilita espera-->
+                            <div class="modal fade" id="habilita-{{$i->aluno->RA}}">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Habilitar inscrição</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                       Deseja realmente habilitar a inscrição para o aluno {{$i->aluno->NOME_ALUNO}}?   <br>
+                                       O responsável será notificado por e-mail.                     
+                                  </div>
+                                  <div class="modal-footer">
+                                    <form action="{{ route('listadeespera.autorizaInscricao') }}" method="post">
+                                      @csrf
+                                      <input type="hidden" name="id" value="{{$i->id}}">
+                                      <button type="submit" class="btn btn-success">Sim</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>  
+                          @empty
+                              Nenhuma inscrição
+                          @endforelse
+                        </tbody></table>
+                      </div>
+                    </div>
+                  </div>                                    
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div>
                 
               </div>
         </div>
-    </div>
-  </div>
+   
 
 
 @stop

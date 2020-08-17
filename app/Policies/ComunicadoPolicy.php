@@ -45,11 +45,59 @@ class ComunicadoPolicy
             }
         }
     }
+
+    public function desconto(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'desconto'){
+                return $i->name === 'desconto';
+            }
+        }
+    }
+
+    public function ext(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'ext'){
+                return $i->name === 'ext';
+
+            }
+        }
+    }
     public function root(User $user)
     {
         foreach($user->profile as $i){
             if($i->name == 'root'){
                 return $i->name === 'root';
+            }
+        }
+    }
+
+    public function  supervisao_adm(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'supervisao_adm'){
+                return $i->name === 'supervisao_adm';
+            }
+        }
+    }
+
+
+   
+
+    public function tesouraria(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'tesouraria'){
+                return $i->name === 'tesouraria';
+            }
+        }
+    }
+    public function central(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'central'){
+                return $i->name === 'central';
             }
         }
     }

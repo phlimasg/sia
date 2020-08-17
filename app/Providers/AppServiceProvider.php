@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            
-            if(Gate::check('portal', Auth::user())){
+
+            //if (Gate::check('portal', Auth::user())) {
                 /*$event->menu->add('DASHBOARD');
                 $event->menu->add([
                 'text'        => 'Dashboard',
@@ -37,57 +37,149 @@ class AppServiceProvider extends ServiceProvider
                 'icon'        => 'home',
                 'can' => 'portal'
                 ]);*/
+
+            
+            if(Gate::check('portal', Auth::user())){
                 $event->menu->add('PAINEL DO RESPONSÁVEL');
-                $event->menu->add([
-                    'text'        => 'Comunicados',
-                    'url'         => route('communicated.index'),
-                    'icon'        => 'bullhorn',
-                    'can' => 'portal'
-                ],
-                [
-                    'text'        => 'Controle de acesso',
-                    'url'         => route('acesso.index'),
-                    'icon'        => 'id-card',
-                    'can' => 'portal'
-                ],
-                [
-                    'text'        => 'Atividades Extraclasse',
-                    //'url'         => route('extraclasse.index'),
-                    'icon'        => 'soccer-ball-o',
-                    'can' => 'portal',
-                    'submenu' =>[
-                        [
-                            'text'        => 'Realizar Inscrição',
-                            'url'         => route('extraclasse.index'),
-                            'icon'        => 'plus',
-                        ],
-                        [
-                            'text'        => 'Minhas inscrições',
-                            'url'         => route('aluno.index'),
-                            'icon'        => 'money',
+                $event->menu->add(
+                    [
+                        'text'        => 'Comunicados',
+                        'url'         => route('communicated.index'),
+                        'icon'        => 'bullhorn',
+                        'can' => 'portal'
+                    ],
+                    [
+                        'text'        => 'Controle de acesso',
+                        'url'         => route('acesso.index'),
+                        'icon'        => 'id-card',
+                        'can' => 'portal'
+                    ],
+                    [
+                        'text'        => 'Atividades Extraclasse',
+                        //'url'         => route('extraclasse.index'),
+                        'icon'        => 'soccer-ball-o',
+                        'can' => 'portal',
+                        'submenu' => [
+                            [
+                                'text'        => 'Realizar Inscrição',
+                                'url'         => route('extraclasse.index'),
+                                'icon'        => 'plus',
+                            ],
+                            [
+                                'text'        => 'Minhas inscrições',
+                                'url'         => route('aluno.index'),
+                                'icon'        => 'money',
+                            ]
                         ]
                     ]
-                ]
-                );                
+                );
             }
             //$event->menu->add('COMUNICADOS');
+
+            if (Gate::check('editor', Auth::user())) {
+                $event->menu->add(
+                    'ADMINISTRAÇÃO',
+                    [
+                        'text'        => 'Comunicados',
+                        'url'         => route('comunicados.index'),
+                        'icon'        => 'fa',
+                        'can' => 'editor'
+                    ],
+                    [
+                        'text'        => 'Atividades Extraclasse',
+                        //'url'         => route('communicated.index'),
+                        'icon'        => 'soccer-ball-o',
+                        'can' => 'portal',
+                        'submenu' => [
+                            [
+                                'icon'    => 'pie-chart',
+                                'text' => 'Estatísticas',
+                                'url'   => route('extclasse.index'),
+                            ],
+                            [
+                                'text' => 'Atividades Cadastradas',
+                                'url'   => route('extclasse.index'),
+                                'icon' => 'graduation-cap',
+                            ]
+                        ]
+                    ]                    
+                );
+            }
+            if (Gate::check('desconto', Auth::user())) {
+                $event->menu->add(
+                    [
+                        'text'        => 'Comissão de descontos',                        
+                        'icon'        => 'money',
+                        'can' => 'desconto',
+                        'submenu' => [
+                            [
+                                'icon'    => 'envelope',
+                                'text' => 'Covid-19',
+                                'url'   => route('covid.index'),
+                            ],
+                        ]
+                    ]);
+            }
+            /*$event->menu->add('ADMINISTRAÇÃO');
             if(Gate::check('editor', Auth::user())){
-                $event->menu->add('ADMINISTRAÇÃO',[
-                'text'        => 'Comunicados',
-                'url'         => route('comunicados.index'),
-                'icon'        => 'fa',
-                'can' => 'editor'
-                ],
-                [
+                $event->menu->add([
+                    'text'        => 'Comunicados',
+                    'url'         => route('comunicados.index'),
+                    'icon'        => 'fa',
+                    'can' => 'editor'
+                ]);
+            }*/
+            if(Gate::check('tesouraria',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Tesouraria',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'scissors',
+                    'can' => 'tesouraria',
+                    'submenu' => [
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Extraclasse',
+                            'url'   => route('tesouraria.index'),
+                        ],
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('terceirizadas.index'),
+                        ],
+                        [
+                            'icon'    => 'money', 
+                            'text' => 'Desconto Covid 19',
+                            'url'   => route('covid.relatorio'),
+                        ],
+                    ]
+                ]);
+            }
+            if(Gate::check('central',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Central de Atendimento',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'user',
+                    'can' => 'central',
+                    'submenu' => [                        
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Terceirizadas',
+                            'url'   => route('extraclasse_terceirizadas.index'),
+                        ],
+                    ]
+                ]);
+            }
+            if(Gate::check('ext',Auth::user())){
+                $event->menu->add( [
                     'text'        => 'Atividades Extraclasse',
                     //'url'         => route('communicated.index'),
                     'icon'        => 'soccer-ball-o',
-                    'can' => 'portal',
+                    //'can' => 'ext',
                     'submenu' => [
                         [
                             'icon'    => 'pie-chart', 
                             'text' => 'Estatísticas',
-                            'url'   => route('extclasse.index'),
+                            'url'   => route('extclasse.dashboard'),
                         ],
                         [
                             'text' => 'Atividades Cadastradas',
@@ -97,26 +189,27 @@ class AppServiceProvider extends ServiceProvider
                     ]
                 ]);
             }
-            if(Gate::check('sod', Auth::user())){
-                $event->menu->add('SOD',                
-                [
-                    'text'    => 'Catraca',
-                    'icon'    => 'binoculars',                    
-                    'can' => 'sod',
-                    'submenu' => [
-                        [
-                            'icon'    => 'dashboard', 
-                            'text' => 'Dashboard',
-                            'url'   => route('sod.index'),
-                        ],
-                        [
-                            'text' => 'Relatório',
-                            'url'   => route('sod.relatorio'),
-                            'icon' => 'pie-chart',
-                        ],                        
-                    ],
-                ]);
-            }            
+            if (Gate::check('sod', Auth::user())) {
+                $event->menu->add(
+                    'SOD',
+                    [
+                        'text'    => 'Catraca',
+                        'icon'    => 'binoculars',
+                        'can' => 'sod',
+                        'submenu' => [
+                            [
+                                'icon'    => 'dashboard',
+                                'text' => 'Dashboard',
+                                'url'   => route('sod.index'),
+                            ],
+                            [
+                                'text' => 'Relatório',
+                                'url'   => route('sod.relatorio'),
+                                'icon' => 'pie-chart',
+                            ]
+                        ]
+                    ]);
+            }
         });
     }
 }

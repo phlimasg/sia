@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\Portal\PortalDescontoSugerido;
 use Illuminate\Database\Eloquent\Model;
 
 class Totvs_alunos extends Model
@@ -31,5 +32,16 @@ class Totvs_alunos extends Model
         ->orWhereRaw("REPLACE(REPLACE(RESPFINCPF,'.','') ,'-','') ='".Auth::user()->name."'")
         ->select('RA','NOME_ALUNO','ANO','TURMA')
         ->get();
+    }
+    public function desconto()
+    {
+        return $this->hasMany(Totvs_Desconto::class,'RA','RA')->whereIn('CodBolsa',[5,10,7,15,28])
+        //->orWhere('Bolsa','LIKE','Bolsa Soc%')
+        //->where('Servico','LIKE','Mens%')
+        ;
+    }
+    public function descontoSugerido()
+    {
+        return $this->hasOne(PortalDescontoSugerido::class,'RA','ra')->orderBy('created_at');
     }
 }

@@ -40,6 +40,7 @@
         <div class="nav-tabs-custom ">
           <ul class="nav nav-tabs pull-right">
             <li><a href="#tab_2-2" data-toggle="tab">Lista de espera</a></li>                      
+            <li><a href="#tab_1-2" data-toggle="tab">Aguardando Pagamento</a></li>
             <li class="active"><a href="#tab_1-1" data-toggle="tab">Inscrições</a></li>
             <li class="pull-left header"><i class="fa fa-soccer-ball-o"></i> Atividades Extraclasses</li>
           </ul>
@@ -63,8 +64,28 @@
                   Nenhuma inscrição...
               @endforelse
             </div>
+            <div class="tab-pane" id="tab_1-2">
+              <h3>Aguardando Pagamento:</h3>
+              @forelse ($inscricoes_t as $i)
+              <div class="row">
+                <div class="col-sm-2">
+                  <img src="{{$i->ExtAtvTurma->ExtAtv->imagem_mini}}" alt="" class="img-responsive">
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-sm-12"><h4>{{$i->ExtAtvTurma->ExtAtv->atividade}}</h4></div>
+                    <div class="col-sm-12">{{$i->ExtAtvTurma->descricao_turma}}</div>                    
+                  </div>
+                </div>
+              </div>
+              <hr>
+              @empty
+                  Nenhuma inscrição...
+              @endforelse
+            </div>
             <!-- /.tab-pane -->
             <div class="tab-pane" id="tab_2-2">
+              <h3>Lista de Espera:</h3>
               @forelse ($espera as $i)
               <div class="row">
                 <div class="col-sm-2">
@@ -81,7 +102,8 @@
               @empty
                   Nenhuma espera...
               @endforelse
-            </div>                        
+            </div> 
+                                   
             <!-- /.tab-pane -->
           </div>
           <!-- /.tab-content -->

@@ -21,9 +21,26 @@
 <input type="hidden" name="cart_id" value="{{$carrinho->id}}">
 <div class="box box-danger">
     <div class="box-header">
-        <i class="fa fa-map-marker"></i> Confirme se os dados estão corretos.
+        <i class="fa fa-map-marker"></i> Confirme se os dados do comprador estão corretos.
     </div>
     <div class="box-body">
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">Nome:</label>
+                <input type="text" name="firstname" id="" value="{{explode(' ', $totvs->RESPFIN)[0]}}" class="form-control">
+                @error('firstname')
+                <div class=" text-danger">* {{ $message }}</div>
+            @enderror
+            </div>
+            <div class="col-sm-8">
+                <label for="">Sobrenome:</label>
+                <input type="text" name="lastname" id="" value="@foreach(explode(' ', $totvs->RESPFIN) as $i)@if(explode(' ', $totvs->RESPFIN)[0]!= $i){{$i}} @endif @endforeach" class="form-control">
+                @error('lastname')
+                <div class=" text-danger">* {{ $message }}</div>
+            @enderror
+            </div>
+
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <label for="">CEP:</label>
@@ -91,7 +108,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="">Nome do titular do cartão:</label>
-                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}JOAO DA SILVA">
+                    <input type="text" name="nome" id="" class="form-control" value="{{old('nome')}}">
                     @error('nome')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -101,14 +118,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <label for="">Número do cartão:</label>
-                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}5155901222280001">
+                    <input type="text" name="numero" id="" class="form-control" value="{{old('numero')}}">
                     @error('numero')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-2">
                     <label for="">Código de segurança:</label>
-                    <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}">
+                    <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}" maxlength="4">
                     @error('cod')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -122,14 +139,14 @@
             <div class="row">
                 <div class="col-sm-1">
                     <label for="">Mês:</label>
-                    <input type="text" name="mes" id="" class="form-control" value="{{old('mes')}}">
+                    <input type="text" name="mes" id="" class="form-control" value="{{old('mes')}}" max="99" maxlength="2">
                     @error('mes')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-sm-1">
                     <label for="">Ano:</label>
-                    <input type="text" name="ano" id="" class="form-control" value="{{old('ano')}}">
+                    <input type="text" name="ano" id="" class="form-control" value="{{old('ano')}}" max="99" maxlength="2">
                     @error('ano')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
@@ -145,10 +162,12 @@
             <div class="panel">
                 <div class="panel-body bg-gray"> 
                     <p class="text-danger">
-                        *As atividades podem ficar indisponíveis. <br>
-                        * Caso a atividade fique indisponível, você será adicionado a lista de espera e não será cobrado por isso. <br>
-                        * Ao efetivar o pagamento, você concorda com os termos do contrato. <br>
-                        * Os Contratos estão disponíveis na descrição de cada atividade.
+                        <b>
+                            * As atividades podem ficar indisponíveis. <br>
+                            * Caso a atividade fique indisponível, você será adicionado a lista de espera e não será cobrado por isso. <br>
+                            * A assinatura dos contratos e a prova dos uniformes serão na Central de Matrículas, em frente à capela do dia 05/03 a 13/03.<br>                        
+
+                        </b>
                     </p>
                     @php($count = 0)                    
                     <blockquote>

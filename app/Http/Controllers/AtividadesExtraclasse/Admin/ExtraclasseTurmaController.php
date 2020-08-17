@@ -4,8 +4,10 @@ namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtAtvTurma;
 use App\Model\AtividadesExtraclasse\ExtAtvTurmasAutorizadas;
+use App\Model\AtividadesExtraclasse\ExtInscricao;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,11 +92,14 @@ class ExtraclasseTurmaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($turma)
+    public function show($id,$turma)
     {
         $turma = ExtAtvTurma::find($turma);
-        //dd($turma);
-        return view('admin.extturma.show', compact('turma'));    
+        $inscricao = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->paginate(30);        
+        $espera = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->orderBy('created_at','asc')->paginate(30);
+        $inscricao_count = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->count();        
+        $espera_count = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->count();
+        return view('admin.extturma.show', compact('turma','inscricao','espera','inscricao_count','espera_count'));    
     }
 
     /**

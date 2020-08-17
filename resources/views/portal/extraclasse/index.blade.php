@@ -3,7 +3,14 @@
 @section('content_header')
 <h1>Selecione o Aluno:</h1>
 @endsection
-@section('content')   
+@section('content')  
+@if (Session::has('message'))
+<div class="alert alert-danger alert-dismissible" id='message'>
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-warning"></i> Aviso!</h4>
+  {{Session::get('message')}}
+</div>    
+@endif
 <div class="row">
   @foreach ($aluno as $i)
   <div class="col-sm-3">

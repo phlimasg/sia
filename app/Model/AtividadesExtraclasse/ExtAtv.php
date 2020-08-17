@@ -10,6 +10,11 @@ class ExtAtv extends Model
     'descricao',
     'imagem_mini',
     'imagem_fundo',
+    'terceirizada',
     'user'
 ];
+    public function turmas()
+    {
+        return $this->hasMany(ExtAtvTurma::class,'ext_atvs_id','id');
+    }
 }
