@@ -10,6 +10,7 @@ use App\Model\Totvs_alunos;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Profile;
+use Google_Service_Gmail;
 
 class GoogleLoginController extends Controller
 {
@@ -23,6 +24,7 @@ class GoogleLoginController extends Controller
             $client = new Google_Client();
             $client->setApplicationName('Sistema Integrado Abel - SIA');
             //$client->setScopes(Google_Service_Oauth2::USERINFO_PROFILE);
+            //$client->setScopes(Google_Service_Gmail::GMAIL_READONLY);
             $client->setClientId($clientID);
             $client->setClientSecret($clientSecret);
             $client->setRedirectUri($redirectUri);
@@ -36,9 +38,7 @@ class GoogleLoginController extends Controller
                 
                 // get profile info
                 $google_oauth = new Google_Service_Oauth2($client);
-                //$google_account_info = $google_oauth->userinfo->get();
                 $this->checarLogin($google_oauth);
-                //dd($google_oauth->userinfo->get());
                 return redirect()->route('communicated.index');
             
             // now you can use this profile info to create account in your website and make user logged in.
