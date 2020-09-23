@@ -11,11 +11,9 @@
 |
 */
 
+
 Route::get('/', function () {
     return redirect()->route('portal.index');
-});
-Route::get('/bolsa_social/renovacao', function(){
-    return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
 });
 Route::post('senderror', 'Mail\MailController@senderror')->name('senderror');
 
@@ -35,7 +33,9 @@ Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->nam
 Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
 
 Route::prefix('bolsa_social')->group(function(){
-
+    Route::get('/renovacao', function(){
+        return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
+    });
 });
 
 Route::group(['middleware' => ['auth']], function () {    
