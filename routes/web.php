@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return redirect()->route('portal.index');
 });
+Route::get('https://sia.abel.org.br/bolsa_social/renovacao', function(){
+    return redirect('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social');
+});
 Route::post('senderror', 'Mail\MailController@senderror')->name('senderror');
 
 Auth::routes();
@@ -31,6 +34,9 @@ Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
 Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
 Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
 
+Route::prefix('bolsa_social')->group(function(){
+
+});
 
 Route::group(['middleware' => ['auth']], function () {    
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
