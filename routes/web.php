@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return redirect()->route('portal.index');
 });
-Route::get('https://sia.abel.org.br/bolsa_social/renovacao', function(){
-    return redirect('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social');
+Route::get('bolsa_social/renovacao', function(){
+    return redirect()->url('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social');
 });
 Route::post('senderror', 'Mail\MailController@senderror')->name('senderror');
 
