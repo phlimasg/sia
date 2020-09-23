@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+    Route::prefix('bolsa_social')->group(function(){
+        Route::get('/renovacao', function(){
+            return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
+        });
+    });
 
 
 Route::get('/', function () {
@@ -32,11 +37,6 @@ Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
 Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
 Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
 
-Route::prefix('bolsa_social')->group(function(){
-    Route::get('/renovacao', function(){
-        return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
-    });
-});
 
 Route::group(['middleware' => ['auth']], function () {    
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
