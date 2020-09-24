@@ -91,6 +91,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('leads','CentralDeAtendiment\Admin\LeadsController');
             Route::resource('RDCrm','CentralDeAtendiment\Admin\RDCrmController');
         });
+        Route::prefix('alunos_novos')->namespace('Inscricao')->group(function(){
+            Route::resource('/','InscricaoController');
+        });
 
     });
 });
