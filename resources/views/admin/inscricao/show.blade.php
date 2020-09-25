@@ -13,6 +13,11 @@
   <div class="box box-primary">
     <div class="box-header">
       <h3 class="box-title">Alterar Status</h3>
+      <div class="box-tools pull-right">
+        <a href="{{ route('alunos_novos.listar') }}" class="btn btn-primary">
+          <i class="fa fa-undo"></i> Voltar
+        </a>
+      </div>
     </div>
     <div class="box-body">
       <div class="row">
