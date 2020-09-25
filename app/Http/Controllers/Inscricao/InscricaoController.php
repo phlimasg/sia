@@ -137,7 +137,7 @@ class InscricaoController extends Controller
             $candidato = Candidato::find($request->CANDIDATO_ID);
             //dd($candidato);
             if($duplicidade <= 1)
-                return redirect()->back()->with('message','<b>ERRO!!!</b> Só existe uma inscrição para esse candidato');;
+                //return redirect()->back()->with('message','<b>ERRO!!!</b> Só existe uma inscrição para esse candidato');;
             
             $amount = 5000;
             $inscricao = Inscricao::find($request->id);            
