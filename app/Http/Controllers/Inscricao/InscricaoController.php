@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inscricao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Inscricao\Candidato;
+use App\Model\Inscricao\Escolaridade;
 use App\Model\Inscricao\getnet_return;
 use App\Model\Inscricao\Inscricao;
 
@@ -20,13 +21,12 @@ class InscricaoController extends Controller
         $candidatos = new Candidato();
         $inscricoes = new Inscricao();
         $getnet = new getnet_return();
-        //dd($getnet);
-        //->Inscricao()->first()->Getnet;
-        //dd($dados);
+        $escolaridade = new Escolaridade();
         return view('admin.inscricao.index',[
             'candidatos' => $candidatos,
             'inscricoes' => $inscricoes,
             'getnet' => $getnet,
+            'escolaridade' =>$escolaridade
         ]);
     }
 
@@ -59,7 +59,10 @@ class InscricaoController extends Controller
      */
     public function show($id)
     {
-        //
+        $candidato = Candidato::find($id);
+        return view('admin.inscricao.show',[
+            'candidato' => $candidato
+        ]);
     }
 
     /**
@@ -81,8 +84,10 @@ class InscricaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {        
+        Candidato::where('id',$id)
+        ->update(['status' => $request->status]);
+        return redirect()->back();
     }
 
     /**
@@ -94,5 +99,16 @@ class InscricaoController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function listar()
+    {
+        $candidatos = Candidato::whereIn('id',
+            Inscricao::select('CANDIDATO_ID')->where('PAGAMENTO',1)
+            ->wherein('id',getnet_return::select('inscricaos_id')->get())
+            ->get()
+        )->get();        
+        return view('admin.inscricao.listar',[
+            'candidatos' => $candidatos
+        ]);
     }
 }

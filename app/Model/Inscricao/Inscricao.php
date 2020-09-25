@@ -13,4 +13,8 @@ class Inscricao extends Model
     {
         return $this->hasOne(getnet_return::class,'inscricaos_id','id');
     }
+    public function Avaliacao()
+    {
+        return $this->hasOne(Avaliacao::class,'id','AVALIACAO_ID');
+    }
 }

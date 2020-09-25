@@ -92,7 +92,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('RDCrm','CentralDeAtendiment\Admin\RDCrmController');
         });
         Route::prefix('alunos_novos')->namespace('Inscricao')->group(function(){
-            Route::resource('/','InscricaoController');
+            Route::get('/listar','InscricaoController@listar')->name('alunos_novos.listar');
+            Route::resource('/candidato','InscricaoController', [
+                'names' => [
+                    'index' => 'alunos_novos.index',
+                    'show' => 'alunos_novos.show',
+                    'update' => 'alunos_novos.update'
+                ]
+            ]);
         });
 
     });

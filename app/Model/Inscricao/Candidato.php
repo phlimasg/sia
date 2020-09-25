@@ -8,6 +8,7 @@ class Candidato extends Model
 {
     protected $connection = 'inscricao';
     protected $table = 'candidatos';
+    public $timestamps = false;
 
     public function RespFin()
     {
@@ -25,8 +26,12 @@ class Candidato extends Model
     {
         return $this->hasMany(Documento::class);
     }
-    public function Inscricao()
+    public function Inscricoes()
     {
         return $this->hasMany(Inscricao::class,'CANDIDATO_ID','id');
+    }
+    public function Inscricao()
+    {
+        return $this->hasOne(Inscricao::class,'CANDIDATO_ID','id');
     }
 }
