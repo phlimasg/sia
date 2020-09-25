@@ -7,6 +7,13 @@
 @stop
 
 @section('content')
+@if (Session::get('message'))
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-warning"></i> Aviso!</h4>
+  {!!Session::get('message')!!}
+</div>
+@endif
 <div class="box">
   <div class="box-body">
     <div class="table-responsive">          
@@ -25,7 +32,7 @@
         <tbody>
           @foreach ($candidatos as $i) 
             <tr>
-              <td>{{$i->id}}</td>
+              <td>{{$i->CANDIDATO_ID}}</td>
               <td>{{$i->NOME}}</td>
               <td>{{$i->Escolaridade->ESCOLARIDADE}}</td>
               <td>{{$i->Escolaridade->ANO}}</td>
@@ -39,7 +46,12 @@
                   label-warning
                   @endif
                 ">{{$i->status ? $i->status : 'Analizar'}}</span></td>
-              <td><a href="{{ route('alunos_novos.show',['id'=>$i->id]) }}" class="btn btn-primary">Analisar</a></td>
+              <td>
+                <form action="{{ route('alunos_novos.cancelar_duplicidade', ['id'=>$i->id, 'CANDIDATO_ID' => $i->CANDIDATO_ID]) }}" method="post">
+                  @csrf
+                  <button type="submit" class="btn btn-danger">Cancelar inscrição</button>
+                </form>                
+              </td>
             </tr>              
           @endforeach
         </tbody>

@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Inscricao;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GetnetController;
+use App\Mail\ExtornoDuplicidadeInscricao;
 use App\Model\Inscricao\Candidato;
 use App\Model\Inscricao\Escolaridade;
 use App\Model\Inscricao\getnet_return;
 use App\Model\Inscricao\Inscricao;
+use App\Model\Inscricao\InscricaoCancelamento;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class InscricaoController extends Controller
 {
@@ -110,5 +116,72 @@ class InscricaoController extends Controller
         return view('admin.inscricao.listar',[
             'candidatos' => $candidatos
         ]);
+    }
+
+    public function listar_duplicidade()
+    {
+        $candidatos = Candidato::
+        join('inscricaos', 'candidatos.id', '=', 'inscricaos.CANDIDATO_ID')
+        ->where('PAGAMENTO',1)
+        ->get();
+        //dd($candidatos);
+        return view('admin.inscricao.cancelar.listar',[
+            'candidatos' => $candidatos
+        ]);
+    }
+    public function cancelar_duplicidade(Request $request)
+    {
+        try { 
+            
+            $duplicidade =Inscricao::where('CANDIDATO_ID',$request->CANDIDATO_ID)->count();
+            $candidato = Candidato::find($request->CANDIDATO_ID);
+            //dd($candidato);
+            if($duplicidade <= 1)
+                return redirect()->back()->with('message','<b>ERRO!!!</b> Só existe uma inscrição para esse candidato');;
+            
+            $amount = 5000;
+            $inscricao = Inscricao::find($request->id);            
+            //dd($inscricao, $amount);            
+            $getnet = new GetnetController;            
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post(env('GETNET_URL_API').'/v1/payments/cancel/request',                
+                [
+                    'headers' => [
+                        'seller_id'=> env('GETNET_SELLER_ID_EVENTOS'),
+                        'authorization' => 'Bearer '.$getnet->TokenGenerateEventos()->access_token,
+                        'content-type'=>'application/json; charset=utf-8',
+                    ],
+                    'json' => [
+                        'payment_id' =>$inscricao->getnet->payment_id,                            
+                        'cancel_amount' => $amount,
+                        'cancel_custom_key' => 'Cancel'.date('YmdHi').'00000'.$inscricao->aluno_id,                            
+                        ],
+                ]);                   
+            $retorno = json_decode($response->getBody()->getContents());
+            $retorno->code = $response->getStatusCode();            
+            $cancel = new InscricaoCancelamento();            
+            $cancel->amount = $amount;
+            $cancel->user_id = Auth::user()->id;
+            $cancel->seller_id = !empty($retorno) ? $retorno->seller_id : 'null';
+            $cancel->payment_id = !empty($retorno) ? $retorno->payment_id: 'null';
+            $cancel->cancel_request_at = !empty($retorno) ? $retorno->cancel_request_at: 'null';
+            $cancel->cancel_request_id = !empty($retorno) ? $retorno->cancel_request_id: 'null';
+            $cancel->cancel_custom_key = !empty($retorno) ? $retorno->cancel_custom_key: 'null';
+            $cancel->status = !empty($retorno) ? $retorno->status: 'null';
+            $cancel->code = !empty($retorno) ? $retorno->code: 'null';            
+            $cancel->inscricao_id = $inscricao->id;
+            $cancel->CANDIDATO_ID = $inscricao->CANDIDATO_ID;
+            $cancel->save();            
+            $inscricao->destroy($request->id);
+            Mail::to(Candidato::where('id',$request->CANDIDATO_ID)->first()->RespFin->EMAIL)            
+            ->send(new ExtornoDuplicidadeInscricao($candidato));
+            //dd($request->all(),$inscricao);
+            return redirect()->back()->with('message','Cancelamento efetuado com sucesso');
+            
+        } catch (RequestException  $e) {            
+            $error = json_decode($e->getResponse()->getBody(),true);              
+            return redirect()->back()->with('message',$error['message']);
+        }
+        
     }
 }
