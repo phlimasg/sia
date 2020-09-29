@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GetnetController;
 use App\Mail\ExtornoDuplicidadeInscricao;
+use App\Mail\MensagemCandidatoEmail;
 use App\Model\Inscricao\Candidato;
 use App\Model\Inscricao\Escolaridade;
 use App\Model\Inscricao\getnet_return;
 use App\Model\Inscricao\Inscricao;
 use App\Model\Inscricao\InscricaoCancelamento;
+use App\Model\Inscricao\Mensagem;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -90,7 +92,17 @@ class InscricaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {        
+    {  
+        
+        if($request->mensagem){
+            $candidato = Candidato::find($id);
+            $mensagem = Mensagem::create([
+                'mensagem' => $request->mensagem,
+                'CANDIDATO_ID' => $id
+            ]);            
+            Mail::to($candidato->RespFin->EMAIL)->send(new MensagemCandidatoEmail($candidato));
+        }
+        dd($request->all(),$mensagem);
         Candidato::where('id',$id)
         ->update(['status' => $request->status]);
         return redirect()->back();

@@ -3,12 +3,13 @@
 namespace App\Mail;
 
 use App\Model\Inscricao\Candidato;
+use App\Model\Inscricao\Mensagem;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ExtornoDuplicidadeInscricao extends Mailable
+class MensagemCandidatoEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,6 +30,8 @@ class ExtornoDuplicidadeInscricao extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.EmailMensagemCandidato',['candidato' => $this->candidato])->replyTo('atendimento.abel@lasalle.org.br')->subject('La Salle Abel - Estorno de duplicidade');
+        return $this->view('mail.EmailMensagemCandidato',[
+            'candidato' => $this->candidato,
+        ])->replyTo('secretaria.abel@lasalle.org.br')->subject('La Salle Abel - Falta de documento');
     }
 }

@@ -34,4 +34,8 @@ class Candidato extends Model
     {
         return $this->hasOne(Inscricao::class,'CANDIDATO_ID','id');
     }
+    public function Mensagens()
+    {
+        return $this->hasMany(Mensagem::class,'CANDIDATO_ID','id');
+    }
 }
