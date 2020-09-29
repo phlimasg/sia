@@ -156,8 +156,8 @@
  </style>
 @endsection
 @section('js')
-<script src="http://sia2.abel.org.br/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-<script src="http://sia2.abel.org.br/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
 
  <script>   
    CKEDITOR.replace( 'mensagem', {
