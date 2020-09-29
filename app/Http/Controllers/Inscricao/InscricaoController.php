@@ -101,8 +101,7 @@ class InscricaoController extends Controller
                 'CANDIDATO_ID' => $id
             ]);            
             Mail::to($candidato->RespFin->EMAIL)->send(new MensagemCandidatoEmail($candidato));
-        }
-        dd($request->all(),$mensagem);
+        }        
         Candidato::where('id',$id)
         ->update(['status' => $request->status]);
         return redirect()->back();
