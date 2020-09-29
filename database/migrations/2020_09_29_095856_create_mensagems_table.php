@@ -14,7 +14,7 @@ class CreateMensagemsTable extends Migration
     public function up()
     {
         Schema::create('mensagems', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->text('mensagem');
             $table->unsignedBigInteger('CANDIDATO_ID');               
             $table->foreign('CANDIDATO_ID')
