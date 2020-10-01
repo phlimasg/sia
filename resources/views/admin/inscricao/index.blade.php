@@ -39,6 +39,7 @@
                       $inscricoes::select('CANDIDATO_ID')
                       ->where('PAGAMENTO',1)->get()
                       )->count() }}</td>
+                      
                       <td>{{$i->QTD_VAGAS - $candidatos->where('ESCOLARIDADE_ID',$i->ID)
                         ->whereIn('id',
                           $inscricoes::select('CANDIDATO_ID')

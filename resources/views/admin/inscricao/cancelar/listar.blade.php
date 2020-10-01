@@ -46,11 +46,38 @@
                   label-warning
                   @endif
                 ">{{$i->status ? $i->status : 'Analizar'}}</span></td>
-              <td>
-                <form action="{{ route('alunos_novos.cancelar_duplicidade', ['id'=>$i->id, 'CANDIDATO_ID' => $i->CANDIDATO_ID]) }}" method="post">
-                  @csrf
-                  <button type="submit" class="btn btn-danger">Cancelar inscrição</button>
-                </form>                
+              <td>                
+                <a href="#"  class="btn btn-danger" data-toggle="modal" data-target="#{{$i->id}}">Cancelar e estornar</a>
+                
+                <!-- The Modal -->
+                <div class="modal fade" id="{{$i->id}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form action="{{ route('alunos_novos.cancelar_duplicidade', ['id'=>$i->id, 'CANDIDATO_ID' => $i->CANDIDATO_ID]) }}" method="post">
+                        @csrf                        
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Cancelar e estornar</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          Confirma o cancelamento e o estorno para o candidato <b>{{$i->NOME}}</b>.
+                          <p class="text-danger"><b>Cuidado!</b> A ação não pode ser desfeita.</p>
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-success">Cancelar inscrição</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                      </form>  
+                      
+                    </div>
+                  </div>
+                </div>
+                
               </td>
             </tr>              
           @endforeach
