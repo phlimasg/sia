@@ -200,7 +200,7 @@ class InscricaoController extends Controller
             
         } catch (RequestException  $e) {            
             $error = json_decode($e->getResponse()->getBody(),true);              
-            return redirect()->back()->with('message',$error['message']);
+            return redirect()->back()->with('message',$error);
         }
         
     }
