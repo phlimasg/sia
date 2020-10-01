@@ -189,6 +189,34 @@ class AppServiceProvider extends ServiceProvider
                     ]
                 ]);
             }
+            if(Gate::check('secretaria',Auth::user()) || Gate::check('central',Auth::user()) || Gate::check('root',Auth::user()) || Gate::check('supervisao_adm',Auth::user())){
+                $event->menu->add( [
+                    'text'        => 'Inscrições',
+                    //'url'         => route('communicated.index'),
+                    'icon'        => 'graduation-cap',
+                    //'can' => 'ext',
+                    'submenu' => [
+                        [
+                            'icon'    => 'pie-chart', 
+                            'text' => 'Estatísticas',
+                            'url'   => route('alunos_novos.index'),
+                        ],
+                        [
+                            'text' => 'Listar Inscrições',
+                            'url'   => route('alunos_novos.listar'),
+                            'icon' => 'list',
+                        ],                        
+                        [
+                            'text' => 'Listar Duplicidade',
+                            'url'   => route('alunos_novos.listar_duplicidade'),
+                            'icon' => 'remove',
+                            'can' => 'tesouraria',
+                        ]
+                        
+                    ]
+                ]);
+            }
+
             if (Gate::check('sod', Auth::user())) {
                 $event->menu->add(
                     'SOD',

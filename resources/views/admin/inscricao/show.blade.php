@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+@can('secretaria',Auth::user())
 <form action="{{ route('alunos_novos.update', ['id'=>$candidato->id]) }}" method="POST">
   @csrf
   @method('PUT')
@@ -39,12 +40,13 @@
       <br>
       <div class="row">
         <div class="col-md-12">
-          <button type="submit" class="btn btn-warning btn-block"><i class="fa fa-save"></i> Alterar Status</button>
+          <button type="submit" class="btn btn-warning btn-lg btn-block"><i class="fa fa-save"></i> Alterar Status</button>
         </div>
       </div>
     </div>
   </div>
-</form>
+</form>  
+@endcan
 <div class="box box-primary">
   <div class="box-header">
     <h3 class="box-title">Dados de {{$candidato->NOME}}</h3>

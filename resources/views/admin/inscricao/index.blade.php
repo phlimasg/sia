@@ -22,24 +22,28 @@
             <table class="table" id="totalInsc">
               <thead>
                 <tr>
-                  <th>Ano</th>
-                  <th>Turno</th>
+                  <th>Escolaridade</th>                  
                   <th>Pretenção</th>
                   <th>Pagos</th>
+                  <th>Vagas</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($escolaridade->get() as $i)              
                 @if($i->Candidatos()->count()>0)
                   <tr>
-                    <td>{{$i->ANO}}</td>
-                    <td>{{$i->TURNO}}</td>
+                  <td>{{$i->ANO}} {{$i->TURNO}}</td>                    
                     <td>{{$i->Candidatos()->count()}}</td>
                     <td>{{$candidatos->where('ESCOLARIDADE_ID',$i->ID)
                     ->whereIn('id',
                       $inscricoes::select('CANDIDATO_ID')
                       ->where('PAGAMENTO',1)->get()
-                      )->count()}}</td>
+                      )->count() }}</td>
+                      <td>{{$i->QTD_VAGAS - $candidatos->where('ESCOLARIDADE_ID',$i->ID)
+                        ->whereIn('id',
+                          $inscricoes::select('CANDIDATO_ID')
+                          ->where('PAGAMENTO',1)->get()
+                          )->count() }}</td>
                   </tr>
                     @endif
                 @endforeach
@@ -102,9 +106,8 @@
   var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['Candidatos cadastrados', 'Inscrições', 'Pagos', 'Não Pagos', 'Erro de pagamento'],
-          datasets: [{
-              label: '',
+          labels: ['Cadastrados', 'Inscritos', 'Pagos', 'Não Pagos', 'Pg. Erro'],
+          datasets: [{              
               data: [
                 {{ $candidatos->count() }}, //Candidatos
                 {{ $inscricoes->count() }}, //Inscrições

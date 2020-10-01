@@ -101,4 +101,12 @@ class ComunicadoPolicy
             }
         }
     }
+    public function secretaria(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'secretaria'){
+                return $i->name === 'secretaria';
+            }
+        }
+    }
 }

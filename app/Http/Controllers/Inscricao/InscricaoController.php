@@ -14,11 +14,19 @@ use App\Model\Inscricao\Inscricao;
 use App\Model\Inscricao\InscricaoCancelamento;
 use App\Model\Inscricao\Mensagem;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class InscricaoController extends Controller
 {
+    public function __construct()
+    {   
+//        $this->authorize('central',Auth::user());
+        /*if(!Gate::check('secretaria',Auth::user()) || !Gate::check('central',Auth::user()) || !Gate::check('root',Auth::user()) || !Gate::check('supervisao_adm',Auth::user())){
+            abort(403,'Não autorizado');
+        }*/
+    }
     /**
      * Display a listing of the resource.
      *
@@ -119,6 +127,7 @@ class InscricaoController extends Controller
     }
     public function listar()
     {
+        //$this->authorize('central',Auth::user());
         $candidatos = Candidato::whereIn('id',
             Inscricao::select('CANDIDATO_ID')->where('PAGAMENTO',1)
             ->wherein('id',getnet_return::select('inscricaos_id')->get())
