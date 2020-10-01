@@ -29,6 +29,6 @@ class ExtornoDuplicidadeInscricao extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.EmailMensagemCandidato',['candidato' => $this->candidato])->replyTo('atendimento.abel@lasalle.org.br')->subject('La Salle Abel - Estorno de duplicidade');
+        return $this->view('mail.EstornoDuplicidade',['candidato' => $this->candidato])->replyTo('atendimento.abel@lasalle.org.br')->subject('La Salle Abel - Estorno de duplicidade');
     }
 }

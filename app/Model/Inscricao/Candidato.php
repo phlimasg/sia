@@ -18,6 +18,10 @@ class Candidato extends Model
     {
         return $this->hasOne(Escolaridade::class,'ID','ESCOLARIDADE_ID');
     }
+    public function Cancelamento()
+    {
+        return $this->hasOne(InscricaoCancelamento::class,'CANDIDATO_ID','id')->latest();
+    }
     public function Integral()
     {
         return $this->hasOne(Escolaridade::class,'ID','INTEGRAL_ID');

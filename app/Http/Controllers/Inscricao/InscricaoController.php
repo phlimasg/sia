@@ -75,7 +75,7 @@ class InscricaoController extends Controller
      */
     public function show($id)
     {
-        $candidato = Candidato::find($id);
+        $candidato = Candidato::find($id);        
         return view('admin.inscricao.show',[
             'candidato' => $candidato
         ]);
