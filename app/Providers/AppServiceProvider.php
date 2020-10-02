@@ -211,7 +211,12 @@ class AppServiceProvider extends ServiceProvider
                             'url'   => route('alunos_novos.listar_duplicidade'),
                             'icon' => 'remove',
                             'can' => 'tesouraria',
-                        ]
+                        ],
+                        [
+                            'text' => 'Lista de Espera',
+                            'url'   => route('alunos_novos.espera'),
+                            'icon' => 'pause-circle',
+                        ],
                         
                     ]
                 ]);

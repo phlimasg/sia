@@ -7,6 +7,13 @@
 @stop
 
 @section('content')
+@if (Session::has('message'))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="fa fa-check"></i> Aviso!</h4>
+  {{Session::get('message')}}
+</div>
+@endif
 @can('secretaria',Auth::user())
 <form action="{{ route('alunos_novos.update', ['id'=>$candidato->id]) }}" method="POST">
   @csrf
@@ -50,7 +57,18 @@
 <div class="box box-primary">
   <div class="box-header">
     <h3 class="box-title">Dados de {{$candidato->NOME}}</h3>
-    <div class="box-tools pull-right"><a href="http://inscricao.abel.org.br/inscricao/candidato/infos/{{$candidato->RESPFIN_CPF}}/{{$candidato->Inscricao->id}}" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir ficha</a></div>
+    @if ($candidato->ESPERA == 1)
+      <div class="box-tools pull-right">
+        <form action="{{ route('alunos_novos.habilitarEspera', ['id'=>$candidato->id]) }}" method="post" id="formEspera">
+          @csrf
+          <button id="btnEspera" type="submit" target="_blank" class="btn btn-warning"><i class="fa fa-usd">
+          </i> Habilitar para Inscrição
+        </button>
+        </form>
+      </div>        
+      @else
+      <div class="box-tools pull-right"><a href="http://inscricao.abel.org.br/inscricao/candidato/infos/{{$candidato->RESPFIN_CPF}}/{{$candidato->Inscricao->id}}" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir ficha</a></div>    
+    @endif
   </div>
   <div class="box-body">
 
@@ -71,10 +89,12 @@
         <label for="">Integral?</label>
         <p>{{$candidato->INTEGRAL_ID ? 'SIM' : 'NÃO'}}</p>
       </div>
+      @if ($candidato->Inscricao)
       <div class="col-sm-2">
         <label for="">Avaliação</label>
         <p>{{ date('d/m/Y', strtotime($candidato->Inscricao->Avaliacao->DTPROVA)) }} - {{$candidato->Inscricao->Avaliacao->HORAPROVA }}</p>
-      </div>
+      </div>          
+      @endif
     </div>
     <hr>
 
@@ -158,6 +178,12 @@
  </style>
 @endsection
 @section('js')
+<script>
+  $('#formEspera').submit(function(){
+    $('#btnEspera').text('Enviando e-mail, aguarde...');
+    $('#btnEspera').prop('disabled', true);
+  });
+</script>
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
 

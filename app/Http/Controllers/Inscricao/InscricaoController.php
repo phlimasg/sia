@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GetnetController;
 use App\Mail\ExtornoDuplicidadeInscricao;
+use App\Mail\InscricaoListaDeEsperaMail;
 use App\Mail\MensagemCandidatoEmail;
 use App\Model\Inscricao\Candidato;
 use App\Model\Inscricao\Escolaridade;
@@ -136,6 +137,26 @@ class InscricaoController extends Controller
         return view('admin.inscricao.listar',[
             'candidatos' => $candidatos
         ]);
+    }
+    public function espera()
+    {
+        //$this->authorize('central',Auth::user());
+        $escolaridade = new Escolaridade();
+        $inscricoes = new Inscricao();
+        $candidatos = new Candidato();        
+        return view('admin.inscricao.espera.listar',[
+            'candidatos' => $candidatos,
+            'escolaridade' => $escolaridade,
+            'inscricoes' => $inscricoes,
+        ]);
+    }
+
+    public function habilitarEspera(Request $request)
+    {
+        //dd($request->all());
+        $candidato = Candidato::find($request->id);
+        Mail::to($candidato->RespFin->EMAIL)->send(new InscricaoListaDeEsperaMail($candidato));
+        return redirect()->back()->with('message','Habilitado e enviado notificação por e-mail.');
     }
 
     public function listar_duplicidade()

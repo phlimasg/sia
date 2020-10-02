@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::prefix('alunos_novos')->namespace('Inscricao')->group(function(){
             Route::get('/listar','InscricaoController@listar')->name('alunos_novos.listar');
+            Route::get('/espera','InscricaoController@espera')->name('alunos_novos.espera');
+            Route::post('/espera','InscricaoController@habilitarEspera')->name('alunos_novos.habilitarEspera');
             Route::get('/listar_duplicidade','InscricaoController@listar_duplicidade')->name('alunos_novos.listar_duplicidade');
             Route::post('/listar_duplicidade','InscricaoController@cancelar_duplicidade')->name('alunos_novos.cancelar_duplicidade');
             Route::resource('/candidato','InscricaoController', [
