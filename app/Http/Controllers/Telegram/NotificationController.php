@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Telegran;
+namespace App\Http\Controllers\Telegram;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
