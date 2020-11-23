@@ -107,14 +107,14 @@
   var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['Cadastrados', 'Inscritos', 'Pagos', 'Não Pagos', 'Pg. Erro'],
+          labels: ['Cadastrados', 'Inscritos', 'Pagos', 'Não Pagos', 'Espera'],
           datasets: [{              
               data: [
                 {{ $candidatos->count() }}, //Candidatos
                 {{ $inscricoes->count() }}, //Inscrições
                 {{ $inscricoes->where('PAGAMENTO', 1)->whereIn('id', $getnet::select('inscricaos_id')->get())->count() }}, //Pagos
                 {{ $candidatos->whereNotIn('id', $inscricoes::select('CANDIDATO_ID')->get())->count() }}, //Não Pagos
-                {{ $inscricoes->whereNotIn ('id', $getnet::select('inscricaos_id')->get())->count() }}, //Erros de pagamento
+                {{ $candidatos->where ('ESPERA', 1)->count() }}, //Erros de pagamento
                 ],
               backgroundColor: [
                   'rgba(255, 99, 132)',

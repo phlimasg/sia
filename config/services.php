@@ -48,5 +48,8 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
-
+    'telegram-bot-api' => [
+        'token' => env('TELEGRAM_BOT_TOKEN')
+    ], 
+    'telegram_id' => env('TELEGRAM_ID')
 ];

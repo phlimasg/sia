@@ -3,9 +3,12 @@
 namespace App\Model\Comunicados;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class comunicado extends Model
 {
+    use Notifiable;
+    
     protected $fillable = ['titulo', 
     'descricao',
     'user_id',

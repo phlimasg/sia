@@ -77,7 +77,7 @@ class PortalComunicadosController extends Controller
     public function show($id)
     {
         try {
-            $this->authorize('portal',Auth::user());
+            //$this->authorize('portal',Auth::user());
             $comunicado = comunicado::find($id);
             //dd($comunicado->turmas);
             return view('portal.comunicados.show', compact('comunicado'));

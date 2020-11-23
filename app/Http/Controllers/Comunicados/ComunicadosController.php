@@ -8,6 +8,7 @@ use App\Model\Totvs_alunos;
 use App\Model\Comunicados\comunicado;
 use Illuminate\Validation\Validator;
 use App\Model\Comunicados\Turma;
+use App\Notifications\TelegramRegister;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,12 +74,14 @@ class ComunicadosController extends Controller
                 'user_id' =>auth()->user()->id,
             ]);
             $comunicado->save();
+            
             foreach ($request->turma as $turma) {
                 Turma::create([
                     'turma' => $turma,
                     'comunicado_id' =>$comunicado->id
                     ]);
             }
+            $comunicado->notify(new TelegramRegister());
             return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {
             return $e->getMessage();
