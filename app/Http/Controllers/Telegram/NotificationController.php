@@ -16,7 +16,7 @@ class NotificationController extends Controller
     {
         $comunicado = new comunicado([
             'titulo'=> 'Boas vindas ao canal', 
-            'descricao'=>'Sejam bem vindos ao nosso canal de envio de comunicados no Telegram. Entre e fique por dentro!',
+            'descricao'=>'Sejam bem-vindos ao nosso canal de envio de comunicados no Telegram. Entre e fique por dentro!',
             'user_id'=>2
         ]);
         $comunicado->save();

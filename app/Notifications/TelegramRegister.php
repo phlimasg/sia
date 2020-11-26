@@ -47,7 +47,7 @@ class TelegramRegister extends Notification
 
         return TelegramMessage::create()
             // Optional recipient user id.
-            ->to('@comunicadosabel')
+            ->to(env('TELEGRAM_CHANNEL'))
             // Markdown supported.
             ->content("*Novo Comunicado!*\n\n*Título:* $notifiable->titulo\n\n".
             mb_substr(html_entity_decode(strip_tags($notifiable->descricao)), 0, 350,'UTF-8'))
