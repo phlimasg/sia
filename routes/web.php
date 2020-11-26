@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/telegram', 'Telegram\NotificationController@toTelegram');
+//Route::get('/telegram', 'Telegram\NotificationController@toTelegram');
     Route::prefix('bolsa_social')->group(function(){
         Route::get('/renovacao', function(){
             return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
