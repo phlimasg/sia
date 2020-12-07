@@ -211,7 +211,7 @@ class AppServiceProvider extends ServiceProvider
                             'text' => 'Listar Duplicidade',
                             'url'   => route('alunos_novos.listar_duplicidade'),
                             'icon' => 'fa fa-remove',
-                            'can' => 'fa fa-cut',
+                            //'can' => 'fa fa-cut',
                         ],
                         [
                             'text' => 'Lista de Espera',
