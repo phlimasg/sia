@@ -16,6 +16,10 @@
             return redirect()->to('http://sbd.lasalle.org.br/colegio-la-salle-abel/renova%C3%A7%C3%A3o-de-bolsa-social')->send();
         });
     });
+    Route::get('/solicita_flex', function(){
+        return redirect()->to('http://sbd.lasalle.org.br/')->send();
+    });
+    
 
 
 Route::get('/', function () {
@@ -34,7 +38,7 @@ Route::get('/portal/google/login','Auth\GoogleLoginController@login')->name('gLo
 {
     return redirect()->route('portal.index');
 });*/
-Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
+//Route::resource('/solicita_flex','Portal\PortalIsencaoDeMensalidade');
 Route::post('/verificaCPF','Portal\PortalIsencaoDeMensalidade@verificacfp')->name('verificaCPF');
 Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destroyImage')->name('destroyImage');
 
