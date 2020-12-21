@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4914c6301fc5738b97924d8f5c8b2c7",
+    "content-hash": "3707671e9c045331aaaf232d7e63e65f",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -978,24 +978,24 @@
         },
         {
             "name": "jeroennoten/laravel-adminlte",
-            "version": "v1.27.2",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
-                "reference": "39bc9de933c0bc45464f579241186cd9ee02e9d0"
+                "reference": "b2c67717e9fa51906bd56d7ee2e907f3441f4d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/39bc9de933c0bc45464f579241186cd9ee02e9d0",
-                "reference": "39bc9de933c0bc45464f579241186cd9ee02e9d0",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/b2c67717e9fa51906bd56d7ee2e907f3441f4d45",
+                "reference": "b2c67717e9fa51906bd56d7ee2e907f3441f4d45",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": ">=7.0.0"
+                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6"
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
@@ -1029,9 +1029,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeroennoten/Laravel-AdminLTE/issues",
-                "source": "https://github.com/jeroennoten/Laravel-AdminLTE/tree/v1.27.2"
+                "source": "https://github.com/jeroennoten/Laravel-AdminLTE/tree/v1.25.0"
             },
-            "time": "2019-09-05T18:22:01+00:00"
+            "time": "2019-03-04T11:16:07+00:00"
         },
         {
             "name": "laravel-notification-channels/telegram",

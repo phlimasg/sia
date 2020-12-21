@@ -18,6 +18,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class InscricaoController extends Controller
 {
@@ -155,6 +156,9 @@ class InscricaoController extends Controller
     {
         //dd($request->all());
         $candidato = Candidato::find($request->id);
+        $candidato->liberacao_data = date('Y-m-d H:i:s');
+        $candidato->token = Str::random(32);
+        $candidato->save();
         Mail::to($candidato->RespFin->EMAIL)->send(new InscricaoListaDeEsperaMail($candidato));
         return redirect()->back()->with('message','Habilitado e enviado notificação por e-mail.');
     }

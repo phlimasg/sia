@@ -11,7 +11,7 @@
             É com grande felicidade que informamos a <b>disponibilidade</b> da vaga para <b>{{$candidato->NOME}}</b>.
         </p>
         <br>
-    <a href="http://inscricao.abel.org.br/inscricao/candidato/prova/{{$candidato->RESPFIN_CPF}}/{{$candidato->id}}" style="
+    <a href="http://inscricao.abel.org.br/lista_de_espera/{{$candidato->token}}" style="
         background-color: #4CAF50; /* Green */
         border: none;
         color: white;
