@@ -13,7 +13,11 @@ class Candidato extends Model
     public function RespFin()
     {
         return $this->hasOne(RespFins::class,'CPF','RESPFIN_CPF');
-    }    
+    } 
+    public function RespAcad()
+    {
+        return $this->hasOne(RespAcads::class,'RESPFIN_CPF','RESPFIN_CPF');
+    }   
     public function Escolaridade()
     {
         return $this->hasOne(Escolaridade::class,'ID','ESCOLARIDADE_ID');

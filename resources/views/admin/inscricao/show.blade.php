@@ -117,6 +117,36 @@
         <p>{{$candidato->TEL}}</p>
       </div>
     </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="">Resp. Fin.</label>
+        <p>{{$candidato->RespFin->NOME}}</p>
+      </div>
+      <div class="col-md-3">
+        <label for="">Resp. Fin. Email</label>
+        <p>{{$candidato->RespFin->EMAIL}}</p>
+      </div>
+      <div class="col-md-3">
+        <label for="">Resp. Fin. Telefone</label>
+        <p>{{$candidato->RespFin->TEL}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="">Resp. Acad.</label>
+        <p>{{$candidato->RespAcad->NOME}}</p>
+      </div>
+      <div class="col-md-3">
+        <label for="">Resp. Acad. Email</label>
+        <p>{{$candidato->RespAcad->EMAIL}}</p>
+      </div>
+      <div class="col-md-3">
+        <label for="">Resp. Acad. Telefone</label>
+        <p>{{$candidato->RespAcad->TEL}}</p>
+      </div>
+    </div>
+    <hr>
     <div class="row">
       <div class="col-sm-2">
         <label for="">Ex-Aluno?</label>
