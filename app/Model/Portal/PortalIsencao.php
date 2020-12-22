@@ -18,7 +18,7 @@ class PortalIsencao extends Model
     }
     public function totvs()
     {
-        return $this->hasOne(Totvs_alunos::class,'RESPFINCPF','cpf')->select('RESPFIN','NOME_ALUNO','CPF','RESPFINEMAIL','TURMA','ANO','TURNO_ALUNO');
+        return $this->hasOne(Totvs_alunos::class,'RESPFINCPF','cpf')->select('RESPFIN','NOME_ALUNO','CPF','RESPFINEMAIL','TURMA','ANO','TURNO_ALUNO') ?? null;
     }
     public function motivo()
     {
@@ -35,6 +35,10 @@ class PortalIsencao extends Model
     public function descontoAutorizado($ra)
     {
         return $this->hasMany(PortalDescontoAutorizado::class)->where('ra',$ra);
+    }
+    public function alunosDeferidos()
+    {
+        return $this->hasMany(PortalDescontoAutorizado::class);
     }
     public function mensagem()
     {

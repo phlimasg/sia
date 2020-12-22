@@ -117,9 +117,9 @@
 
     <div class="row">
       <div class="col-md-6">
-        <p><label for="">Nome:</label> {{$isencao->totvs->RESPFIN}}</p>
-        <p><label for="">CPF:</label> {{$isencao->totvs->RESPFINCPF}}</p>
-        <p><label for="">email:</label> {{$isencao->totvs->RESPFINEMAIL}}</p>
+        <p><label for="">Nome:</label> {{$isencao->totvs->RESPFIN ?? 'Aluno não rematriculado'}}</p>
+        <p><label for="">CPF:</label> {{$isencao->cpf ?? 'Aluno não rematriculado'}}</p>
+        <p><label for="">email:</label> {{$isencao->totvs->RESPFINEMAIL ?? 'Aluno não rematriculado'}}</p>
         <div class="row">
           <div class="col-sm-3">
             <a class="btn btn-app btn-primary bg-blue " data-toggle="modal" data-target="#msgPub">
@@ -435,7 +435,25 @@
       </div> 
     </div>
       @empty
-          Nenhum aluno para mostar
+          @foreach ($isencao->alunosDeferidos as $i)              
+
+              <div class="col-md-3">
+                <div class="box-profile panel">
+                  <div class="panel-body">
+                    <img class="profile-user-img img-responsive img-circle" 
+                    @if (Storage::disk('public')->exists('alunos/00000'.$i->RA.'.JPG'))
+                      src="{{Storage::url('alunos/00000'.$i->RA.'.JPG')}}"
+                      @else
+                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+                    @endif           alt="User profile picture">
+          
+                    <h3 class="profile-username text-center">{{$i->ra}}</h3>
+                    <h3 class="profile-username text-center">Deferido {{$i->percentual}}%</h3>
+                    <h5 class="profile-username text-center text-danger" style="font-size: 13px">*Não Matriculado para {{date('Y')}} </h5>
+                  </div>
+                </div>
+              </div>
+          @endforeach
       @endforelse      
     </div>
 </div>

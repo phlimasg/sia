@@ -49,7 +49,7 @@
         @forelse ($isencao as $i)
         <tr>
                 <td>{{$i->id}}</td>
-                <td>{{$i->totvs->RESPFIN}}</td>
+                <td>{{$i->totvs->RESPFIN ?? 'Aluno Não Matriculado'}}</td>
                 <td>{{date('d/m/Y H:i', strtotime($i->created_at))}}</td>
                 <td>
                     <span class="label 
