@@ -164,7 +164,7 @@
             </div>
             <div class="col-md-3">
               <label for="">E-mail do resp.:</label>
-              <p>{{$totvs->RESPFINDEMAIL}} <a href="mailto:{{$totvs->RESFINEMAIL}}" target="_blank"><i class="fa fa-envelope-o"></i></a></p>
+              <p>{{$totvs->RESPFINDEMAIL}} <a href="mailto:{{$totvs->RESPFINEMAIL}}" target="_blank"><i class="fa fa-envelope-o"></i></a></p>
             </div>
           </div>
 
