@@ -1,8 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Download de Leads')
+@section('title', 'Alunos Matriculados')
 
 @section('content')
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-body">
+        <canvas id="myChart" style="height-max: 250px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-xs-12">
@@ -71,6 +81,28 @@
      searching: false,
    });
    //$('#tabela').hide();
-} );
+} 
+);
+
+var ctx = document.getElementById('myChart').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+          
+          // The data for our dataset
+          data: {
+              labels: [@foreach ($segmento as $i) '{{$i->ANO}}', @endforeach],
+              datasets: [{
+                  label: 'Alunos',
+                  backgroundColor: [@foreach ($segmento as $i) 'rgb({{rand(0,254)}}, {{rand(0,254)}}, {{rand(0,254)}})', @endforeach ],
+                  borderColor: 'rgb(255, 245, 245)',
+                  data: [@foreach ($segmento as $i) '{{$i->Total}}', @endforeach]
+              }]
+          },
+
+          // Configuration options go here
+          options: {}
+      });
+
 </script>
 @endsection

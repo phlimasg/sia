@@ -161,7 +161,12 @@ class AppServiceProvider extends ServiceProvider
                     //'url'         => route('tesouraria.index'),
                     'icon'        => 'fa fa-user',
                     'can' => 'central',
-                    'submenu' => [                        
+                    'submenu' => [  
+                        [
+                            //'icon'    => 'pie-chart', 
+                            'text' => 'Alunos Matriculados',
+                            'url'   => route('alunos_matriculados.index'),
+                        ],                      
                         [
                             //'icon'    => 'pie-chart', 
                             'text' => 'Terceirizadas',
