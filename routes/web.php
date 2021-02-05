@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::post('central/pagamento','AtividadesExtraclasse\Admin\ExtraclasseCentral@pagamento')->name('extraclasse_terceirizadas.pagamento');
         Route::prefix('central')->group(function(){            
+            Route::resource('alunos_matriculados','CentralDeAtendiment\Admin\AlunosController');
             Route::resource('extraclasse_terceirizadas','AtividadesExtraclasse\Admin\ExtraclasseCentral');
             Route::resource('leads','CentralDeAtendiment\Admin\LeadsController');
             Route::resource('RDCrm','CentralDeAtendiment\Admin\RDCrmController');

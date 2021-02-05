@@ -77,7 +77,7 @@
           @foreach ($inscricao as $i)
           <tr>
             <td>{{$i->id}}</td>
-            <td>{{$i->aluno->NOME_ALUNO}}</td>
+            <td>{{!empty($i->aluno->NOME_ALUNO) ? $i->aluno->NOME_ALUNO : 'Saiu da escola'}}</td>
             <td>{{$i->ExtAtvTurma->ExtAtv->atividade}}</td>
             <td>{{$i->ExtAtvTurma->descricao_turma}}</td>
             <td>{{substr_replace($i->amount,',',-2,0)}}</td>

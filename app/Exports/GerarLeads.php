@@ -56,13 +56,14 @@ class GerarLeads implements FromCollection
             }
 
             if (strcmp($last_email, $leads[$i]->RESPACADEMAIL) == 0) {
+                $turma = strlen($leads[$i]->TURMA)-1;
                 $dados[$last_i] += [
                     'ALUNO_' . $aux . '_RA' => $leads[$i]->RA,
                     'ALUNO_' . $aux . '_NOME' => $leads[$i]->NOME_ALUNO,
                     'ALUNO_' . $aux . '_EMAIL' => $leads[$i]->EMAIL_ALUNO,
-                    'ALUNO_' . $aux . '_TURMA' => $leads[$i]->TURMA,
+                    'ALUNO_' . $aux . '_TURMA' => $leads[$i]->TURMA[$turma],
                     'ALUNO_' . $aux . '_ANO' => $leads[$i]->ANO,
-                    'ALUNO_' . $aux . '_TURNO' => $leads[$i]->TURNO_ALUNO
+                    'ALUNO_' . $aux . '_TURNO' => strstr($leads[$i]->TURMA,'TC') ? 'COMPLEMENTAR' : $leads[$i]->TURNO_ALUNO
                 ];
                 $aux++;
             }
