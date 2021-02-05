@@ -45,6 +45,13 @@ class AlunosController extends Controller
     public function store(Request $request)
     {
         $this->authorize('central',Auth::user());
+        $totvs = Totvs_alunos::select('RA','NOME_ALUNO','ANO','TURMA','TURNO_ALUNO')->limit(500)->get();
+        $total = Totvs_alunos::count();
+        $segmento = Totvs_alunos::selectRaw('ANO, count(*) as Total')
+        ->where('TURMA','not like','TC%')
+        ->groupBy('ANO')
+        ->orderBy('ANO','desc')
+        ->get();
         $totvs = Totvs_alunos::select('RA','NOME_ALUNO','ANO','TURMA','TURNO_ALUNO')
         ->where('RA','like','%'.$request->table_search.'%')
         ->orWhere('NOME_ALUNO','like','%'.$request->table_search.'%')
@@ -57,7 +64,9 @@ class AlunosController extends Controller
         ->limit(100)
         ->get();
         return view('admin.central.alunos.index',[
-            'totvs' =>$totvs
+            'totvs' =>$totvs,
+            'segmento' => $segmento,
+            'total' => $total
         ]);
     }
     /**

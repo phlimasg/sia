@@ -4,15 +4,7 @@
 
 @section('content')
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="box box-primary">
-      <div class="box-body">
-        <canvas id="myChart" style="height-max: 250px;"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <div class="row">
   <div class="col-xs-12">
@@ -70,7 +62,15 @@
   </div>
 
 </div>
-    
+<div class="row">
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-body">
+      <canvas id="myChart" style="height-max: 250px; height: 250px"></canvas>
+    </div>
+  </div>
+</div>
+</div>   
 @stop
 
 @section('js')
@@ -91,7 +91,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
           
           // The data for our dataset
           data: {
-              labels: [@foreach ($segmento as $i) '{{$i->ANO}}', @endforeach],
+              labels: [@foreach ($segmento as $i) '{{str_replace('ESCOLA','',$i->ANO)}}', @endforeach],
               datasets: [{
                   label: 'Alunos',
                   backgroundColor: [@foreach ($segmento as $i) 'rgb({{rand(0,254)}}, {{rand(0,254)}}, {{rand(0,254)}})', @endforeach ],
