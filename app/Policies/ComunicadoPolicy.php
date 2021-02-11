@@ -109,4 +109,13 @@ class ComunicadoPolicy
             }
         }
     }
+
+    public function soe(User $user)
+    {
+        foreach($user->profile as $i){
+            if($i->name == 'soe'){
+                return $i->name === 'soe';
+            }
+        }
+    }
 }

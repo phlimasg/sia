@@ -45,30 +45,30 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text'        => 'Comunicados',
                         'url'         => route('communicated.index'),
-                        'icon'        => 'fa fa-bullhorn',
+                        'icon'        => 'bullhorn',
                         'can' => 'portal'
                     ],
                     [
                         'text'        => 'Controle de acesso',
                         'url'         => route('acesso.index'),
-                        'icon'        => 'fa fa-id-card',
+                        'icon'        => 'id-card',
                         'can' => 'portal'
                     ],
                     [
                         'text'        => 'Atividades Extraclasse',
                         //'url'         => route('extraclasse.index'),
-                        'icon'        => 'fa fa-futbol',
+                        'icon'        => 'futbol-o',
                         'can' => 'portal',
                         'submenu' => [
                             [
                                 'text'        => 'Realizar Inscrição',
                                 'url'         => route('extraclasse.index'),
-                                'icon'        => 'fa fa-plus',
+                                'icon'        => 'plus',
                             ],
                             [
                                 'text'        => 'Minhas inscrições',
                                 'url'         => route('aluno.index'),
-                                'icon'        => 'fa fa-money-bill-wave-alt',
+                                'icon'        => 'money',
                             ]
                         ]
                     ]
@@ -82,25 +82,25 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text'        => 'Adm - Comunicados',
                         'url'         => route('comunicados.index'),
-                        'icon'        => 'fa fa-bullhorn',
+                        'icon'        => 'bullhorn',
                         'can' => 'editor'
                     ]
                     
                     /*[
                         'text'        => 'Atividades Extraclasse',
                         //'url'         => route('communicated.index'),
-                        'icon'        => 'fa fa-futbol',
+                        'icon'        => 'futbol',
                         'can' => 'portal',
                         'submenu' => [
                             [
-                                'icon'    => 'fa fa-chart-line',
+                                'icon'    => 'chart-line',
                                 'text' => 'Estatísticas',
                                 'url'   => route('extclasse.index'),
                             ],
                             [
                                 'text' => 'Atividades Cadastradas',
                                 'url'   => route('extclasse.index'),
-                                'icon' => 'fa fa-graduation-cap',
+                                'icon' => 'graduation-cap',
                             ]
                         ]
                     ] */
@@ -110,11 +110,11 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add(
                     [
                         'text'        => 'Comissão de descontos',                        
-                        'icon'        => 'fa fa-money',
+                        'icon'        => 'money',
                         'can' => 'desconto',
                         'submenu' => [
                             [
-                                'icon'    => 'fa fa-envelope',
+                                'icon'    => 'envelope',
                                 'text' => 'Covid-19',
                                 'url'   => route('covid.index'),
                             ],
@@ -134,7 +134,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add([
                     'text'        => 'Tesouraria',
                     //'url'         => route('tesouraria.index'),
-                    'icon'        => 'fa fa-cut',
+                    'icon'        => 'cut',
                     'can' => 'tesouraria',
                     'submenu' => [
                         [
@@ -148,7 +148,7 @@ class AppServiceProvider extends ServiceProvider
                             'url'   => route('terceirizadas.index'),
                         ],
                         [
-                            'icon'    => 'fa fa-money-bill-wave-alt', 
+                            'icon'    => 'money', 
                             'text' => 'Desconto Covid 19',
                             'url'   => route('covid.relatorio'),
                         ],
@@ -159,8 +159,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add([
                     'text'        => 'Central de Atendimento',
                     //'url'         => route('tesouraria.index'),
-                    'icon'        => 'fa fa-user',
-                    'can' => 'central',
+                    'icon'        => 'user',
                     'submenu' => [  
                         [
                             //'icon'    => 'pie-chart', 
@@ -175,22 +174,37 @@ class AppServiceProvider extends ServiceProvider
                     ]
                 ]);
             }
+
+            if(Gate::check('soe',Auth::user())){
+                $event->menu->add([
+                    'text'        => 'Soe',
+                    //'url'         => route('tesouraria.index'),
+                    'icon'        => 'pencil',
+                    'submenu' => [  
+                        [
+                            'icon'    => 'user', 
+                            'text' => 'Alunos Matriculados',
+                            'url'   => route('alunos_matriculados.index'),
+                        ],                                              
+                    ]
+                ]);
+            }
             if(Gate::check('ext',Auth::user())){
                 $event->menu->add( [
                     'text'        => 'Atividades Extraclasse',
                     //'url'         => route('communicated.index'),
-                    'icon'        => 'fa fa-futbol',
+                    'icon'        => 'futbol-o',
                     //'can' => 'ext',
                     'submenu' => [
                         [
-                            'icon'    => 'fa fa-chart-line', 
+                            'icon'    => 'line-chart', 
                             'text' => 'Estatísticas',
                             'url'   => route('extclasse.dashboard'),
                         ],
                         [
                             'text' => 'Atividades Cadastradas',
                             'url'   => route('extclasse.index'),
-                            'icon' => 'fa fa-graduation-cap',
+                            'icon' => 'graduation-cap',
                         ]
                     ]
                 ]);
@@ -199,29 +213,29 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add( [
                     'text'        => 'Inscrições',
                     //'url'         => route('communicated.index'),
-                    'icon'        => 'fa fa-graduation-cap',
+                    'icon'        => 'graduation-cap',
                     //'can' => 'ext',
                     'submenu' => [
                         [
-                            'icon'    => 'fa fa-chart-line', 
+                            'icon'    => 'line-chart', 
                             'text' => 'Estatísticas',
                             'url'   => route('alunos_novos.index'),
                         ],
                         [
                             'text' => 'Listar Inscrições',
                             'url'   => route('alunos_novos.listar'),
-                            'icon' => 'fa fa-list',
+                            'icon' => 'list',
                         ],                        
                         [
                             'text' => 'Listar Duplicidade',
                             'url'   => route('alunos_novos.listar_duplicidade'),
-                            'icon' => 'fa fa-remove',
-                            //'can' => 'fa fa-cut',
+                            'icon' => 'remove',
+                            //'can' => 'cut',
                         ],
                         [
                             'text' => 'Lista de Espera',
                             'url'   => route('alunos_novos.espera'),
-                            'icon' => 'fa fa-pause-circle',
+                            'icon' => 'pause-circle',
                         ],
                         
                     ]
@@ -233,18 +247,18 @@ class AppServiceProvider extends ServiceProvider
                     'SOD',
                     [
                         'text'    => 'Catraca',
-                        'icon'    => 'fa fa-binoculars',
+                        'icon'    => 'binoculars',
                         'can' => 'sod',
                         'submenu' => [
                             [
-                                'icon'    => 'fa fa-home',
+                                'icon'    => 'home',
                                 'text' => 'Dashboard',
                                 'url'   => route('sod.index'),
                             ],
                             [
                                 'text' => 'Relatório',
                                 'url'   => route('sod.relatorio'),
-                                'icon' => 'fa fa-chart-line',
+                                'icon' => 'line-chart',
                             ]
                         ]
                     ]);
