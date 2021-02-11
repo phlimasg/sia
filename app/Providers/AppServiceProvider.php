@@ -75,10 +75,10 @@ class AppServiceProvider extends ServiceProvider
                 );
             }
             //$event->menu->add('COMUNICADOS');
-
+            //dd(sizeof(Auth::user()->profile));
+            sizeof(Auth::user()->profile) > 1 ? $event->menu->add('ADMINISTRAÇÃO') : null;            
             if (Gate::check('editor', Auth::user())) {
                 $event->menu->add(
-                    'ADMINISTRAÇÃO',
                     [
                         'text'        => 'Adm - Comunicados',
                         'url'         => route('comunicados.index'),
@@ -244,7 +244,6 @@ class AppServiceProvider extends ServiceProvider
 
             if (Gate::check('sod', Auth::user())) {
                 $event->menu->add(
-                    'SOD',
                     [
                         'text'    => 'Catraca',
                         'icon'    => 'binoculars',
