@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AlunosController extends Controller
 {
@@ -15,23 +16,25 @@ class AlunosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    
-        if($this->authorize('central',Auth::user()) || $this->authorize('soe',Auth::user())){
+    {
 
-            $totvs = Totvs_alunos::select('RA','NOME_ALUNO','ANO','TURMA','TURNO_ALUNO')->limit(500)->get();
+
+        if (Gate::check('central', Auth::user()) || Gate::check('soe', Auth::user())) {
+            $totvs = Totvs_alunos::select('RA', 'NOME_ALUNO', 'ANO', 'TURMA', 'TURNO_ALUNO')->limit(500)->get();
             $total = Totvs_alunos::count();
             $segmento = Totvs_alunos::selectRaw('ANO, count(*) as Total')
-            ->where('TURMA','not like','TC%')
-            ->groupBy('ANO')
-            ->orderBy('ANO','desc')
-            ->get();
+                ->where('TURMA', 'not like', 'TC%')
+                ->groupBy('ANO')
+                ->orderBy('ANO', 'desc')
+                ->get();
             //dd($total,$segmento);
-            return view('admin.central.alunos.index',[
-                'totvs' =>$totvs,
+            return view('admin.central.alunos.index', [
+                'totvs' => $totvs,
                 'segmento' => $segmento,
                 'total' => $total
             ]);
-        }
+        } else
+            abort(403, 'Usuário não autorizado!');
     }
 
     /**
@@ -46,34 +49,35 @@ class AlunosController extends Controller
 
     public function store(Request $request)
     {
-        if($this->authorize('central',Auth::user()) || $this->authorize('soe',Auth::user())){
-        $totvs = Totvs_alunos::select('RA','NOME_ALUNO','ANO','TURMA','TURNO_ALUNO')->limit(500)->get();
-        $total = Totvs_alunos::count();
-        $segmento = Totvs_alunos::selectRaw('ANO, count(*) as Total')
-        ->where('TURMA','not like','TC%')
-        ->groupBy('ANO')
-        ->orderBy('ANO','desc')
-        ->get();
-        $totvs = Totvs_alunos::select('RA','NOME_ALUNO','ANO','TURMA','TURNO_ALUNO')
-        ->where('RA','like','%'.$request->table_search.'%')
-        ->orWhere('NOME_ALUNO','like','%'.$request->table_search.'%')
-        ->orWhere('RESPACAD','like','%'.$request->table_search.'%')
-        ->orWhere('RESPACADCPF','like','%'.$request->table_search.'%')
-        ->orWhere('RESPACADEMAIL','like','%'.$request->table_search.'%')        
-        ->orWhere('RESPFIN','like','%'.$request->table_search.'%')        
-        ->orWhere('RESPFINEMAIL','like','%'.$request->table_search.'%')      
-        ->orWhere('Pai','like','%'.$request->table_search.'%')
-        ->orWhere('Mae','like','%'.$request->table_search.'%')
-        ->orWhere('PaiCPF','like','%'.$request->table_search.'%')
-        ->orWhere('MaeCPF','like','%'.$request->table_search.'%')
-        ->limit(100)
-        ->get();
-        return view('admin.central.alunos.index',[
-            'totvs' =>$totvs,
-            'segmento' => $segmento,
-            'total' => $total
-        ]);
-        }
+        if (Gate::check('central', Auth::user()) || Gate::check('soe', Auth::user())) {
+            $totvs = Totvs_alunos::select('RA', 'NOME_ALUNO', 'ANO', 'TURMA', 'TURNO_ALUNO')->limit(500)->get();
+            $total = Totvs_alunos::count();
+            $segmento = Totvs_alunos::selectRaw('ANO, count(*) as Total')
+                ->where('TURMA', 'not like', 'TC%')
+                ->groupBy('ANO')
+                ->orderBy('ANO', 'desc')
+                ->get();
+            $totvs = Totvs_alunos::select('RA', 'NOME_ALUNO', 'ANO', 'TURMA', 'TURNO_ALUNO')
+                ->where('RA', 'like', '%' . $request->table_search . '%')
+                ->orWhere('NOME_ALUNO', 'like', '%' . $request->table_search . '%')
+                ->orWhere('RESPACAD', 'like', '%' . $request->table_search . '%')
+                ->orWhere('RESPACADCPF', 'like', '%' . $request->table_search . '%')
+                ->orWhere('RESPACADEMAIL', 'like', '%' . $request->table_search . '%')
+                ->orWhere('RESPFIN', 'like', '%' . $request->table_search . '%')
+                ->orWhere('RESPFINEMAIL', 'like', '%' . $request->table_search . '%')
+                ->orWhere('Pai', 'like', '%' . $request->table_search . '%')
+                ->orWhere('Mae', 'like', '%' . $request->table_search . '%')
+                ->orWhere('PaiCPF', 'like', '%' . $request->table_search . '%')
+                ->orWhere('MaeCPF', 'like', '%' . $request->table_search . '%')
+                ->limit(100)
+                ->get();
+            return view('admin.central.alunos.index', [
+                'totvs' => $totvs,
+                'segmento' => $segmento,
+                'total' => $total
+            ]);
+        } else
+            abort(403, 'Usuário não autorizado!');
     }
     /**
      * Display the specified resource.
@@ -82,14 +86,15 @@ class AlunosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {        
-        if($this->authorize('central',Auth::user()) || $this->authorize('soe',Auth::user())){
-        $totvs = Totvs_alunos::where('RA','like','%'.$id)->first();
-        //dd($totvs);
-        return view('admin.central.alunos.show',[
-            'totvs' =>$totvs
-        ]);
-        }
+    {
+        if (Gate::check('central', Auth::user()) || Gate::check('soe', Auth::user())) {
+            $totvs = Totvs_alunos::where('RA', 'like', '%' . $id)->first();
+            //dd($totvs);
+            return view('admin.central.alunos.show', [
+                'totvs' => $totvs
+            ]);
+        } else
+            abort(403, 'Usuário não autorizado!');
     }
 
     /**
