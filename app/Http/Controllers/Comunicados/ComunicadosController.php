@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Comunicados;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMailJob;
+use App\Mail\ComunicadoMail;
 use App\Model\Totvs_alunos;
 use App\Model\Comunicados\comunicado;
 use Illuminate\Validation\Validator;
@@ -11,6 +13,7 @@ use App\Model\Comunicados\Turma;
 use App\Notifications\TelegramRegister;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ComunicadosController extends Controller
 {
@@ -81,7 +84,18 @@ class ComunicadosController extends Controller
                     'comunicado_id' =>$comunicado->id
                     ]);
             }
-            $comunicado->notify(new TelegramRegister());
+            
+            foreach ($comunicado->turmas as $i) {
+                $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
+                foreach ($totvs_alunos as $totvs) {
+                    SendMailJob::dispatch($totvs,$comunicado);
+                    /*Mail::to('raphael.oliveira@lasalle.org.br')
+                    ->queue(new ComunicadoMail($totvs,$comunicado));*/
+                    //dd($totvs, $comunicado);
+                    break;
+                }
+            }
+            //$comunicado->notify(new TelegramRegister());
             return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {
             return $e->getMessage();

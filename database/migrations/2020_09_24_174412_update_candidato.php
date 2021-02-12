@@ -13,7 +13,7 @@ class UpdateCandidato extends Migration
      */
     public function up()
     {
-        Schema::table('candidatos', function (Blueprint $table) {
+        Schema::connection('inscricao')->table('candidatos', function (Blueprint $table) {
             $table->string('status')->nullable();
         });
     }

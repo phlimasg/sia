@@ -13,7 +13,7 @@ class CreateMensagemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mensagems', function (Blueprint $table) {
+        Schema::connection('inscricao')->create('mensagems', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('mensagem');
             $table->unsignedInteger('CANDIDATO_ID');               

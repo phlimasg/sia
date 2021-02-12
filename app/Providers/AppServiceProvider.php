@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Model\Comunicados\comunicado;
+use App\Observers\ComunicadosObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
+        comunicado::observe(ComunicadosObserver::class);
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
             //if (Gate::check('portal', Auth::user())) {
@@ -76,7 +79,7 @@ class AppServiceProvider extends ServiceProvider
             }
             //$event->menu->add('COMUNICADOS');
             //dd(sizeof(Auth::user()->profile));
-            sizeof(Auth::user()->profile) > 1 ? $event->menu->add('ADMINISTRAÇÃO') : null;            
+            Auth::check() && sizeof(Auth::user()->profile) > 1 ? $event->menu->add('ADMINISTRAÇÃO') : null;            
             if (Gate::check('editor', Auth::user())) {
                 $event->menu->add(
                     [

@@ -122,4 +122,6 @@ Route::get('portal/pagamento/listadeespera/{id}','AtividadesExtraclasse\Admin\Ex
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/mail', 'HomeController@mail');
+Route::get('/mail', function(){
+    return view('mail.Comunicado');
+});

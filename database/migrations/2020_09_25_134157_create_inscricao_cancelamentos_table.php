@@ -13,7 +13,7 @@ class CreateInscricaoCancelamentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('inscricao_cancelamentos', function (Blueprint $table) {
+        Schema::connection('inscricao')->create('inscricao_cancelamentos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('amount');            
             $table->unsignedBigInteger('user_id');                             
