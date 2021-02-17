@@ -85,17 +85,17 @@ class ComunicadosController extends Controller
                     ]);
             }
             
-            foreach ($comunicado->turmas as $i) {
+            /*foreach ($comunicado->turmas as $i) {
                 $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
                 foreach ($totvs_alunos as $totvs) {
                     SendMailJob::dispatch($totvs,$comunicado);
                     /*Mail::to('raphael.oliveira@lasalle.org.br')
-                    ->queue(new ComunicadoMail($totvs,$comunicado));*/
+                    ->queue(new ComunicadoMail($totvs,$comunicado));
                     //dd($totvs, $comunicado);
                     break;
                 }
-            }
-            //$comunicado->notify(new TelegramRegister());
+            }*/
+            $comunicado->notify(new TelegramRegister());
             return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {
             return $e->getMessage();
