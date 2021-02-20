@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
         comunicado::observe(ComunicadosObserver::class);
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+            echo view('admin.profileMenu');
 
             //if (Gate::check('portal', Auth::user())) {
                 /*$event->menu->add('DASHBOARD');
