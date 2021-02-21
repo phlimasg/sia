@@ -41,12 +41,12 @@
                 <td>{{mb_strimwidth(strip_tags($i->descricao), 0, 60,"...")}} </td>
                 <td class="col-sm-2">
                         <div class="btn-group">
-                            <a href="{{ route('comunicados.show', ['id'=>$i->id]) }}" class="btn btn-primary"> <span class="fa fa-eye"></span> Ver</a>
+                            <a href="{{ route('comunicados.show', ['comunicado'=>$i->id]) }}" class="btn btn-primary"> <span class="fa fa-eye"></span> Ver</a>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('comunicados.edit', ['id'=>$i->id]) }}"><span class="fa fa-edit"></span> Editar</a></li>
+                                <li><a href="{{ route('comunicados.edit', ['comunicado'=>$i->id]) }}"><span class="fa fa-edit"></span> Editar</a></li>
                                 <li>
                                   <a href="#" data-toggle="modal" data-target="#modal{{$i->id}}"><span class="fa fa-remove"></span>Excluir</a></li>
                             </ul>
@@ -67,7 +67,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-            <form action="{{ route('comunicados.destroy', ['id'=>$i->id]) }}" method="POST">
+            <form action="{{ route('comunicados.destroy', ['comunicado'=>$i->id]) }}" method="POST">
               @csrf
               @method("DELETE")
               <button type="submit" class="btn btn-danger">Confirmar</button>

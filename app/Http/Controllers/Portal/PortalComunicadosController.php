@@ -40,7 +40,7 @@ class PortalComunicadosController extends Controller
             ->where('comunicados.created_at','>=' ,date('Y').'-01-01')
             ->paginate(15);
             }            
-            return view('portal.comunicados.index',compact('comunicado'));
+            return view('portal.comunicados.indexv2',compact('comunicado'));
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }
