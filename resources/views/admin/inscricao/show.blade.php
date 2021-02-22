@@ -15,7 +15,7 @@
 </div>
 @endif
 @can('secretaria',Auth::user())
-<form action="{{ route('alunos_novos.update', ['id'=>$candidato->id]) }}" method="POST">
+<form action="{{ route('alunos_novos.update', ['candidato'=>$candidato->id]) }}" method="POST">
   @csrf
   @method('PUT')
   <div class="card card-primary">
@@ -59,7 +59,7 @@
     <h3 class="card-title">Dados de {{$candidato->NOME}}</h3>
     @if ($candidato->ESPERA == 1)
       <div class="card-tools pull-right">
-        <form action="{{ route('alunos_novos.habilitarEspera', ['id'=>$candidato->id]) }}" method="post" id="formEspera">
+        <form action="{{ route('alunos_novos.habilitarEspera', ['candidato'=>$candidato->id]) }}" method="post" id="formEspera">
           @csrf
           <button id="btnEspera" type="submit" target="_blank" class="btn btn-warning"><i class="fa fa-usd">
           </i> Habilitar para Inscrição

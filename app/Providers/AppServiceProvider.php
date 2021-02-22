@@ -114,7 +114,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add(
                     [
                         'text'        => 'Comissão de descontos',                        
-                        'icon'        => 'fa fa-money',
+                        'icon'        => 'fa fa-dolar',
                         'can' => 'desconto',
                         'submenu' => [
                             [
