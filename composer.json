@@ -12,12 +12,13 @@
         "fideloper/proxy": "^4.0",
         "google/apiclient": "2.7",
         "guzzlehttp/guzzle": "6.*",
+        "japonline/laravel-ckeditor": "^4.7.3",
         "jeroennoten/laravel-adminlte": "3.5.2",
         "laravel-notification-channels/telegram": "^0.5.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
-        "japonline/laravel-ckeditor": "^4.7.3"
+        "myclabs/php-enum": "1.7.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
