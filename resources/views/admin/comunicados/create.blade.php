@@ -37,21 +37,23 @@
     <hr>
     <div class="row">
         <div class="col-sm-3">
-            <label for="">Disponibilizar para as turmas:</label>
-        </div>        
-        <div class="col-sm-1">
+            <p for="">Disponibilizar para as turmas:</p>
+        </div>
+    </div>
+    <div class="row">                
+        <div class="col-sm-2">
             <button type="button" class="btn btn-danger" onclick="checkTurma('ei')">Ed. Infantil</button>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-2">
             <button type="button" class="btn btn-warning" onclick="checkTurma('ef')">Ens. Fund. I</button>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-2">
             <button type="button" class="btn btn-primary" onclick="checkTurma('ef2')">En. Fund. II</button>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-2">
             <button type="button" class="btn btn-default" onclick="checkTurma('em')">En. Médio</button>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-2">
                 <button type="button" class="btn btn-success" onclick="checkTurma('x')">Limpar</button>
             </div>
     </div>
@@ -70,15 +72,15 @@
             </div>
             <div class="row">
                 <div class="col-sm-1">
-                    <label class="checkcard-inline">
-                        <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
                         {{$i->turma}}
                     </label>
                 </div>                
             @else
             <div class="col-sm-1">
-                <label class="checkcard-inline">
-                    <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
                     {{$i->turma}}
                 </label>
             </div> 
@@ -167,6 +169,15 @@
     
     
 @stop
+
+@section('css')
+    <style>
+        .checkbox-inline{
+            font-size: 13px !important;
+            font-weight: unset !important;
+        }
+    </style>
+@endsection
 
 @section('js')
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
