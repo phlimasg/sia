@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<form action="{{ route('comunicados.update',['id' => $comunicado->id]) }}" method="post">
+<form action="{{ route('comunicados.update',['comunicado' => $comunicado->id]) }}" method="post">
     @method('put')        
 @csrf
    <div class="row">
@@ -63,8 +63,8 @@
             </div>                        
             <div class="row">
                 <div class="col-sm-1">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]"
+                    <label class="checkcard-inline">
+                        <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]"
                         @foreach ($comunicado->turmas as $turma)
                             @if ($turma->turma == $i->turma)
                                 checked
@@ -76,8 +76,8 @@
                 </div>                
             @else
             <div class="col-sm-1">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]"
+                <label class="checkcard-inline">
+                    <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]"
                         @foreach ($comunicado->turmas as $turma)
                             @if ($turma->turma == $i->turma)
                                 checked

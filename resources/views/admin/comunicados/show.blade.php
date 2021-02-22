@@ -7,14 +7,14 @@
 @stop
 
 @section('content')
-<div class="box">
-    <div class="box-header with-border">
-        <h1 class="box-title">{{$comunicado->titulo}}</h1>
-        <div class="box-tools pull-right">
-        <a href="{{ route('comunicados.edit', ['id'=>$comunicado->id]) }}" class="btn btn-box-tool">
+<div class="card">
+    <div class="card-header with-border">
+        <h1 class="card-title">{{$comunicado->titulo}}</h1>
+        <div class="card-tools pull-right">
+        <a href="{{ route('comunicados.edit', ['comunicado'=>$comunicado->id]) }}" class="btn btn-card-tool">
             <i class="fa fa-edit"></i>
         </a>
-        <a href="{{ route('comunicados.destroy', ['id'=>$comunicado->id]) }}" class="btn btn-box-tool">
+        <a href="{{ route('comunicados.destroy', ['comunicado'=>$comunicado->id]) }}" class="btn btn-card-tool">
             <i class="fa fa-remove"></i></a>
         </div>
     </div>
@@ -23,16 +23,16 @@
         margin: 0px;
     }
     </style>
-    <div class="box-body showcom">          
+    <div class="card-body showcom">          
         
         {!!$comunicado->descricao!!}
     </div>
     
-    <!-- /.box-body 
-    <div class="box-footer">
+    <!-- /.card-body 
+    <div class="card-footer">
         Footer
     </div>-->
-    <!-- /.box-footer-->
+    <!-- /.card-footer-->
 </div>
 
 @stop

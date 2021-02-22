@@ -26,7 +26,7 @@ class ComunicadosController extends Controller
     {
         $this->authorize('editor',Auth::user());
         try {
-            $comunicado = comunicado::orderBy('created_at','desc')->paginate(15);
+            $comunicado = comunicado::orderBy('created_at','desc')->limit(100)->get();
             return view('admin.comunicados.index', compact('comunicado'));
             
         } catch (\Exception $e) {

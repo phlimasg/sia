@@ -70,15 +70,15 @@
             </div>
             <div class="row">
                 <div class="col-sm-1">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
+                    <label class="checkcard-inline">
+                        <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
                         {{$i->turma}}
                     </label>
                 </div>                
             @else
             <div class="col-sm-1">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
+                <label class="checkcard-inline">
+                    <input type="checkcard" value="{{$i->turma}}" id="{{$i->turma}}" name="turma[]" >
                     {{$i->turma}}
                 </label>
             </div> 
