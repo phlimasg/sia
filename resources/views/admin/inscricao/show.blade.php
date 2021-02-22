@@ -18,16 +18,16 @@
 <form action="{{ route('alunos_novos.update', ['id'=>$candidato->id]) }}" method="POST">
   @csrf
   @method('PUT')
-  <div class="box box-primary">
-    <div class="box-header">
-      <h3 class="box-title">Alterar Status</h3>
-      <div class="box-tools pull-right">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Alterar Status</h3>
+      <div class="card-tools pull-right">
         <a href="{{ route('alunos_novos.listar') }}" class="btn btn-primary">
           <i class="fa fa-undo"></i> Voltar
         </a>
       </div>
     </div>
-    <div class="box-body">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6">  
           <label for="">Status</label>      
@@ -54,11 +54,11 @@
   </div>
 </form>  
 @endcan
-<div class="box box-primary">
-  <div class="box-header">
-    <h3 class="box-title">Dados de {{$candidato->NOME}}</h3>
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Dados de {{$candidato->NOME}}</h3>
     @if ($candidato->ESPERA == 1)
-      <div class="box-tools pull-right">
+      <div class="card-tools pull-right">
         <form action="{{ route('alunos_novos.habilitarEspera', ['id'=>$candidato->id]) }}" method="post" id="formEspera">
           @csrf
           <button id="btnEspera" type="submit" target="_blank" class="btn btn-warning"><i class="fa fa-usd">
@@ -67,10 +67,10 @@
         </form>
       </div>        
       @else
-      <div class="box-tools pull-right"><a href="http://inscricao.abel.org.br/inscricao/candidato/infos/{{$candidato->RESPFIN_CPF}}/{{$candidato->Inscricao->id}}" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir ficha</a></div>    
+      <div class="card-tools pull-right"><a href="http://inscricao.abel.org.br/inscricao/candidato/infos/{{$candidato->RESPFIN_CPF}}/{{$candidato->Inscricao->id}}" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir ficha</a></div>    
     @endif
   </div>
-  <div class="box-body">
+  <div class="card-body">
 
     <div class="row">
       <div class="col-sm-3">
@@ -174,11 +174,11 @@
     </div>
   </div>
 </div>
-<div class="box box-warning">
-  <div class="box-header">
-    <h3 class="box-title">Documentos</h3>
+<div class="card card-warning card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Documentos</h3>
   </div>
-  <div class="box-body">
+  <div class="card-body">
     <div class="row">
       @forelse ($candidato->Documentos as $i)
         <div class="col-sm-2">
@@ -202,7 +202,7 @@
 
 @section('css')
  <style>
-   .box-body{
+   .card-body{
      font-size: 20px;
    }
  </style>

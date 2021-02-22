@@ -13,7 +13,7 @@
           @forelse ($comunicado as $i)
           <div class="row">
     <div class="col-md-6" style="margin: 0 auto">
-      <div class="card">
+      <div class="card card card-primary card-outline">
         <!-- /.card-header -->
         <div class="card-header">
           <h3 class="card-title">
@@ -93,6 +93,13 @@
           </div>    
     
 @stop
+@section('css')
+    <style>
+      .card{
+        box-shadow: 0 3px 3px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
+      }
+    </style>
+@endsection
 
 @section('js')
 

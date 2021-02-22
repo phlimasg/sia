@@ -9,15 +9,15 @@
 @section('content')
     <div class="row">
       <div class="col-md-8">
-        <div class="box box-primary">
-          <div class="box-body">
+        <div class="card card-primary">
+          <div class="card-body">
             <canvas id="myChart" style="width: 80vw; height: 90vh;"></canvas>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="box box-primary">
-          <div class="box-body">
+        <div class="card card-primary">
+          <div class="card-body">
           <div class="table-responsive">          
             <table class="table" id="totalInsc">
               <thead>
@@ -57,12 +57,12 @@
   </div>
 </div>
 
-<div class="box box-primary">
-  <div class="box-header">
-    <h3 class="box-title">Últimas inscrições</h3>
-    <div class="box-tools pull-right"><a href="{{ route('alunos_novos.listar') }}" class="btn btn-primary">Listar Inscrições</a></div>
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Últimas inscrições</h3>
+    <div class="card-tools pull-right"><a href="{{ route('alunos_novos.listar') }}" class="btn btn-primary">Listar Inscrições</a></div>
   </div>
-  <div class="box-body">
+  <div class="card-body">
     <div class="table-responsive">          
       <table class="table" >
         <thead>

@@ -4,13 +4,11 @@
 
 @section('content')
 
-
-
 <div class="row">
   <div class="col-md-12">
-    <div class="card">
+    <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Listagem de alunos</h3>
+        <h3 class="card-title">Pesquisar alunos</h3>
   
         <div class="card-tools">
           <form action="{{ route('alunos_matriculados.store') }}" method="post">
@@ -18,13 +16,24 @@
             <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
               <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar" value="{{old('table_search')}}">
     
-              <div class="input-group-btn">
+              <div class="input-group-prepend">
                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
               </div>
             </div>
           
           </form>
         </div>
+      </div>
+      <!-- /.card-header -->
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listagem de alunos</h3>         
       </div>
       <!-- /.card-header -->
       <div class="card-body ">

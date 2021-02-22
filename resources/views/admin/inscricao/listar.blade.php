@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-<div class="box">
-  <div class="box-body">
+<div class="card">
+  <div class="card-body">
     <div class="table-responsive">          
       <table class="table" id="tabela">
         <thead>
