@@ -50,6 +50,11 @@
 .navbar-light .navbar-nav .nav-link{
     color: rgba(255,255,255,.8) !important;    
 }
+.table td{
+    padding: 0.3rem !important;
+    vertical-align: middle !important;
+
+}
 @media screen and (max-width: 768px){
     .mb-left{
         margin-top: 30px;

@@ -30,13 +30,13 @@
               <td>{{$i->Escolaridade->ESCOLARIDADE}}</td>
               <td>{{$i->Escolaridade->ANO}}</td>
               <td>{{$i->Escolaridade->TURNO}}</td>
-              <td><span class="label
+              <td><span class="badge
                   @if($i->status == "Falta Documento")
-                    label-danger
+                    bg-danger
                   @elseif($i->status == "Aprovado")
-                    label-success
+                    bg-success
                   @elseif($i->status == null)
-                  label-warning
+                  bg-warning
                   @endif
                 ">{{$i->status ? $i->status : 'Analizar'}}</span></td>
               <td><a href="{{ route('alunos_novos.show',['candidato'=>$i->id]) }}" class="btn btn-primary">Analisar</a></td>
