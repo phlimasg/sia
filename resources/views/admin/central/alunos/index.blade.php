@@ -48,7 +48,7 @@
                   <td>{{$i->ANO}}</td>
                   <td>{{$i->TURMA}}</td>
                   <td>{{$i->TURNO_ALUNO}}</td>                      
-                  <td><a href="{{ route('alunos_matriculados.show',['id'=>$i->RA]) }}" class="btn btn-primary">Analisar</a></td>
+                  <td><a href="{{ route('alunos_matriculados.show',['alunos_matriculado'=>$i->RA]) }}" class="btn btn-primary">Analisar</a></td>
                 </tr>              
               @endforeach
             </tbody>
