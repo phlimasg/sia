@@ -155,7 +155,7 @@ class InscricaoController extends Controller
     public function habilitarEspera(Request $request)
     {
         //dd($request->all());
-        $candidato = Candidato::find($request->id);
+        $candidato = Candidato::find($request->candidato);
         $candidato->liberacao_data = date('Y-m-d H:i:s');
         $candidato->token = Str::random(32);
         $candidato->save();
