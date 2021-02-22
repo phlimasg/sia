@@ -66,7 +66,7 @@
                     @endif">{{$i->status}}</span>
                 </td>
                 <td>{{$i->motivo->motivo}}</td>
-                <td><a href="{{ route('covid.show', ['id'=>$i->id]) }}" class="btn btn-sm btn-primary"> <i class="fa fa-eye"></i> Analizar</a></td>
+                <td><a href="{{ route('covid.show', ['covid'=>$i->id]) }}" class="btn btn-sm btn-primary"> <i class="fa fa-eye"></i> Analizar</a></td>
             
         </tr>
             

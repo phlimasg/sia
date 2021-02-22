@@ -39,7 +39,7 @@
                   label-warning
                   @endif
                 ">{{$i->status ? $i->status : 'Analizar'}}</span></td>
-              <td><a href="{{ route('alunos_novos.show',['id'=>$i->id]) }}" class="btn btn-primary">Analisar</a></td>
+              <td><a href="{{ route('alunos_novos.show',['candidato'=>$i->id]) }}" class="btn btn-primary">Analisar</a></td>
             </tr>              
           @endforeach
         </tbody>
