@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => 'Sis. Inte. <b>Abel</b>',
-    'logo_img' => 'https://upload.wikimedia.org/wikipedia/commons/4/42/Bras%C3%A3o-la-salle.jpg',
+    'logo_img' => '/img/brasao.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
