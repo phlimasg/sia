@@ -7,12 +7,12 @@
 
 
 <div class="row">
-  <div class="col-xs-12">
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Listagem de alunos</h3>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listagem de alunos</h3>
   
-        <div class="box-tools">
+        <div class="card-tools">
           <form action="{{ route('alunos_matriculados.store') }}" method="post">
             @csrf
             <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
@@ -26,8 +26,8 @@
           </form>
         </div>
       </div>
-      <!-- /.box-header -->
-      <div class="box-body ">
+      <!-- /.card-header -->
+      <div class="card-body ">
         <div class="table-responsive">          
           <table class="table" id="tabela">
             <thead>
@@ -55,17 +55,17 @@
           </table>
         </div>
       </div>
-      <!-- /.box-body -->
+      <!-- /.card-body -->
       
     </div>
-    <!-- /.box -->
+    <!-- /.card -->
   </div>
 
 </div>
 <div class="row">
 <div class="col-md-12">
-  <div class="box box-primary">
-    <div class="box-body">
+  <div class="card card-primary">
+    <div class="card-body">
       <canvas id="myChart" style="height-max: 250px; height: 250px"></canvas>
     </div>
   </div>

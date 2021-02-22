@@ -40,6 +40,16 @@
     padding-top: 30px;;
 }
 .padding-md { padding: 1em; }
+
+.brand-link{
+    background-color: #007bff;
+}
+.navbar-white{
+    background-color: #007bff !important;    
+}
+.navbar-light .navbar-nav .nav-link{
+    color: rgba(255,255,255,.8) !important;    
+}
 @media screen and (max-width: 768px){
     .mb-left{
         margin-top: 30px;
