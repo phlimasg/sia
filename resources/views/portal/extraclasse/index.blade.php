@@ -14,9 +14,17 @@
 <div class="row">
   @foreach ($aluno as $i)
   <div class="col-sm-3">
-    <div class="box box-primary">
-            <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="User profile picture">
+    <div class="card card-primary">
+            <div class="card-body card-profile">
+              <div class="text-center">
+                <img class="profile-user-img img-responsive img-circle" 
+              @if (Storage::disk('public')->exists('alunos/00000'.$i->RA.'.JPG'))
+                src="{{Storage::url('alunos/00000'.$i->RA.'.JPG')}}"
+                @else
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+              @endif 
+              alt="User profile picture">
+              </div>
 
             <h3 class="profile-username text-center">{{$i->NOME_ALUNO}}</h3>
 

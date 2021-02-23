@@ -19,11 +19,11 @@
 @endif
 <form action="{{ route('pagamento') }}" method="post">
 <input type="hidden" name="cart_id" value="{{$carrinho->id}}">
-<div class="box box-danger">
-    <div class="box-header">
+<div class="card card-danger">
+    <div class="card-header">
         <i class="fa fa-map-marker"></i> Confirme se os dados do comprador estão corretos.
     </div>
-    <div class="box-body">
+    <div class="card-body">
         <div class="row">
             <div class="col-sm-2">
                 <label for="">Nome:</label>
@@ -99,12 +99,12 @@
         </div>  
     </div>
 </div>
-    <div class="box box-primary">
-        <div class="box-header">
+    <div class="card card-primary">
+        <div class="card-header">
             <i class="fa fa-credit-card"></i> Dados para pagamentos com cartão de crédito: 
         </div>
             @csrf
-            <div class="box-body">
+            <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="">Nome do titular do cartão:</label>
@@ -151,26 +151,22 @@
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
                 </div>
-            </div>                       
-            <div class="box-footer">
-                <div class="row text-center">                    
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-default"><i class="fa fa-credit-card"></i> Efetuar pagamento</button>
-                    </div>                    
-                </div>            
-            </div>
-            <div class="panel">
-                <div class="panel-body bg-gray"> 
-                    <p class="text-danger">
+            </div>                                   
+                      
+            
+            <div class="row mt-3">
+                <div class="col-md-12"> 
+                    <div class="alert alert-warning">                        
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Informação!</h5>
                         <b>
                             * As atividades podem ficar indisponíveis. <br>
                             * Caso a atividade fique indisponível, você será adicionado a lista de espera e não será cobrado por isso. <br>
-                            * A assinatura dos contratos e a prova dos uniformes serão na Central de Matrículas, em frente à capela do dia 05/03 a 13/03.<br>                        
+                            <!--* A assinatura dos contratos e a prova dos uniformes serão na Central de Matrículas, em frente à capela do dia 05/03 a 13/03.<br>                        -->
 
                         </b>
-                    </p>
+                    </div>
                     @php($count = 0)                    
-                    <blockquote>
+                    <div class="callout callout-success" >
                         <ul>
                         @forelse ($carrinho->ItensCarrinho()->get() as $i)
                             @if ($i->ExtAtvTurma->ExtAtvVagas($i->ExtAtvTurma->id)<=0 || !empty(App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera::where('ext_atv_turmas_id',$i->ExtAtvTurma->id)->where('ano', date('Y'))->first()))
@@ -183,13 +179,19 @@
                                 Carrinho vazio
                                 @endforelse 
                         </ul>                        
-                    </blockquote>
-                    <h3 class="text-success">Total: {{str_replace('.',',',number_format($count, 2, '.', ''))}}</h3>
+                    </div>
+                    <h3 class="text-success">Total a pagar: {{str_replace('.',',',number_format($count, 2, '.', ''))}}</h3>
                 </div>    
             </div> 
+
+            <div class="row text-center mt-3 mb-3">                    
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-default"><i class="fa fa-credit-card"></i> Efetuar pagamento</button>
+                </div>                    
+            </div>  
         </div>
     </form>
-        <div class="box">
+        <div class="card">
             <div class="row" style="vertical-align: baseline;">
                 <div class="col-sm-1" >                    
                     <img src="https://ncdn0.infojobs.com.br/logos/Company_Evaluation/18197.jpg" alt="" srcset=""  height="50">                                        

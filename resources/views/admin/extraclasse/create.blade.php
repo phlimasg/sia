@@ -9,16 +9,16 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
-      <div class="box box-primary">
-        <div class="box-header">
-          <h3 class="box-title">Adicione uma nova atividade</h3>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Adicione uma nova atividade</h3>
 
-          <div class="box-tools">
+          <div class="card-tools">
               
           </div>          
         </div>
-        <!-- /.box-header -->
-        <div class="box-body  ">   
+        <!-- /.card-header -->
+        <div class="card-body  ">   
             <form action="{{route('extclasse.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -81,12 +81,12 @@
             </form>
         
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer clearfix">
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
             
         </div>
       </div>
-      <!-- /.box -->
+      <!-- /.card -->
     </div>
   </div>
     
@@ -117,7 +117,7 @@
       toolbar: [        
 		{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
 		{ name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-		{ name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+		{ name: 'forms', items: [ 'Form', 'Checkcard', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
     { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
 		'/',
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },

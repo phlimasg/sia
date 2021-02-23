@@ -404,7 +404,7 @@ class GetnetController extends Controller
                     }
                     
                     $carrinho->delete();
-                    return redirect()->route('aluno.show',['id' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso.');
+                    return redirect()->route('aluno.show',['aluno' => $carrinho->aluno_id])->with('message','Inscrições efetuadas com sucesso.');
             }else{
                 abort(403, 'Que feio! Você não pode fazer isso.');
             }            

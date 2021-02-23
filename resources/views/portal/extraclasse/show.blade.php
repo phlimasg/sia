@@ -33,9 +33,9 @@
     @if ($i->ExtAtvTurma->dia_libera <= date('Y-m-d H:i:s') && $i->ExtAtvTurma->dia_bloqueia >= date('Y-m-d H:i:s'))
         
     <div class="col-sm-3" style="">
-      <div class="panel panel-default text-center">
-        <div class="panel-body">
-          <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}"><img src="{{$i->ExtAtvTurma->ExtAtv->imagem_mini}}" alt="" class="img-responsive">
+      <div class="card card-default text-center">
+        <div class="card-body" style="padding: 0px">
+          <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}"><img src="{{$i->ExtAtvTurma->ExtAtv->imagem_mini}}" alt="" class="img-fluid">
         <div>
           <span  class="lj-atv">{{$i->ExtAtvTurma->ExtAtv->atividade}}</span>          
         </div>

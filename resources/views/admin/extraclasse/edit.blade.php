@@ -19,7 +19,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body  ">   
-            <form action="{{route('extclasse.update', ['id'=>$atv->id])}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('extclasse.update', ['extclasse'=>$atv->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <div class="row">

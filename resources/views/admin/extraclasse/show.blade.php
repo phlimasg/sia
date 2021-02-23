@@ -10,12 +10,12 @@
 <div class="row">
     <div class="col-md-12">
         <!-- Widget: user widget style 1 -->
-        <div class="box box-widget widget-user">
-            <div class="box-tools pull-right">                
-                <a href="{{ route('extclasse.edit', ['id'=>$atv->id]) }}" type="button" class="btn btn-box-tool">
+        <div class="card card-widget widget-user">
+            <div class="card-tools pull-right">                
+                <a href="{{ route('extclasse.edit', ['extclasse'=>$atv->id]) }}" type="button" class="btn btn-card-tool">
                   <i class="fa fa-pencil"></i>
                 </a>                
-                <a type="button" class="btn btn-box-tool" ><i class="fa fa-trash"></i></a>
+                <a type="button" class="btn btn-card-tool" ><i class="fa fa-trash"></i></a>
               </div>
           <!-- Add the bg color to the header using any of the bg-* classes -->
           <div class="widget-user-header bg-black" style="background: url('{{$atv->imagem_fundo}}') center center;">
@@ -28,7 +28,7 @@
           <div class="widget-user-image">
             <img class="img-circle" src="{{$atv->imagem_mini}}" alt="User Avatar" style="max-height: 90px;">
           </div>
-          <div class="box-footer">
+          <div class="card-footer">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
@@ -62,19 +62,19 @@
   @endif
 <div class="row">
     <div class="col-xs-12">
-      <div class="box box-primary">
-        <div class="box-header">
-          <h3 class="box-title">Turmas Cadastradas</h3>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Turmas Cadastradas</h3>
 
-          <div class="box-tools">
+          <div class="card-tools">
               <div class="input-group input-group-sm hidden-xs" style="width: 150px;">                  
                   <a href="{{ route('turma.create',['id'=>Request::segment(3)]) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Adicionar Turma</a>
               </div>
           </div>          
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <div class="box-body table-responsive ">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="card-body table-responsive ">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -99,8 +99,8 @@
                       <td>{{$i->vagas}}</td>
                       <td>{{$i->valor}}</td>
                       <td {{$i->ExtAtvInscritos($i->id)<10?print'class="text-danger"':print''}}>{{$i->ExtAtvInscritos($i->id)}}</td>
-                      <td><a href="{{route('turma.show',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                      <td><a href="{{route('turma.edit',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>                  
+                      <td><a href="{{route('turma.show',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-primary"><span class="fa fa-eye"></span></a></td>
+                      <td><a href="{{route('turma.edit',['id'=>Request::segment(3) ,'turma' => $i->id])}}" class="btn btn-success"><span class="fa fa-pen"></span></a></td>                  
                     </tr>    
         @empty
           <div class="alert alert-info">
@@ -111,12 +111,12 @@
               </table>
             </div>
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer clearfix">
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
         
         </div>
       </div>
-      <!-- /.box -->
+      <!-- /.card -->
     </div>
   </div>
 

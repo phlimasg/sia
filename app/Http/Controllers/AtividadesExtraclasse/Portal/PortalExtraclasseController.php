@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AtividadesExtraclasse\Portal;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\AtividadesExtraclasse\ExtAtv;
 use App\Model\AtividadesExtraclasse\ExtAtvTurma;
 use App\Model\AtividadesExtraclasse\ExtAtvTurmasAutorizadas;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
@@ -71,6 +72,7 @@ class PortalExtraclasseController extends Controller
                 $_SESSION['ra'] = $id;                
                 $_SESSION['cart'] = $carrinho->id;
                 $_SESSION['name'] = $aluno->NOME_ALUNO;
+                $_SESSION['turma'] = $aluno->TURMA;
                 return redirect()->route('extraclasse.show',['extraclasse'=> $_SESSION['ra']]);
             }        
         } catch (\Exception $e) {
@@ -97,7 +99,7 @@ class PortalExtraclasseController extends Controller
      */
     public function show($id)
     {
-        try {
+        try {            
             $orcamento = ExtOrcamento::where('user_id',Auth::user()->id)->where('aluno_id',$_SESSION['ra'])->first();
             if(!empty($orcamento)){
                 $_SESSION['cart'] = $orcamento->ItensCarrinho()->count();
@@ -109,8 +111,12 @@ class PortalExtraclasseController extends Controller
             if($_SESSION['ra']!=$id){
                 abort(403, 'Aluno não corresponde ao Cpf do responsável');
             }
-            $aluno = Totvs_alunos::select('turma')->where('RA','like','%'.$id)->first();
-            $turmas = ExtAtvTurmasAutorizadas::where('turma', $aluno->turma)->get();            
+            $aluno = Totvs_alunos::select('turma')->where('RA','like','%'.$id)->where('turma', $_SESSION['turma'])->first();
+            $atv = ExtAtvTurma::select('id')->where('dia_libera','<=', date('Y-m-d H:i'))
+            ->where('dia_bloqueia','>=', date('Y-m-d H:i'))->first();
+            $turmas = ExtAtvTurmasAutorizadas::whereIn('turma', $aluno)
+            ->whereIn('ext_atv_turmas_id',$atv)->get();                        
+            //dd($aluno,$turmas);
             return view('portal.extraclasse.show',compact('turmas'));            
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
@@ -129,7 +135,7 @@ class PortalExtraclasseController extends Controller
             }
             //session_start();
             $ra = $_SESSION['ra'];
-            $aluno = Totvs_alunos::select('turma')->where('RA','like','%'.$ra)->first();
+            $aluno = Totvs_alunos::select('turma')->where('RA','like','%'.$ra)->where('TURMA',$_SESSION['turma'])->first();
             $atividade = ExtAtvTurmasAutorizadas::where('id',$id)->where('turma',$aluno->turma)->first();
             if(!$atividade)
                 abort(403, 'Você não tem acesso a essa atividade.');

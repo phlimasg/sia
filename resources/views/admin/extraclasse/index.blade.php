@@ -18,7 +18,7 @@
           </div>
           <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box -->
+        <!-- /.info-card-->
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
@@ -30,7 +30,7 @@
             </div>
             <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
+          <!-- /.info-card-->
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
@@ -43,7 +43,7 @@
               </div>
               <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
+            <!-- /.info-card-->
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
@@ -56,12 +56,12 @@
                 </div>
                 <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
+              <!-- /.info-card-->
             </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
-      <div class="box box-primary">
+      <div class="cardbox-primary">
         <div class="box-header">
           <h3 class="box-title">Atividades Extraclasses Cadastradas</h3>
 
@@ -91,8 +91,8 @@
                 <td>{{$i->atividade}}</td>
                 <td>{{$i->user}}</td>
                 <td></td>
-                <td><a href="{{route('extclasse.show',['id' => $i->id])}}" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                <td><a href="{{route('extclasse.edit',['id' => $i->id])}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>                  
+                <td><a href="{{route('extclasse.show',['extclasse' => $i->id])}}" class="btn btn-primary"><span class="fa fa-eye"></span></a></td>
+                <td><a href="{{route('extclasse.edit',['extclasse' => $i->id])}}" class="btn btn-success"><span class="fa fa-pen"></span></a></td>                  
               </tr>    
   @empty
   
@@ -107,7 +107,7 @@
             {{ $atv->links() }}
           </div>
       </div>
-      <!-- /.box -->
+      <!-- /.card-->
     </div>
   </div>
     
