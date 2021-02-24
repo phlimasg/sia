@@ -7,13 +7,13 @@
 @stop
 
 @section('content')
-<div class="box">
-  <div class="box-header">
+<div class="card">
+  <div class="card-header">
     Relatório das inscrições
   </div>
 <form action="{{ route('inscricao.store') }}" method="POST">
   @csrf
-  <div class="box-body">
+  <div class="card-body">
     <div class="row">
       <div class="col-sm-2">
         <label for="">Início</label>
