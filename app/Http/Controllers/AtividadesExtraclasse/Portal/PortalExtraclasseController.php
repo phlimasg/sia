@@ -113,10 +113,10 @@ class PortalExtraclasseController extends Controller
             }
             $aluno = Totvs_alunos::select('turma')->where('RA','like','%'.$id)->where('turma', $_SESSION['turma'])->first();
             $atv = ExtAtvTurma::select('id')->where('dia_libera','<=', date('Y-m-d H:i'))
-            ->where('dia_bloqueia','>=', date('Y-m-d H:i'))->first();
+            ->where('dia_bloqueia','>=', date('Y-m-d H:i'))->get();
             $turmas = ExtAtvTurmasAutorizadas::whereIn('turma', $aluno)
             ->whereIn('ext_atv_turmas_id',$atv)->get();                        
-            //dd($aluno,$turmas);
+            //dd($aluno,$turmas,$atv,date('Y-m-d H:i'));
             return view('portal.extraclasse.show',compact('turmas'));            
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
