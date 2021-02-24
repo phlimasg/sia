@@ -3,30 +3,37 @@
 @section('title', 'Extraclasse')
 
 @section('content_header')
-    <h1>Detalhes da Atividade Extraclasse</h1>
+    
 @stop
 
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <!-- Widget: user widget style 1 -->
-        <div class="card card-widget widget-user">
-            <div class="card-tools pull-right">                
-                <a href="{{ route('extclasse.edit', ['extclasse'=>$atv->id]) }}" type="button" class="btn btn-card-tool">
-                  <i class="fa fa-pencil"></i>
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Detalhes da Atividade Extraclasse</h3>
+              <div class="float-right">
+                <a href="{{ route('extclasse.edit', ['extclasse'=>$atv->id]) }}" type="button" class="btn btn-warning">
+                  <i class="fa fa-pen"></i>
                 </a>                
-                <a type="button" class="btn btn-card-tool" ><i class="fa fa-trash"></i></a>
+                <a type="button" class="btn btn-danger" ><i class="fa fa-trash"></i></a>
               </div>
+            </div>
+          </div>            
           <!-- Add the bg color to the header using any of the bg-* classes -->
-          <div class="widget-user-header bg-black" style="background: url('{{$atv->imagem_fundo}}') center center;">
-           <div class="col-sm-12" style="background-color: rgba(0, 0, 0, 0.4)">
-              <h3 class="widget-user-username">{{$atv->atividade}}</h3>
-              <span class="widget-user-desc">Criado por: {{$atv->user}}</span> <br>              
-              <span class="widget-user-desc">Última modificação: {{$atv->updated_at}}</span> <br>
-           </div>
-          </div>
-          <div class="widget-user-image">
-            <img class="img-circle" src="{{$atv->imagem_mini}}" alt="User Avatar" style="max-height: 90px;">
+          <div class="card card-widget widget-user">
+            <div class="widget-user-header bg-black" style="background: url('{{$atv->imagem_fundo}}') center center;">
+              <div class="col-sm-12" style="background-color: rgba(0, 0, 0, 0.4)">
+                 <h3 class="widget-user-username">{{$atv->atividade}}</h3>
+                 <span class="widget-user-desc">Criado por: {{$atv->user}}</span> <br>              
+                 <span class="widget-user-desc">Última modificação: {{$atv->updated_at}}</span> <br>
+              </div>
+             </div>
+             <div class="widget-user-image">
+               <img class="img-circle" src="{{$atv->imagem_mini}}" alt="User Avatar" style="max-height: 90px;">
+             </div>
           </div>
           <div class="card-footer">
             <div class="row">

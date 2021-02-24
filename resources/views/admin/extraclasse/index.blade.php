@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-aqua"><i class="fa fa-graduation-cap"></i></span>
+          <span class="info-box-icon bg-info"><i class="fa fa-graduation-cap"></i></span>
 
           <div class="info-box-content">
             <span class="info-box-text">Ativ. Cadastradas</span>
@@ -22,7 +22,7 @@
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-group"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
   
             <div class="info-box-content">
               <span class="info-box-text">Turmas Cadastradas</span>
@@ -60,19 +60,19 @@
             </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
-      <div class="cardbox-primary">
-        <div class="box-header">
-          <h3 class="box-title">Atividades Extraclasses Cadastradas</h3>
+    <div class="col-md-12">
+      <div class="card  card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Atividades Extraclasses Cadastradas</h3>
 
-          <div class="box-tools">
+          <div class="card-tools">
               <div class="input-group input-group-sm hidden-xs" style="width: 150px;">                  
                   <a href="{{ route('extclasse.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Adicionar Atividade</a>
               </div>
           </div>          
         </div>
         <!-- /.box-header -->
-        <div class="box-body table-responsive ">
+        <div class="card-body table-responsive ">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -103,7 +103,7 @@
           </tbody></table>
         </div>
         <!-- /.box-body -->
-        <div class="box-footer clearfix">
+        <div class="card-footer clearfix">
             {{ $atv->links() }}
           </div>
       </div>

@@ -8,17 +8,17 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-      <div class="box box-primary">
-        <div class="box-header">
-        <h3 class="box-title">Editar - {{$atv->atividade}}</h3>
+    <div class="col-md-12">
+      <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">Editar - {{$atv->atividade}}</h3>
 
-          <div class="box-tools">
-              <a href="{{ route('extclasse.index') }}"><i></i>Voltar</a>
+          <div class="card-tools">
+              <a href="{{ route('extclasse.index') }}" class="btn btn-warning"><i></i>Voltar</a>
           </div>          
         </div>
-        <!-- /.box-header -->
-        <div class="box-body  ">   
+        <!-- /.card-header -->
+        <div class="card-body  ">   
             <form action="{{route('extclasse.update', ['extclasse'=>$atv->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
@@ -88,12 +88,12 @@
             </form>
         
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer clearfix">
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
             
         </div>
       </div>
-      <!-- /.box -->
+      <!-- /.card -->
     </div>
   </div>
     
@@ -124,7 +124,7 @@
       toolbar: [        
 		{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
 		{ name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-		{ name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+		{ name: 'forms', items: [ 'Form', 'Checkcard', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
     { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
 		'/',
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
