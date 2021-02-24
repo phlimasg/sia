@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-aqua">
+          <div class="small-box bg-blue">
             <div class="inner">
             <h3>{{$inscricao_count}}</h3>
 
@@ -82,19 +82,20 @@
 
 
 
-  <div class="box box-primary">
-    <div class="box-header with-border">
-    <h3 class="box-title">Informações da Turma </h3>
+  <div class="card card-primary">
+    <div class="card-header with-border">
+    <h3 class="card-title">Informações da Turma </h3>
 
-      <div class="box-tools">
+      <div class="card-tools">
           <div class="input-group input-group-sm hidden-xs" style="width: 100px;">                  
-          <a href="{{route('turma.edit',['id'=>Request::segment(3), 'turma'=> $turma->id])}}" class="btn"><i class="fa fa-pencil"></i> </a>
-              <a href="" class="btn"><i class="fa fa-trash"></i> </a>
+          <a href="{{route('turma.edit',['turma'=>$turma->id, 'id'=> Request::segment(3)])}}" class="btn btn-warning">
+            <i class="fa fa-pen"></i> </a>
+              <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
           </div>
       </div>          
     </div>
     <!-- /.box-header -->
-    <div class="box-body">            
+    <div class="card-body">            
       <div class="row">
           <div class="col-sm-3">
             <label for="">Descrição da turma:</label> {{$turma->descricao_turma}}
@@ -133,7 +134,7 @@
         </div> 
     </div>
     <!-- /.box-body -->
-    <div class="box-footer clearfix">
+    <div class="card-footer clearfix">
     
     </div>
   </div>
@@ -192,7 +193,7 @@
                             </tr> 
                             <!--Modal de troca de troca alunos inscritos-->
                             <div class="modal fade" id="troca-{{$i->aluno->RA}}">
-                              <form action="{{ route('inscricao.update',['id'=>$i->id]) }}" method="post">
+                              <form action="{{ route('inscricao.update',['inscricao'=>$i->id]) }}" method="post">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -324,7 +325,7 @@
                                     <li>
                                       @if(!empty($i->ExtAtvListaDeEsperaAutorizada->token))                                      
                                       <a target="_blank"
-                                      href="https://api.whatsapp.com/send?phone=55{{$i->aluno->RESPACADTEL2}}&text=É com grande felicidade que informamos que está disponível a vaga na atividade {{$i->ExtAtvTurma->ExtAtv->atividade}} para o aluno(a) {{$i->aluno->NOME_ALUNO}} {{ route('exibe.espera', ['id'=>$i->ExtAtvListaDeEsperaAutorizada->token]) }}">Enviar por WPP</a></li>
+                                      href="https://api.whatsapp.com/send?phone=55{{$i->aluno->RESPACADTEL2}}&text=É com grande felicidade que informamos que está disponível a vaga na atividade {{$i->ExtAtvTurma->ExtAtv->atividade}} para o aluno(a) {{$i->aluno->NOME_ALUNO}} {{ route('exibe.espera', ['exibe'=>$i->ExtAtvListaDeEsperaAutorizada->token]) }}">Enviar por WPP</a></li>
                                       @endif
                                     <li><a href="#" data-toggle="modal" data-target="#troca-espera-{{$i->aluno->RA}}">Trocar de turma</a></li>
                                     <li><a href="#" data-toggle="modal" data-target="#remove-espera-{{$i->aluno->RA}}">Remover</a></li>
@@ -366,7 +367,7 @@
 
                             <!--Modal de troca de turma espera-->
                             <div class="modal fade" id="troca-espera-{{$i->aluno->RA}}">
-                              <form action="{{ route('listadeespera.troca',['id'=>$i->id]) }}" method="post">
+                              <form action="{{ route('listadeespera.troca',['listadeespera'=>$i->id]) }}" method="post">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">

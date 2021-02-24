@@ -107,7 +107,7 @@ class ExtraclasseController extends Controller
     public function show($id)
     {
         $atv = ExtAtv::find($id);
-        $turmas = ExtAtvTurma::where('ext_atvs_id',$id)->get();
+        $turmas = ExtAtvTurma::where('ext_atvs_id',$id)->orderBy('created_at','desc')->get();
         $turmas_id = ExtAtvTurma::where('ext_atvs_id',$id)->select('id')->get();        
         $espera = ExtAtvListaDeEspera::whereIn('ext_atv_turmas_id',$turmas_id)->count();   
         $inscricao = ExtInscricao::whereIn('ext_atv_turmas_id',$turmas_id)->count();

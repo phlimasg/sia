@@ -95,10 +95,10 @@ class ExtraclasseTurmaController extends Controller
     public function show($id,$turma)
     {
         $turma = ExtAtvTurma::find($turma);
-        $inscricao = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->paginate(30);        
-        $espera = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->orderBy('created_at','asc')->paginate(30);
-        $inscricao_count = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->count();        
-        $espera_count = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->where('ano',date('Y'))->count();
+        $inscricao = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->paginate(30);        
+        $espera = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->orderBy('created_at','asc')->paginate(30);
+        $inscricao_count = ExtInscricao::where('ext_atv_turmas_id',$turma->id)->count();        
+        $espera_count = ExtAtvListaDeEspera::where('ext_atv_turmas_id',$turma->id)->count();
         return view('admin.extturma.show', compact('turma','inscricao','espera','inscricao_count','espera_count'));    
     }
 
