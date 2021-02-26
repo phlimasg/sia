@@ -133,7 +133,7 @@
 @stop
 
 @section('js')
-
+<script src="{{ asset('/js/jquery.mask.min.js') }}"></script> 
 <script>
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {

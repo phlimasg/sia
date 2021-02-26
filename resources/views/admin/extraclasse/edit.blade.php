@@ -100,6 +100,7 @@
 @stop
 
 @section('js')
+<script src="{{ asset('/js/jquery.mask.min.js') }}"></script> 
 <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 <script>
     CKEDITOR.replace( 'descricao_atv', {

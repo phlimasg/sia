@@ -158,6 +158,7 @@ class GetnetController extends Controller
             'cidade' => 'required|string',
             //'estado' => 'required|string',
             'uf' => 'required|string',
+            'parcelas' => 'required|numeric|max:3',
 
 
             'nome' => 'required|string',
@@ -172,6 +173,7 @@ class GetnetController extends Controller
             'required' => 'Campo obrigatório'
         ]);        
         try {
+            
             $carrinho = ExtOrcamento::find($request->cart_id);
             $espera =[];
             if(Auth::user()->id == $carrinho->user_id){                
@@ -238,8 +240,8 @@ class GetnetController extends Controller
                                 'credit' => [
                                     'delayed'=> false,
                                     'save_card_data'=> false,
-                                    'transaction_type'=> 'FULL',
-                                    'number_installments'=> 1,
+                                    'transaction_type'=> 'INSTALL_NO_INTEREST',
+                                    'number_installments'=> intval($request->parcelas),
                                     //'authenticated'=> false,
                                     //'pre_authorization'=> false,
                                     'soft_descriptor'=> 'Atividades Extraclasse ID '.$carrinho->id,

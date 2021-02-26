@@ -112,7 +112,18 @@
                     @error('nome')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
-                    </div>            
+                    </div>  
+                    <div class="col-sm-2">
+                        <label for="">Parcelar em:</label>
+                        <select name="parcelas" id="parcelas" class="form-control">
+                            @for ($i = 1; $i <= 3; $i++)
+                            <option value="{{$i}}">{{$i}}x</option>                            
+                            @endfor
+                        </select>
+                        @error('parcelas')
+                            <div class=" text-danger">* {{ $message }}</div>
+                        @enderror
+                    </div>          
                 </div>        
                 
             <div class="row">
@@ -122,7 +133,7 @@
                     @error('numero')
                         <div class=" text-danger">* {{ $message }}</div>
                     @enderror
-                </div>
+                </div>                
                 <div class="col-sm-2">
                     <label for="">Código de segurança:</label>
                     <input type="text" name="cod" id="" class="form-control" value="{{old('cod')}}" maxlength="4">

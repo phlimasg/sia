@@ -115,5 +115,5 @@
 
 @section('js')
 
-    
+<script src="{{ asset('/js/jquery.mask.min.js') }}"></script>   
 @endsection

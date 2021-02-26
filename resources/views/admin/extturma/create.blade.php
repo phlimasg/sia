@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label for="">Horário final</label>
-                        <input type="text" class="form-control" name="hora_fim" placeholder="Ex: 18:40" value="{{old('hora_fim')}}" data-mask="00:00">
+                        <input type="time" class="form-control" name="hora_fim" placeholder="Ex: 18:40" value="{{old('hora_fim')}}" data-mask="00:00">
                         @if ($errors->has('hora_fim'))
                             <div class="alert alert-danger">
                                 {{$errors->first('hora_fim')}}
@@ -282,8 +282,6 @@
             } 
         }
     }
-</script>   
-@endsection
-@section('js')
-
+</script>  
+<script src="{{ asset('/js/jquery.mask.min.js') }}"></script> 
 @endsection
