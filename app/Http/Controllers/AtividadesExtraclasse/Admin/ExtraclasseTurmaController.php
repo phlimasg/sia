@@ -166,7 +166,7 @@ class ExtraclasseTurmaController extends Controller
                 $aut->user = Auth::user()->email;
                 $aut->save();
             }
-            return redirect()->route('extclasse.show',['id'=> $request->id])->with('message' , 'A Turma '.$turma->descricao_turma.' foi salvo(a) com sucesso!');
+            return redirect()->route('extclasse.show',['extclasse'=> $request->id])->with('message' , 'A Turma '.$turma->descricao_turma.' foi salvo(a) com sucesso!');
         }catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }   
