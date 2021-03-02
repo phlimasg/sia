@@ -89,7 +89,7 @@ class ComunicadosController extends Controller
                     $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
                     foreach ($totvs_alunos as $totvs) {                    
                         SendMailJob::dispatch($totvs,$comunicado);
-//                        break;
+                        break;
                     }
                 }
                 $comunicado->notify(new TelegramRegister());

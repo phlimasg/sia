@@ -39,9 +39,9 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->totvs->RESPFINEMAIL)
-            ->cc($this->totvs->RESPACADEMAIL)            
-            //Mail::to('raphael.oliveira@lasalle.org.br')
+        //Mail::to($this->totvs->RESPFINEMAIL)
+            //->cc($this->totvs->RESPACADEMAIL)            
+            Mail::to('raphael.oliveira@lasalle.org.br')
             ->send(new ComunicadoMail($this->totvs, $this->comunicado));
     }
 }
