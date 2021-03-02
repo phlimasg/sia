@@ -92,7 +92,7 @@ class ComunicadosController extends Controller
                     //Mail::to('raphael.oliveira@lasalle.org.br')
                     //->queue(new ComunicadoMail($totvs,$comunicado));
                     //dd($totvs, $comunicado);
-                    break;
+                    //break;
                 }
             }
             //$comunicado->notify(new TelegramRegister());

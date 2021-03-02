@@ -7,10 +7,6 @@
     <!--<meta http-equiv="refresh" content="3" />-->
     <title>Comunicado</title>
 </head>
-@php
-    $comunicado = \App\Model\Comunicados\comunicado::find(32);
-    $totvs = \App\Model\Totvs_alunos::where('RA',58556)->first()
-@endphp
 <body style="background-color: lightgray; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
     <div style="margin: 0 auto; width: 580px; background-color: white;">
         <div style="width: 100%;">
@@ -60,19 +56,19 @@
             <table style="width: 80%; font-size: 12px; margin: 0 auto" border="0">            
                 <tr>
                     <td style="width: 33%; text-align: center">
-                        <a href="https://sia.abel.org.br" style="text-decoration: none">
+                        <a href="https://sia.abel.org.br" style="text-decoration: none; color: white">
                             <img src="{{ asset('/img/brasao.png') }}" alt="sia.abel.org.br" width="50%">  <br>
                             Clique para ver os comunicados anteriores.
                         </a>
                     </td>
                     <td style="width: 33%; text-align: center">
-                        <a href="https://t.me/joinchat/AAAAAFVSI9t2MZcPDfWUTA" style="text-decoration: none">
+                        <a href="https://t.me/joinchat/AAAAAFVSI9t2MZcPDfWUTA" style="text-decoration: none ; color: white">
                             <img src="{{ asset('img/telegram.png') }}" alt="Receba também no Telegram!" width="50%"><br>
                             Receba também no Telegram!
                         </a>
                     </td>
                     <td style="width: 33%; text-align: center">
-                        <a href="http://educonnect.abel.org.br/"  style="text-decoration: none">
+                        <a href="http://educonnect.abel.org.br/"  style="text-decoration: none; color: white">
                             <img src="{{ asset('img/educ.png') }}" alt="Educonnect, baixe o app!" width="50%"> <br>
                             Educonnect, baixe o app! <br>
                             Saiba mais.
