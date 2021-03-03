@@ -88,7 +88,7 @@ class ComunicadosController extends Controller
                 foreach ($comunicado->turmas as $i) {
                     $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
                     foreach ($totvs_alunos as $totvs) {                    
-                        SendMailJob::dispatch($totvs,$comunicado);
+                        SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addSeconds(1));
 //                        break;
                     }
                 }
