@@ -41,7 +41,8 @@ class ExtraclasseTurmaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {   
+        dd($request->all())    ;
         $request->validate([
             'descricao_turma' => 'required|max:254',
             'hora_ini' =>'required|date_format:H:i',

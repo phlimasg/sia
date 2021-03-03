@@ -92,7 +92,7 @@ class ComunicadosController extends Controller
 //                        break;
                     }
                 }
-                $comunicado->notify(new TelegramRegister());
+                //$comunicado->notify(new TelegramRegister());
             }
             return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {
