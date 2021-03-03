@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('queue:work --timeout=60')
-            ->everyThirtyMinutes();
+        //$schedule->command('queue:work --timeout=60')
+            //->everyThirtyMinutes();
         $schedule->command('queue:retry all')
             ->everyFiveMinutes();
     }
