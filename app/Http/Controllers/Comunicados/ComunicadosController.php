@@ -87,9 +87,14 @@ class ComunicadosController extends Controller
             if(env('APP_ENV')=='production'){
                 foreach ($comunicado->turmas as $i) {
                     $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
-                    foreach ($totvs_alunos as $totvs) {                    
-                        SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addSeconds(1));
-//                        break;
+                    foreach ($totvs_alunos as $totvs) {                                            
+                        SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addMilliseconds(400));
+                        /*
+                        Mail::to('raphael.oliveira@lasalle.org.br')
+                        ->cc(['raphaelpcteste@gmail.com','raphaelpc_@hotmail.com'])
+                        ->queue(new ComunicadoMail($totvs, $comunicado));
+                        */
+                        //break;
                     }
                 }
                 $comunicado->notify(new TelegramRegister());

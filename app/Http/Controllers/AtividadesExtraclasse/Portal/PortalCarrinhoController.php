@@ -55,11 +55,24 @@ class PortalCarrinhoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {    
+        
         $request->validate([
             'id'=>'numeric|required',
-            'ra'=>'numeric|required'
-        ]);
+            'ra'=>'numeric|required',
+            'tipo.*' => 'numeric',
+            'documentos.*' => 'mimes:jpg,jpeg,pdf,png|max: 5000'
+        ],
+        [
+            'mimes' => 'Tipos suportados: jpeg, jpg, png, pdf.',
+            'max' => 'Tamanho máximo de 5mb.'
+        ]
+        );
+        //salvando documentos
+        for ($i=0; $i < sizeof($request->tipo); $i++) { 
+            $upload = $request->documentos[$i]->storeAs("upload\\extraclasse\\documentos\\$request->ra\\$request->id", $request->ra.' - '.date('Y-m-d H:i:s').'.'.$request->documentos[$i]->extension());
+        }   
+        dd($request->all(),$upload);
         try {
             $orcamento = ExtOrcamento::where('user_id',Auth::user()->id)->where('aluno_id',$_SESSION['ra'])->first();
             if(!empty($orcamento)){
@@ -103,7 +116,8 @@ class PortalCarrinhoController extends Controller
                 $itens->ext_orcamento_id = $carrinho->id;
                 $itens->save();
                 
-            }            
+            }
+                    
             return redirect()->back()->with('message','Atividade adicionada ao carrinho.');
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));

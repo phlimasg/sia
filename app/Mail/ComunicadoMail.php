@@ -32,15 +32,13 @@ class ComunicadoMail extends Mailable
      */
     public function build()
     {
-        $comunicado = $this->comunicado;
-        $totvs = $this->totvs;
         return $this->subject('La Salle Abel - '.$this->comunicado->titulo.' - '.$this->totvs->RA)
         ->replyTo('atendimento.abel@lasalle.org.br')
         ->view('mail.Comunicado')
         ->with(
             [
-                'comunicado' => $comunicado,
-                'totvs' => $totvs
+                'comunicado' => $this->comunicado,
+                'totvs' => $this->totvs
             ]
         );
     }

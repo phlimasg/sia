@@ -27,6 +27,34 @@
   </div>    
   @endif
 
+  @error('documentos.*')
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Aviso!</h4>
+    Erro no envio dos documentos: <br>
+    {{ $message }}
+  </div> 
+  @enderror
+  @error('tipo.*')
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Aviso!</h4>
+    Erro no envio dos documentos: <br>
+    {{ $message }}
+  </div> 
+  @enderror
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif 
+  
+
 <div class="row">
   @foreach ($turmas as $i)
     {{--$i->ExtAtvTurma->ExtAtv--}}
@@ -48,12 +76,43 @@
           </span>
         </div>
       </a>
-      <form action="{{ route('cart.store') }}" method="post">
+      <form action="{{ route('cart.store') }}" method="post" enctype="multipart/form-data">
         <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}" class="btn btn-danger"><i class="fa fa-info"></i> Informações</a>
           @csrf                
           <input type="hidden" name="id" value="{{$i->ExtAtvTurma->id}}">
-          <input type="hidden" name="ra" value="{{$_SESSION['ra']}}">
-          <button type="submit" class="btn btn-primary"><i class="fa fa-cart-plus"></i> Adicionar</button>
+          <input type="hidden" name="ra" value="{{$_SESSION['ra']}}">          
+          @if (empty($i->ExtAtvTurma->Documentos) || sizeof($i->ExtAtvTurma->Documentos)==0 )
+            <button type="submit" class="btn btn-primary"><i class="fa fa-cart-plus"></i> Adicionar</button>              
+          @else
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal"><i class="fa fa-cart-plus"></i> Adicionar</button>
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+            
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Documentos obrigatórios</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body text-left">                    
+                    @foreach ($i->ExtAtvTurma->Documentos as $j)
+                    <input type="hidden" name="tipo[]" value="{{$j->id}}">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <label for="">{{$j->documento}}:</label>
+                            <input type="file" name="documentos[]" id="" class="form-control" @if ($j->obrigatorio == 's') required @endif accept="image/png, image/jpeg, application/pdf, image/jpg">
+                          </div>
+                        </div>
+                    @endforeach
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Adicionar</button>
+                  </div>
+                </div>
+            
+              </div>
+            </div>      
+          @endif
         </form>
         </div>
       </div>

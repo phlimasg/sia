@@ -341,7 +341,7 @@
             else
                 var doc_o = 'Não obrigatório'
             $( "#docsadd" ).append(
-                '<div class="row" id="'+id+'"><input type="hidden" name="documentos['+e+']['+doc_obrigatorio+']"><div class="col-md-4">'+e+'</div><div class="col-md-2">' +doc_o+'</div><div class="col-md-2"><button type="button" class="btn btn-danger" onClick="$('+"'#"+id+"'"+').remove()"><i class="fa fa-trash"></i></button></div></div>'
+                '<div class="row" id="'+id+'"><input type="hidden" name="documentos[]" value="'+e+'"><input type="hidden" name="obrigatorio[]" value="'+doc_obrigatorio+'"><div class="col-md-4">'+e+'</div><div class="col-md-2">' +doc_o+'</div><div class="col-md-2"><button type="button" class="btn btn-danger" onClick="$('+"'#"+id+"'"+').remove()"><i class="fa fa-trash"></i></button></div></div>'
                 );
 
         });

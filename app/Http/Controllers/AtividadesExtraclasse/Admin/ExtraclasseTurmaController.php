@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtAtvTurma;
 use App\Model\AtividadesExtraclasse\ExtAtvTurmasAutorizadas;
+use App\Model\AtividadesExtraclasse\ExtAtvTurmasDocumento;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
 use App\Model\Totvs_alunos;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class ExtraclasseTurmaController extends Controller
      */
     public function store(Request $request)
     {   
-        dd($request->all())    ;
+        
         $request->validate([
             'descricao_turma' => 'required|max:254',
             'hora_ini' =>'required|date_format:H:i',
@@ -73,7 +74,18 @@ class ExtraclasseTurmaController extends Controller
             foreach($request->dias as $d){
                 $turma->dia .= $d.' | ';
             }
-            $turma->save();            
+            $turma->save();
+            if(!empty($request->documentos)) {
+                for ($i=0; $i < sizeof($request->documentos); $i++) { 
+                    ExtAtvTurmasDocumento::create(
+                        [
+                            'documento' => $request->documentos[$i],
+                            'obrigatorio' => $request->obrigatorio[$i],
+                            'ext_atv_turma_id' =>$turma->id
+                        ]
+                    );                
+                }          
+            }
             foreach($request->turma as $t){
                 $aut = new ExtAtvTurmasAutorizadas();
                 $aut->ext_atv_turmas_id = $turma->id;
