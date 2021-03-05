@@ -86,7 +86,7 @@ class ComunicadosController extends Controller
             }
             if(env('APP_ENV')=='production'){
                 foreach ($comunicado->turmas as $i) {
-                    $totvs_alunos = Totvs_alunos::where('TURMA',$i->turma)->get();
+                    $totvs_alunos = Totvs_alunos::select('RA','RESPACADEMAIL','RESPFINEMAIL','EMAIL_ALUNO','NOME_ALUNO','TURMA')->where('TURMA',$i->turma)->get();
                     foreach ($totvs_alunos as $totvs) {                                            
                         SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addMilliseconds(400));
                         /*
