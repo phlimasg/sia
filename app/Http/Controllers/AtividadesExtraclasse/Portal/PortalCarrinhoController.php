@@ -69,10 +69,12 @@ class PortalCarrinhoController extends Controller
         ]
         );
         //salvando documentos
-        for ($i=0; $i < sizeof($request->tipo); $i++) { 
-            $upload = $request->documentos[$i]->storeAs("upload\\extraclasse\\documentos\\$request->ra\\$request->id", $request->ra.' - '.date('Y-m-d H:i:s').'.'.$request->documentos[$i]->extension());
-        }   
-        dd($request->all(),$upload);
+        if(!empty($request->tipo)){
+            for ($i=0; $i < sizeof($request->tipo); $i++) { 
+                $upload = $request->documentos[$i]->storeAs("upload\\extraclasse\\documentos\\$request->ra\\$request->id", $request->ra.' - '.date('Y-m-d H:i:s').'.'.$request->documentos[$i]->extension());
+            }   
+            dd($request->all(),$upload);
+        }
         try {
             $orcamento = ExtOrcamento::where('user_id',Auth::user()->id)->where('aluno_id',$_SESSION['ra'])->first();
             if(!empty($orcamento)){
