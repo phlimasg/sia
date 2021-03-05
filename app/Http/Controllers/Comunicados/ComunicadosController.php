@@ -97,7 +97,8 @@ class ComunicadosController extends Controller
                         //break;
                     }
                 }
-                $comunicado->notify(new TelegramRegister());
+                if($request->telegram =='s')
+                    $comunicado->notify(new TelegramRegister());
             }
             return redirect()->route('comunicados.index');            
         } catch (\Exception $e) {

@@ -31,7 +31,17 @@
             <textarea name="descricao" id="descricao" rows="25" cols="80" class="form-control">{{old('descricao')}}</textarea>
         </div>
     </div>
-    
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="">Enviar via Telegram:</label>
+            <select name="telegram" id="" class="form-control" required>
+                <option value=""></option>
+                <option value="s">Sim</option>
+                <option value="n">Não</option>
+            </select>
+        </div>
+    </div>
         
         
     <hr>
