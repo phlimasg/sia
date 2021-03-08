@@ -47,12 +47,12 @@
             <div><span class="details-preco">R$ {{$atividade->ExtAtvTurma->valor}}</span></div>
             Inscrições até {{date('d/m/Y',strtotime($atividade->ExtAtvTurma->dia_bloqueia))}} às {{date('H:i',strtotime($atividade->ExtAtvTurma->dia_bloqueia))}}
             <div class="details-btn-add">
-              <form action="{{ route('cart.store') }}" method="post">                
+              <!--<form action="{{ route('cart.store') }}" method="post">                
                   @csrf                
                   <input type="hidden" name="id" value="{{$atividade->ExtAtvTurma->id}}">
                   <input type="hidden" name="ra" value="{{$_SESSION['ra']}}">
                   <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fa fa-cart-plus"></i> Adicionar</button>
-                </form>              
+                </form>              -->
             </div>
           </div>
         </div>

@@ -259,12 +259,12 @@
                                         <!-- /.modal-dialog -->
                                         <!--Modal de troca de dados aluno inscritos-->
                                         <div class="modal fade" id="insc-{{$i->aluno->RA}}">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
+                                                        <h4 class="modal-title">Dados do aluno {{$i->aluno->NOME_ALUNO}}</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">×</span></button>
-                                                        <h4 class="modal-title">Dados do aluno {{$i->aluno->NOME_ALUNO}}</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row">
@@ -294,6 +294,14 @@
                                                                 <label for="">Email:</label><br>
                                                                 {{$i->aluno->RESPFINEMAIL}}
                                                             </div>
+                                                        </div>
+                                                        <label for="">Documentos anexados:</label>
+                                                        <div class="row">
+                                                            @foreach ($i->ExtAtvAlunosDocumentos->where('ext_atv_turma_id',$i->ext_atv_turmas_id) as $j)
+                                                                <div class="col-md-2">
+                                                                    <a href="{{ Storage::url("$j->url") }}" class="btn btn-primary" download><i class="fa fa-download"></i> {{$j->tipoDocumento->documento}}</a>
+                                                                    
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

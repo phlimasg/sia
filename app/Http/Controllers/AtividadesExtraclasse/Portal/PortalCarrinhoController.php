@@ -118,10 +118,10 @@ class PortalCarrinhoController extends Controller
             //salvando documentos
             if(!empty($request->tipo)){
                 for ($i=0; $i < sizeof($request->tipo); $i++) { 
-                    $upload = $request->documentos[$i]->storeAs("upload/extraclasse/documentos/$request->ra/$request->id", $request->ra.'_'.date('Y-m-d_H-i-s').'.'.$request->documentos[$i]->extension());
+                    $upload = $request->documentos[$i]->storeAs("public/uploads/extraclasse/documentos/$request->ra/$request->id", $request->ra.'_'.date('Y-m-d_H-i-s').'.'.$request->documentos[$i]->extension());
                     $documentos = new ExtAtvAlunosDocumento();
                     $documentos->url = $upload;
-                    $documentos->aluno_ra = $request->ra;
+                    $documentos->aluno_id = $request->ra;
                     $documentos->ext_atv_turmas_documento_id = $request->tipo[$i];
                     $documentos->ext_atv_turma_id = $request->id;
                     $documentos->save();
@@ -131,6 +131,7 @@ class PortalCarrinhoController extends Controller
                     
             return redirect()->back()->with('message','Atividade adicionada ao carrinho.');
         } catch (\Exception $e) {
+            $itens->delete();
             return view('errors.error', compact('e'));
         }
     }

@@ -28,4 +28,8 @@ class ExtInscricao extends Model
     {
         return $this->hasOne(User::class,'id','user_id');
     }
+    public function ExtAtvAlunosDocumentos()
+    {
+        return $this->hasMany(ExtAtvAlunosDocumento::class,'aluno_id','aluno_id');
+    }
 }

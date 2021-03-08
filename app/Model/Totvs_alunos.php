@@ -44,4 +44,5 @@ class Totvs_alunos extends Model
     {
         return $this->hasOne(PortalDescontoSugerido::class,'RA','ra')->orderBy('created_at');
     }
+    
 }

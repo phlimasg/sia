@@ -17,7 +17,7 @@ class CreateExtAtvAlunosDocumentosTable extends Migration
             $table->bigIncrements('id');
             //$table->string('tipo');
             $table->string('url');
-            $table->integer('aluno_ra');
+            $table->integer('aluno_id');
             $table->unsignedBigInteger('ext_atv_turma_id');
             $table->foreign('ext_atv_turma_id')->references('id')->on('ext_atv_turmas')->onDelete('cascade');
             $table->unsignedBigInteger('ext_atv_turmas_documento_id');
