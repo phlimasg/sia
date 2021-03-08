@@ -267,41 +267,80 @@
                                                             <span aria-hidden="true">×</span></button>
                                                     </div>
                                                     <div class="modal-body">
+
                                                         <div class="row">
                                                             <div class="col-sm-3">
-                                                                <label for="">Resp. Acad.:</label><br>
-                                                                {{$i->aluno->RESPACAD}}
+                                                                <div class="card card-primary">
+                                                                    <div class="card-body card-profile">
+                                                                        <div class="text-center">
+                                                                            <img class="profile-user-img img-responsive img-circle" 
+                                                                            @if (Storage::disk('public')->exists('alunos/00000'.$i->aluno->RA.'.JPG'))
+                                                                            src="{{Storage::url('alunos/00000'.$i->aluno->RA.'.JPG')}}"
+                                                                            @else
+                                                                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+                                                                            @endif 
+                                                                            alt="User profile picture">
+                                                                        </div>
+                                                        
+                                                                        <h3 class="profile-username text-center">{{$i->aluno->NOME_ALUNO}}</h3>
+                                                        
+                                                                        <p class="text-muted text-center"><strong>CPF:</strong> {{$i->aluno->CPF}}</p>
+                                                        
+                                                                        <ul class="list-group list-group-unbordered">
+                                                                        <li class="list-group-item">
+                                                                        <b>Matrícula</b> <a class="pull-right">{{$i->aluno->RA}}</a>
+                                                                        </li>
+                                                                        <li class="list-group-item">
+                                                                            <b>Ano</b> <a class="pull-right">{{$i->aluno->ANO}}</a>
+                                                                        </li>
+                                                                        <li class="list-group-item">
+                                                                            <b>Turma</b> <a class="pull-right">{{$i->aluno->TURMA}}</a>
+                                                                        </li>
+                                                                        </ul>
+                                                                    </div>            
+                                                                </div>
                                                             </div>
-                                                            <div class="col-sm-3">
-                                                                <label for="">Tel.:</label><br>
-                                                                {{$i->aluno->RESPACADTEL1}} - {{$i->aluno->RESPACADTEL2}}
+                                                            <div class="card col-md-9">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Resp. Acad.:</label><br>
+                                                                        {{$i->aluno->RESPACAD}}
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Tel.:</label><br>
+                                                                        {{$i->aluno->RESPACADTEL1}} - {{$i->aluno->RESPACADTEL2}}
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Email:</label><br>
+                                                                        {{$i->aluno->RESPACADEMAIL}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Resp. Fin.:</label><br>
+                                                                        {{$i->aluno->RESPFIN}}
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Tel.:</label><br>
+                                                                        {{$i->aluno->RESPFINTEL1}} - {{$i->aluno->RESPFINCEL}}
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <label for="">Email:</label><br>
+                                                                        {{$i->aluno->RESPFINEMAIL}}
+                                                                    </div>
+                                                                </div>
+                                                                @if (!empty($i->ExtAtvAlunosDocumentos))
+                                                                    <label for="">Documentos anexados:</label>
+                                                                    <div class="row">
+                                                                        @foreach ($i->ExtAtvAlunosDocumentos->where('ext_atv_turma_id',$i->ext_atv_turmas_id) as $j)
+                                                                            <div class="col-md-2">
+                                                                                <a href="{{ Storage::url("$j->url") }}" class="btn btn-primary" download><i class="fa fa-download"></i> {{$j->tipoDocumento->documento}}</a>
+                                                                                
+                                                                        @endforeach
+                                                                    </div>                                                        
+                                                                @endif
+
                                                             </div>
-                                                            <div class="col-sm-3">
-                                                                <label for="">Email:</label><br>
-                                                                {{$i->aluno->RESPACADEMAIL}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-3">
-                                                                <label for="">Resp. Fin.:</label><br>
-                                                                {{$i->aluno->RESPFIN}}
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <label for="">Tel.:</label><br>
-                                                                {{$i->aluno->RESPFINTEL1}} - {{$i->aluno->RESPFINCEL}}
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <label for="">Email:</label><br>
-                                                                {{$i->aluno->RESPFINEMAIL}}
-                                                            </div>
-                                                        </div>
-                                                        <label for="">Documentos anexados:</label>
-                                                        <div class="row">
-                                                            @foreach ($i->ExtAtvAlunosDocumentos->where('ext_atv_turma_id',$i->ext_atv_turmas_id) as $j)
-                                                                <div class="col-md-2">
-                                                                    <a href="{{ Storage::url("$j->url") }}" class="btn btn-primary" download><i class="fa fa-download"></i> {{$j->tipoDocumento->documento}}</a>
-                                                                    
-                                                            @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
