@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AtividadesExtraclasse\Portal;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\AtividadesExtraclasse\ExtAtvAlunosDocumento;
 use App\Model\AtividadesExtraclasse\ExtAtvListaDeEspera;
 use App\Model\AtividadesExtraclasse\ExtInscricao;
 use App\Model\AtividadesExtraclasse\ExtInscricaoTerceirizadas;
@@ -68,13 +69,7 @@ class PortalCarrinhoController extends Controller
             'max' => 'Tamanho máximo de 5mb.'
         ]
         );
-        //salvando documentos
-        if(!empty($request->tipo)){
-            for ($i=0; $i < sizeof($request->tipo); $i++) { 
-                $upload = $request->documentos[$i]->storeAs("upload\\extraclasse\\documentos\\$request->ra\\$request->id", $request->ra.' - '.date('Y-m-d H:i:s').'.'.$request->documentos[$i]->extension());
-            }   
-            dd($request->all(),$upload);
-        }
+        
         try {
             $orcamento = ExtOrcamento::where('user_id',Auth::user()->id)->where('aluno_id',$_SESSION['ra'])->first();
             if(!empty($orcamento)){
@@ -118,6 +113,20 @@ class PortalCarrinhoController extends Controller
                 $itens->ext_orcamento_id = $carrinho->id;
                 $itens->save();
                 
+            }
+
+            //salvando documentos
+            if(!empty($request->tipo)){
+                for ($i=0; $i < sizeof($request->tipo); $i++) { 
+                    $upload = $request->documentos[$i]->storeAs("upload/extraclasse/documentos/$request->ra/$request->id", $request->ra.'_'.date('Y-m-d_H-i-s').'.'.$request->documentos[$i]->extension());
+                    $documentos = new ExtAtvAlunosDocumento();
+                    $documentos->url = $upload;
+                    $documentos->aluno_ra = $request->ra;
+                    $documentos->ext_atv_turmas_documento_id = $request->tipo[$i];
+                    $documentos->ext_atv_turma_id = $request->id;
+                    $documentos->save();
+                }   
+                //dd($request->all(),$upload);
             }
                     
             return redirect()->back()->with('message','Atividade adicionada ao carrinho.');

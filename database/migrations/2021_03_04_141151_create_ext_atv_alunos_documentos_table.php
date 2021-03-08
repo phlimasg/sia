@@ -15,7 +15,7 @@ class CreateExtAtvAlunosDocumentosTable extends Migration
     {
         Schema::create('ext_atv_alunos_documentos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tipo');
+            //$table->string('tipo');
             $table->string('url');
             $table->integer('aluno_ra');
             $table->unsignedBigInteger('ext_atv_turma_id');

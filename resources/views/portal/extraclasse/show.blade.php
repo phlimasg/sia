@@ -63,19 +63,20 @@
     <div class="col-sm-3" style="">
       <div class="card card-default text-center">
         <div class="card-body" style="padding: 0px">
-          <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}"><img src="{{$i->ExtAtvTurma->ExtAtv->imagem_mini}}" alt="" class="img-fluid">
-        <div>
-          <span  class="lj-atv">{{$i->ExtAtvTurma->ExtAtv->atividade}}</span>          
-        </div>
-        <div class="lj-small"><small>Turma: {{$i->ExtAtvTurma->descricao_turma}}</small></div>
-        <div class="lj-small"><small>Aulas: {{substr($i->ExtAtvTurma->dia, 0, -2)}}</small></div>
-        <div class="lj-small"><small>Das {{substr($i->ExtAtvTurma->hora_ini, 0, -3)}} às {{substr($i->ExtAtvTurma->hora_fim, 0, -3)}}</small></div>
-        <div>
-          <span class="lj-preco">
-            R$: {{$i->ExtAtvTurma->valor}}
-          </span>
-        </div>
-      </a>
+          <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}">
+            <img src="{{$i->ExtAtvTurma->ExtAtv->imagem_mini}}" alt="" class="img-fluid">
+            <div>
+              <span  class="lj-atv">{{$i->ExtAtvTurma->ExtAtv->atividade}}</span>          
+            </div>
+            <div class="lj-small"><small>Turma: {{$i->ExtAtvTurma->descricao_turma}}</small></div>
+            <div class="lj-small"><small>Aulas: {{substr($i->ExtAtvTurma->dia, 0, -2)}}</small></div>
+            <div class="lj-small"><small>Das {{substr($i->ExtAtvTurma->hora_ini, 0, -3)}} às {{substr($i->ExtAtvTurma->hora_fim, 0, -3)}}</small></div>
+            <div>
+              <span class="lj-preco">
+                R$: {{$i->ExtAtvTurma->valor}}
+              </span>
+            </div>
+          </a>
       <form action="{{ route('cart.store') }}" method="post" enctype="multipart/form-data">
         <a href="{{ route('extraclasse.details', ['id'=>$i->id]) }}" class="btn btn-danger"><i class="fa fa-info"></i> Informações</a>
           @csrf                
