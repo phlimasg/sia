@@ -95,7 +95,8 @@
     </div>
   </div>
     
-@stop
+
+  @stop
 
 @section('js')
  <script>

@@ -337,8 +337,8 @@ class GetnetController extends Controller
                                 'credit' => [
                                     'delayed'=> false,
                                     'save_card_data'=> false,
-                                    'transaction_type'=> 'FULL',
-                                    'number_installments'=> 1,
+                                    'transaction_type'=> 'INSTALL_NO_INTEREST',
+                                    'number_installments'=> intval($request->parcelas),
                                     //'authenticated'=> false,
                                     //'pre_authorization'=> false,
                                     'soft_descriptor'=> 'Atividades Extraclasse ID '.$carrinho->id,

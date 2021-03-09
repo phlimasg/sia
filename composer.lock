@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9a40ded217605070c652c44df36d29c",
+    "content-hash": "36cb7ab833fb55f6971f6068bfb9342e",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -3291,6 +3291,60 @@
                 "wiki": "https://github.com/ramsey/uuid/wiki"
             },
             "time": "2020-02-21T04:36:14+00:00"
+        },
+        {
+            "name": "smsgatewayme/client",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smsgatewayme/client-php.git",
+                "reference": "864f326ad6951599b487aab3cc350a966c5cbd86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smsgatewayme/client-php/zipball/864f326ad6951599b487aab3cc350a966c5cbd86",
+                "reference": "864f326ad6951599b487aab3cc350a966c5cbd86",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SMSGatewayMe\\Client\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache v2"
+            ],
+            "authors": [
+                {
+                    "name": "SMS Gateway Me",
+                    "homepage": "https://smsgateway.me"
+                }
+            ],
+            "homepage": "https://smsgateway.me",
+            "keywords": [
+                "api",
+                "php",
+                "sdk",
+                "swagger"
+            ],
+            "support": {
+                "issues": "https://github.com/smsgatewayme/client-php/issues",
+                "source": "https://github.com/smsgatewayme/client-php/tree/v0.0.1"
+            },
+            "time": "2018-05-16T00:13:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
