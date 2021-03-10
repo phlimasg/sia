@@ -413,9 +413,10 @@ class GetnetController extends Controller
                           
         } catch (RequestException  $e) {
             //$e->getRequest()
-            $error = json_decode($e->getResponse()->getBody(),true);
+            $e = json_decode($e->getResponse(),true);
             //dd($error);
-            return redirect()->back()->with('error',$error);
+            return view('errors.error', compact('e'));
+            //return redirect()->back()->with('error',$error);
             //return view('errors.error', compact('e'));
         }
     }
