@@ -296,7 +296,7 @@ class GetnetController extends Controller
                 //pagamento terceirizadas
                 if($amount_t > 0){
                     $client = new \GuzzleHttp\Client();                
-                    $response = $client->post(env('GETNET_URL_API_EVENTOS').'/v1/payments/credit',
+                    $response = $client->post(env('GETNET_URL_API').'/v1/payments/credit',
                         [
                             'headers' => [
                                 'Accept'=> 'application/json, text/plain, */*',
