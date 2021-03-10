@@ -173,7 +173,10 @@ class GetnetController extends Controller
             'required' => 'Campo obrigatório'
         ]);        
         try {
-            
+            if($request->parcelas > 1) 
+                    $transaction_type ='INSTALL_NO_INTEREST';
+                else
+                    $transaction_type ='FULL';
             $carrinho = ExtOrcamento::find($request->cart_id);
             $espera =[];
             if(Auth::user()->id == $carrinho->user_id){                
@@ -240,7 +243,7 @@ class GetnetController extends Controller
                                 'credit' => [
                                     'delayed'=> false,
                                     'save_card_data'=> false,
-                                    'transaction_type'=> 'INSTALL_NO_INTEREST',
+                                    'transaction_type'=> $transaction_type,
                                     'number_installments'=> intval($request->parcelas),
                                     //'authenticated'=> false,
                                     //'pre_authorization'=> false,
@@ -294,6 +297,7 @@ class GetnetController extends Controller
                         }
                 }
                 //pagamento terceirizadas
+                
                 if($amount_t > 0){
                     $client = new \GuzzleHttp\Client();                
                     $response = $client->post(env('GETNET_URL_API').'/v1/payments/credit',
@@ -337,8 +341,8 @@ class GetnetController extends Controller
                                 'credit' => [
                                     'delayed'=> false,
                                     'save_card_data'=> false,
-                                    'transaction_type'=> 'INSTALL_NO_INTEREST',
-                                    'number_installments'=> intval($request->parcelas),
+                                    'transaction_type'=>  $transaction_type,
+                                    'number_installments'=> $request->parcelas,
                                     //'authenticated'=> false,
                                     //'pre_authorization'=> false,
                                     'soft_descriptor'=> 'Atividades Extraclasse ID '.$carrinho->id,
