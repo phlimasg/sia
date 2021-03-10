@@ -117,6 +117,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Suporte tecnico
     Route::prefix('suporte')->namespace('Sup')->group(function(){
         Route::resource('/filial','SupFilialController');
+        Route::resource('/filial/{filial}/salas','SupSalaController');
     });
 
     

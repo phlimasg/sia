@@ -43,14 +43,14 @@
     <!-- small box -->
     <div class="small-box bg-danger">
       <div class="inner">
-        <h3>{{$filial->salas->count()}}</h3>
+        <h3>150</h3>
 
         <p>Salas</p>
       </div>
       <div class="icon">
         <i class="fa fa-home"></i>
       </div>
-      <a href="{{ route('salas.index', ['filial'=>$filial->id]) }}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="#" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
 

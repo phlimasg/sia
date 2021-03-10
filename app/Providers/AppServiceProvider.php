@@ -266,6 +266,18 @@ class AppServiceProvider extends ServiceProvider
                         ]
                     ]);
             }
+
+            if (Gate::check('root', Auth::user())) {
+                $event->menu->add(
+                    [
+                        'text'    => 'Suporte',
+                        'icon'    => 'fa fa-desktop',
+//                      'can' => 'r',                        
+                        'url'   => route('filial.index'),
+                    ]);
+            }
         });
+
+        
     }
 }

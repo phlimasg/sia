@@ -57,6 +57,7 @@
 
 <div class="row">
   @foreach ($turmas as $i)
+  
     {{--$i->ExtAtvTurma->ExtAtv--}}
     @if ($i->ExtAtvTurma->dia_libera <= date('Y-m-d H:i:s') && $i->ExtAtvTurma->dia_bloqueia >= date('Y-m-d H:i:s'))
         
@@ -85,8 +86,8 @@
           @if (empty($i->ExtAtvTurma->Documentos) || sizeof($i->ExtAtvTurma->Documentos)==0 )
             <button type="submit" class="btn btn-primary"><i class="fa fa-cart-plus"></i> Adicionar</button>              
           @else
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal"><i class="fa fa-cart-plus"></i> Adicionar</button>
-            <div id="myModal" class="modal fade" role="dialog">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#docs{{$i->ExtAtvTurma->id}}"><i class="fa fa-cart-plus"></i> Adicionar</button>
+            <div id="docs{{$i->ExtAtvTurma->id}}" class="modal fade" role="dialog">
               <div class="modal-dialog">
             
                 <!-- Modal content-->

@@ -13,7 +13,7 @@
       <div class="card-header">
         <h3 class="card-title">Filiais cadastradas</h3>
         <div class="card-tools">              
-          <a href="{{ route('filial.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Adicionar Filial</a>
+          <a href="{{ route('salas.create', ['filial' => $filial->id]) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Adicionar Sala</a>
         </div>              
       </div> 
       <div class="card-body">
@@ -27,7 +27,7 @@
               </tr>
             </thead>
             <tbody>
-            @forelse ($filiais as $i)
+            @forelse ($salas as $i)
               <tr>                
                 <td>{{($i->codigo)}}</td>
                 <td>{{$i->nome}}</td>  
