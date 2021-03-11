@@ -3,7 +3,7 @@
 @section('title', 'Suporte')
 
 @section('content_header')
-    <h1>Filiais</h1>
+@include('admin.suporte.breadcrumb')
 @stop
 
 @section('content')

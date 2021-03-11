@@ -85,7 +85,8 @@ class SupFilialController extends Controller
     {
     //dd($request->all(),$id);
         try {
-            SupFilial::update($request->all());
+            SupFilial::where('id',$id)
+            ->update($request->except('_method','_token'));
             return redirect()->back();
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));

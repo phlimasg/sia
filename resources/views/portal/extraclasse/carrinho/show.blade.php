@@ -10,10 +10,13 @@
 <div class="alert alert-danger alert-dismissible" id='message'>
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   <h4><i class="icon fa fa-check"></i> Aviso!</h4>
-  {{Session::get('error')['message']}}. <br>
-  Código: {{Session::get('error')['status_code']}}.<br>
-  {{Session::get('error')['details'][0]['description']}}.<br>
-  {{Session::get('error')['details'][0]['description_detail']}}
+
+    <p>Mensagem: {{session('error')['message']}}</p>
+    <p>Código de erro:{{session('error')['status_code']}}</p>
+    {!! !empty(session('error')['details'][0]['description'])? '<p>Descrição do erro: '.session('error')['details'][0]['description'].'</p>':''!!}
+    {!! !empty(session('error')['details'][0]['description_detail'])? '<p>Detalhes do erro: '.session('error')['details'][0]['description_detail'].'</p>':''!!}
+    {!! !empty(session('error')['details'][0]['error_code'])? '<p>Código do operadora: '.session('error')['details'][0]['error_code'].'</p>':''!!}
+    {!! !empty(session('error')['details'][0]['antifraud']['status_code'])? '<p>Antifraude: '.session('error')['details'][0]['antifraud']['status_code'].'-'.session('error')['details'][0]['antifraud']['description'].'</p>':''!!}                                    
   
 </div>    
 @endif

@@ -46,10 +46,10 @@ class SupSalaController extends Controller
             'descricao' => 'required | max:254',
         ]);
         try {
-            dd($id,$request->all());
-            $filial = SupFilial::create($request->except('_token'));     
+            //dd($id,$request->all());
+            $sala = SupSalas::create($request->except('_token'));     
             //dd($filial, $request->all())       ;
-            return redirect()->route('salas.show',['filial' => $filial->id])->with('message','Salvo com sucesso');
+            return redirect()->route('salas.show',['filial' => $id, 'sala' => $sala->id])->with('message','Salvo com sucesso');
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }

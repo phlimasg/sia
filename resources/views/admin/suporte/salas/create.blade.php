@@ -3,7 +3,7 @@
 @section('title', 'Suporte')
 
 @section('content_header')
-    
+@include('admin.suporte.breadcrumb')
 @stop
 
 @section('content')

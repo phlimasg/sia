@@ -31,7 +31,17 @@
               <tr>                
                 <td>{{($i->codigo)}}</td>
                 <td>{{$i->nome}}</td>  
-                <td><a href="{{ route('filial.update',['filial' => $i->id]) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Ver</a></td>              
+                <td>
+                  <div class="btn-group">                  
+                  <a href="{{ route('filial.show',['filial' => $i->id]) }}" class="btn btn-primary"></i> Ver</a>
+                    <div class="btn-group">
+                      <a class="btn btn-primary dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ route('filial.edit',['filial' => $i->id]) }}">Editar</a>                                                
+                      </div>
+                    </div>
+                  </div>
+                </td>              
               </tr>
             @empty
             Nenhuma filial cadastrada  
