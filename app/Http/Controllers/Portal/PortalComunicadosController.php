@@ -34,6 +34,7 @@ class PortalComunicadosController extends Controller
                 Totvs_alunos::select('turma')
                 ->whereRaw("REPLACE(REPLACE(respacadcpf,'.',''),'-','') = '". Auth::user()->name ."'")
                 ->orWhereRaw("REPLACE(REPLACE(respfincpf,'.',''),'-','') = '". Auth::user()->name ."'")
+                ->orWhereRaw("REPLACE(REPLACE(PaiCPF,'.',''),'-','') = '". Auth::user()->name ."'")
                 ->orWhereRaw("REPLACE(REPLACE(ra,'.',''),'-','') = '". Auth::user()->name ."'")            
                 ->get()
             )

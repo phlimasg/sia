@@ -88,7 +88,7 @@ class ComunicadosController extends Controller
                 foreach ($comunicado->turmas as $i) {
                     $totvs_alunos = Totvs_alunos::select('RA','RESPACADEMAIL','RESPFINEMAIL','EMAIL_ALUNO','NOME_ALUNO','TURMA')->where('TURMA',$i->turma)->get();
                     foreach ($totvs_alunos as $totvs) {                                            
-                        SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addMilliseconds(200));
+                        SendMailJob::dispatch($totvs,$comunicado)->delay(now()->addMilliseconds(400));
                         /*
                         Mail::to('raphael.oliveira@lasalle.org.br')
                         ->cc(['raphaelpcteste@gmail.com','raphaelpc_@hotmail.com'])
