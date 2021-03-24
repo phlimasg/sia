@@ -33,6 +33,7 @@ class PortalLoginController extends Controller
                 ->first();
             if ($totvsacad && !empty($totvsacad->email)) {
                 $this->loginPortal($request, $totvsacad);
+                return redirect()->route('communicated.index');
             } elseif ($totvsacad && empty($totvsacad->email)) {
                 return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);
             } 
@@ -44,6 +45,7 @@ class PortalLoginController extends Controller
 
             if ($totvsfin && !empty($totvsfin->email)) {
                 $this->loginPortal($request, $totvsfin);
+                return redirect()->route('communicated.index');
             } elseif ($totvsfin && empty($totvsfin->email)) {
                 return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);
             } 
@@ -54,6 +56,7 @@ class PortalLoginController extends Controller
                 ->first();
             if ($totvspai && !empty($totvspai->email)) {
                 $this->loginPortal($request, $totvspai);
+                return redirect()->route('communicated.index');
             //    dd($totvspai);
             } elseif ($totvspai && empty($totvspai->email)) {
                 return redirect()->back()->withErrors(['O usuário não possui email cadastrado no Totvs. Entre em contato com a secretaria.']);
@@ -61,7 +64,7 @@ class PortalLoginController extends Controller
             if (empty($totvspai)) {
                 return redirect()->back()->withErrors(['Usuário e senha não conferem.']);
             }
-            return redirect()->route('communicated.index');
+            return redirect()->back()->withErrors(['Não encontramos os dados...']);
         } catch (\Exception $e) {
             return view('errors.error', compact('e'));
         }

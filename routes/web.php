@@ -43,6 +43,9 @@ Route::get('/destroyImage/{id}/{nome}','Portal\PortalIsencaoDeMensalidade@destro
 
 Route::get('telegram/comunicados/{id}', 'Portal\PortalComunicadosController@show')->name('comunicadosTelegram');
 
+//Tv La Salle Publico
+Route::resource('tv/','tv\portal\TVController');
+
 Route::group(['middleware' => ['auth']], function () {    
     Route::post('ckeditor/image_upload', 'Comunicados\CKEditorController@upload')->name('upload');
     Route::prefix('portal')->group(function(){
