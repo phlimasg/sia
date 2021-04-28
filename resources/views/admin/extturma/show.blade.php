@@ -167,7 +167,7 @@
                             <li role="presentation" class="dropdown-item bg-white"><a role="menuitem" tabindex="-1"
                                     href="#">Baixar lista de espera</a></li>
                             <li role="presentation" class="dropdown-item bg-white"><a role="menuitem" tabindex="-1"
-                                    href="#">Baixar lista de inscritos</a></li>
+                                    href="{{ route('extclasse.inscritos', ['id'=> Request::segment(3),'turma'=>$turma->id]) }}">Baixar lista de inscritos</a></li>
                         </ul>
                     </li>
 

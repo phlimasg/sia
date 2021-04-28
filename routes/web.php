@@ -67,18 +67,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('sod/relatorio', 'Sod\CatracaController@relatorio')->name('sod.relatorio');
         Route::post('sod/relatorio', 'Sod\CatracaController@relatorio_gerar');
         Route::resource('sod', 'Sod\CatracaController');
+        
+        Route::any('descontos/covid/search', 'Desconto\DescontoCovidController@search')->name('covid.search');
+        Route::get('descontos/covid/relatorio', 'Desconto\DescontoCovidController@relatorio')->name('covid.relatorio');
+        Route::post('descontos/covid/relatorio', 'Desconto\DescontoCovidController@storeRelatorio')->name('covid.storeRelatorio');
+        Route::post('descontos/covid/storeAutorizado', 'Desconto\DescontoCovidController@storeAutorizado')->name('covid.storeAutorizado');
+        Route::resource('descontos/covid', 'Desconto\DescontoCovidController');
 
         Route::get('extclasse/dashboard', 'AtividadesExtraclasse\Admin\ExtraclasseController@dashboard')->name('extclasse.dashboard'); 
         Route::post('extclasse/relatorio/cancelamentos', 'AtividadesExtraclasse\Admin\ExtraclasseController@ExportCancelamento')->name('extclasse.cancelamentos'); 
         Route::resource('extclasse', 'AtividadesExtraclasse\Admin\ExtraclasseController');
         Route::resource('extclasse/{id}/turma', 'AtividadesExtraclasse\Admin\ExtraclasseTurmaController');
-
-        Route::any('descontos/covid/search', 'Desconto\DescontoCovidController@search')->name('covid.search');
-        Route::get('descontos/covid/relatorio', 'Desconto\DescontoCovidController@relatorio')->name('covid.relatorio');
-        Route::post('descontos/covid/relatorio', 'Desconto\DescontoCovidController@storeRelatorio')->name('covid.storeRelatorio');
-        Route::post('descontos/covid/storeAutorizado', 'Desconto\DescontoCovidController@storeAutorizado')->name('covid.storeAutorizado');
+        Route::get('extclasse/{id}/relatorio/{turma}', 'AtividadesExtraclasse\Admin\ExtraclasseController@ExportInscritos')->name('extclasse.inscritos'); 
         
-        Route::resource('descontos/covid', 'Desconto\DescontoCovidController');
 
         //lista de espera
         Route::post('extraclasse/listadeespera/autoriza','AtividadesExtraclasse\Admin\ExtraclasseEsperaController@autorizaInscricao')->name('listadeespera.autorizaInscricao');

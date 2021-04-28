@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\AtividadesExtraclasse\Admin;
 
 use App\Exports\CancelamentosExport;
+use App\Exports\InscricaoExport;
+use App\Exports\InscritosExtTurmaExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AtividadesExtraclasse\ExtAtv;
@@ -197,5 +199,9 @@ class ExtraclasseController extends Controller
         $dt_fim = date('Y-m-d', strtotime(str_replace('/','-',$request->fim))); 
         //dd($export);
         return Excel::download(new CancelamentosExport($request), 'Cancelados até '.$dt_fim.' 23:59:59.xlsx');
+    }
+    public function ExportInscritos($id,$turma)
+    {   
+        return Excel::download(new InscritosExtTurmaExport($turma), ExtAtv::find($id)->atividade.' - '. ExtAtvTurma::find($turma)->descricao_turma.' '.date("d_m_Y H:i:s").'.xlsx');
     }
 }
