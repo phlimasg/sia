@@ -56,7 +56,7 @@
             <b>Turma</b> <a class="float-right">{{$totvs->TURMA}}</a>
           </li>
         </ul>
-        <form action="hhttps://portal1.lasalle.org.br:8023/corpore.net/Source/EDU-EDUCACIONAL/Public/EduPortalAlunoLogin.aspx?AutoLoginType=ExternalLogin&undefined" method="POST" target="_blank">
+        <form action="https://portal1.lasalle.org.br:8023/corpore.net/Source/EDU-EDUCACIONAL/Public/EduPortalAlunoLogin.aspx?AutoLoginType=ExternalLogin&undefined" method="POST" target="_blank">
           <input type="hidden" name="User" value="{{str_replace('-','',str_replace('.','',$totvs->RESPFINCPF))}}">
           <input type="hidden" name="Pass" value="{{str_replace('/','',$totvs->RESPFINDTNASCIMENTO)}}">
           <input type="hidden" name="Alias" value="_Oficial_Escola">
