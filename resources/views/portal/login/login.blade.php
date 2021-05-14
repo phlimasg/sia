@@ -58,7 +58,7 @@
                                 <div class="col-sm-10 offset-1 ">
                                         <hr>
                                     <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-key"></i> Entrar</button>
-                                    <a type="submit" href="{{ route('gLogin') }}" class="btn btn-block btn-danger"><i class="fa fa-google"></i> Alunos e Colaboradores</a>
+                                    <a type="submit" href="{{ route('gLogin') }}" class="btn btn-block btn-danger"><i class="fab fa-google"></i> Alunos e Colaboradores</a>
                                 </div>
                             </div>                                
                         </form>

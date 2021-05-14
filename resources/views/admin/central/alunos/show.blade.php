@@ -68,12 +68,14 @@
   <div class="col-md-9">
     <div class="card card-primary card-outline">
       <div class="card-header">
+        <button class="btn btn-danger float-right" data-toggle="modal" data-target="#addOcorrencia"> <i class="fa fa-file"></i> Nova Ocorrência</button>
         <ul class="nav nav-pills ml-auto">
           <li class="nav-item"><a href="#aluno" data-toggle="tab" class="nav-link active"><i class="fa fa-user"></i> Aluno</a></li>
           <li class="nav-item"><a class="nav-link" href="#resp_acad" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Resp. Acadêmico</a></li>
           <li class="nav-item"><a class="nav-link" href="#resp_fin" data-toggle="tab"><i class="fa fa-money"></i> Resp. Financeiro</a></li>
-          <li class="nav-item"><a class="nav-link" href="#pai" data-toggle="tab"><i class="fa fa-male"></i><i class="fa fa-female"></i> Pais</a></li>        
-        </ul>
+          <li class="nav-item"><a class="nav-link" href="#pai" data-toggle="tab"><i class="fa fa-male"></i><i class="fa fa-female"></i> Pais</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ocorrencias" data-toggle="tab"><i class="fa fa-male"></i><i class="fa fa-female"></i> Ocorrências</a></li>
+        </ul>        
       </div>
       <div class="card-body">
           <div class="tab-content">
@@ -270,7 +272,7 @@
     <!-- /.nav-tabs-custom -->
   </div>
 
-  
+  @include('admin.central.alunos.parciais.addOcorrencia')
 
 </div>
     

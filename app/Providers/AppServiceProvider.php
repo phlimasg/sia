@@ -114,7 +114,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add(
                     [
                         'text'        => 'Comissão de descontos',                        
-                        'icon'        => 'fa fa-dolar',
+                        'icon'        => 'fa fa-dollar-sign',
                         'can' => 'desconto',
                         'submenu' => [
                             [
@@ -142,17 +142,17 @@ class AppServiceProvider extends ServiceProvider
                     'can' => 'tesouraria',
                     'submenu' => [
                         [
-                            'icon'    => 'fa fa-pie-chart', 
+                            'icon'    => 'fa fa-chart-line', 
                             'text' => 'Extraclasse',
                             'url'   => route('tesouraria.index'),
                         ],
                         [
-                            'icon'    => 'fa fa-pie-chart', 
+                            'icon'    => 'fa fa-chart-bar', 
                             'text' => 'Terceirizadas',
                             'url'   => route('terceirizadas.index'),
                         ],
                         [
-                            'icon'    => 'fa fa-money', 
+                            'icon'    => 'fa fa-dollar-sign', 
                             'text' => 'Desconto Covid 19',
                             'url'   => route('covid.relatorio'),
                         ],
@@ -166,12 +166,12 @@ class AppServiceProvider extends ServiceProvider
                     'icon'        => 'fa fa-user',
                     'submenu' => [  
                         [
-                            'icon'    => 'fa fa-pie-chart', 
+                            'icon'    => 'fa fa-chart-line', 
                             'text' => 'Alunos Matriculados',
                             'url'   => route('alunos_matriculados.index'),
                         ],                      
                         [
-                            'icon'    => 'fa fa-pie-chart', 
+                            'icon'    => 'fa fa-chart-bar', 
                             'text' => 'Terceirizadas',
                             'url'   => route('extraclasse_terceirizadas.index'),
                         ],
@@ -201,7 +201,7 @@ class AppServiceProvider extends ServiceProvider
                     //'can' => 'ext',
                     'submenu' => [
                         [
-                            'icon'    => 'fa fa-line-chart', 
+                            'icon'    => 'fa fa-chart-line', 
                             'text' => 'Estatísticas',
                             'url'   => route('extclasse.dashboard'),
                         ],
@@ -221,7 +221,7 @@ class AppServiceProvider extends ServiceProvider
                     //'can' => 'ext',
                     'submenu' => [
                         [
-                            'icon'    => 'fa fa-line-chart', 
+                            'icon'    => 'fa fa-chart-line', 
                             'text' => 'Estatísticas',
                             'url'   => route('alunos_novos.index'),
                         ],
@@ -233,7 +233,7 @@ class AppServiceProvider extends ServiceProvider
                         [
                             'text' => 'Listar Duplicidade',
                             'url'   => route('alunos_novos.listar_duplicidade'),
-                            'icon' => 'fa fa-remove',
+                            'icon' => 'fa fa-trash-restore-alt',
                             //'can' => 'cut',
                         ],
                         [
@@ -261,7 +261,7 @@ class AppServiceProvider extends ServiceProvider
                             [
                                 'text' => 'Relatório',
                                 'url'   => route('sod.relatorio'),
-                                'icon' => 'fa fa-line-chart',
+                                'icon' => 'fa fa-chart-line',
                             ]
                         ]
                     ]);
