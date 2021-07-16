@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::any('/insert_alunos','api\AlunosController@insert_alunos');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

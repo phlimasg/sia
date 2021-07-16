@@ -72,9 +72,9 @@
         <ul class="nav nav-pills ml-auto">
           <li class="nav-item"><a href="#aluno" data-toggle="tab" class="nav-link active"><i class="fa fa-user"></i> Aluno</a></li>
           <li class="nav-item"><a class="nav-link" href="#resp_acad" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Resp. Acadêmico</a></li>
-          <li class="nav-item"><a class="nav-link" href="#resp_fin" data-toggle="tab"><i class="fa fa-money"></i> Resp. Financeiro</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resp_fin" data-toggle="tab"><i class="fa fa-dollar-sign"></i> Resp. Financeiro</a></li>
           <li class="nav-item"><a class="nav-link" href="#pai" data-toggle="tab"><i class="fa fa-male"></i><i class="fa fa-female"></i> Pais</a></li>
-          <li class="nav-item"><a class="nav-link" href="#ocorrencias" data-toggle="tab"><i class="fa fa-male"></i><i class="fa fa-female"></i> Ocorrências</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ocorrencias" data-toggle="tab"><i class="fa fa-bullhorn"></i> Ocorrências</a></li>
         </ul>        
       </div>
       <div class="card-body">

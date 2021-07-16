@@ -12,6 +12,7 @@
 */
 //Route::get('/telegram', 'Telegram\NotificationController@toTelegram');
 
+use Illuminate\Support\Facades\Auth;
 
 Route::prefix('bolsa_social')->group(function(){
         Route::get('/renovacao', function(){
@@ -25,8 +26,11 @@ Route::prefix('bolsa_social')->group(function(){
 
 
 Route::get('/', function () {
-    return redirect()->route('portal.index');
-});
+    if(env('APP_ENV')=='local'){
+        Auth::loginUsingId(2);
+        return redirect()->route('comunicados.index');
+    }
+    return redirect()->route('portal.index');});
 Route::post('senderror', 'Mail\MailController@senderror')->name('senderror');
 
 Auth::routes();

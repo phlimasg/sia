@@ -14,13 +14,15 @@ class GerarLeads implements FromCollection
     public function collection()
     {
 
-        $cabecalho =  Totvs_alunos::selectRaw('respacademail,count(*) as QTD')->groupBy('respacademail')->orderBy('QTD', 'desc')->first();
+        $cabecalho =  Totvs_alunos::selectRaw('RESPACADEMAIL,count(*) as QTD')->groupBy('RESPACADEMAIL','NOME_ALUNO','TURNO_ALUNO')->orderBy('QTD', 'desc')->first();
         $leads = Totvs_alunos::select('RA', 'NOME_ALUNO', 'ANO', 'TURMA', 'RESPACAD', 'RESPACADEMAIL', 'RESPFIN', 'RESPFINEMAIL', 'EMAIL_ALUNO', 'TURNO_ALUNO')
             ->whereNotNull('RESPACADEMAIL')
+            ->where('RESPACADEMAIL','<>','')
+            ->groupBy('NOME_ALUNO','TURNO_ALUNO')
             ->orderBy('RESPACADEMAIL')
-            //->limit(100)
+            //->limit(10)
             ->get();
-
+            //dd($leads);
         $export[] = ['NOME', 'EMAIL', 'FIN_NOME', 'FIN_EMAIL', 'ANO_VIGENTE'];
         for ($i = 1; $i <= $cabecalho->QTD; $i++) {
             array_push(
@@ -56,7 +58,8 @@ class GerarLeads implements FromCollection
             }
 
             if (strcmp($last_email, $leads[$i]->RESPACADEMAIL) == 0) {
-                $turma = strlen($leads[$i]->TURMA)-1;
+                $turma = strlen(str_replace(' ','',$leads[$i]->TURMA))-1;
+                //dd($leads[$i]->TURMA[$turma]);
                 $dados[$last_i] += [
                     'ALUNO_' . $aux . '_RA' => $leads[$i]->RA,
                     'ALUNO_' . $aux . '_NOME' => $leads[$i]->NOME_ALUNO,
